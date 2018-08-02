@@ -125,7 +125,6 @@ int main(void)
 
 
     W25Qx_ReadUID(data);
-    XPT_Enable();
 
     SoftSpiSend( data, 8);
     SoftSpiReceive( data, 8);

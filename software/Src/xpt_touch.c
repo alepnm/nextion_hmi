@@ -8,29 +8,16 @@
 
 
 static FlagStatus IsTouchEnabled = RESET;
+static FlagStatus TouchIsPresset = RESET;
 static volatile uint16_t adc_x, adc_y;
-static volatile FlagStatus TouchIsPresset = RESET;
-static volatile uint32_t delay;
 
 
-static uint16_t XPT_ReadADC_X ( void );
-static uint16_t XPT_ReadADC_Y ( void );
+static uint16_t XPT_ReadADC_X (void);
+static uint16_t XPT_ReadADC_Y (void);
 
-static void spi_sendbyte( unsigned char d );
-static uint8_t spi_readbyte( void );
+static void spi_sendbyte(unsigned char d);
+static uint8_t spi_readbyte(void);
 
-
-
-void XPT_Enable(void) {
-    HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
-    IsTouchEnabled = SET;
-}
-
-
-void XPT_Disable(void) {
-    HAL_NVIC_DisableIRQ(EXTI4_15_IRQn);
-    IsTouchEnabled = RESET;
-}
 
 
 void XPT_Process(void) {
@@ -154,38 +141,38 @@ static int RD_t(void) {
 
 
 
-void SoftSpiSend( uint8_t* data, uint8_t len){
+void SoftSpiSend( uint8_t* data, uint8_t len) {
 
     uint8_t i = 0;
 
     XPT_CS_LOW;
 
-    do{
+    do {
         spi_sendbyte( *(data+i) );
 
-    }while( ++i < len );
+    } while( ++i < len );
 
 
     XPT_CS_HIGH;
 }
 
 
-void SoftSpiReceive( uint8_t* data, uint8_t len){
+void SoftSpiReceive( uint8_t* data, uint8_t len) {
 
     uint8_t i = 0;
 
     XPT_CS_LOW;
 
-    do{
+    do {
         *(data+i) = spi_readbyte( );
 
-    }while( ++i < len );
+    } while( ++i < len );
 
     XPT_CS_HIGH;
 }
 
 
-static void spi_sendbyte( unsigned char d ){
+static void spi_sendbyte( unsigned char d ) {
 
     uint8_t i;
 
@@ -202,7 +189,7 @@ static void spi_sendbyte( unsigned char d ){
 
 
 
-static uint8_t spi_readbyte(void){
+static uint8_t spi_readbyte(void) {
 
     uint8_t i, spiReadData = 0;
 
@@ -212,11 +199,15 @@ static uint8_t spi_readbyte(void){
 
         HAL_GPIO_WritePin(XPTCLK_GPIO_Port, XPTCLK_Pin, GPIO_PIN_SET);
 
-        if( HAL_GPIO_ReadPin(XPTOUT_GPIO_Port, XPTOUT_Pin) != GPIO_PIN_RESET){
+        //delay - reikia palaukti
+
+        if( HAL_GPIO_ReadPin(XPTOUT_GPIO_Port, XPTOUT_Pin) != GPIO_PIN_RESET) {
             spiReadData |= 0x01;
         }
 
         HAL_GPIO_WritePin(XPTCLK_GPIO_Port, XPTCLK_Pin, GPIO_PIN_RESET);
+
+        //delay - reikia palaukti
     }
 
     return spiReadData;
