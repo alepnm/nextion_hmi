@@ -63,8 +63,46 @@
 #define XPTCLK_GPIO_Port GPIOA
 #define W25QCS_Pin GPIO_PIN_4
 #define W25QCS_GPIO_Port GPIOA
+#define DB0_Pin GPIO_PIN_0
+#define DB0_GPIO_Port GPIOB
+#define DB1_Pin GPIO_PIN_1
+#define DB1_GPIO_Port GPIOB
+#define DB2_Pin GPIO_PIN_2
+#define DB2_GPIO_Port GPIOB
+#define DB10_Pin GPIO_PIN_10
+#define DB10_GPIO_Port GPIOB
+#define DB11_Pin GPIO_PIN_11
+#define DB11_GPIO_Port GPIOB
+#define DB12_Pin GPIO_PIN_12
+#define DB12_GPIO_Port GPIOB
+#define DB13_Pin GPIO_PIN_13
+#define DB13_GPIO_Port GPIOB
+#define DB14_Pin GPIO_PIN_14
+#define DB14_GPIO_Port GPIOB
+#define DB15_Pin GPIO_PIN_15
+#define DB15_GPIO_Port GPIOB
 #define DISPLAY_LED_Pin GPIO_PIN_8
 #define DISPLAY_LED_GPIO_Port GPIOA
+#define LCD_RD_Pin GPIO_PIN_11
+#define LCD_RD_GPIO_Port GPIOA
+#define LCD_WR_Pin GPIO_PIN_12
+#define LCD_WR_GPIO_Port GPIOA
+#define LCD_CS_Pin GPIO_PIN_15
+#define LCD_CS_GPIO_Port GPIOA
+#define DB3_Pin GPIO_PIN_3
+#define DB3_GPIO_Port GPIOB
+#define DB4_Pin GPIO_PIN_4
+#define DB4_GPIO_Port GPIOB
+#define DB5_Pin GPIO_PIN_5
+#define DB5_GPIO_Port GPIOB
+#define DB6_Pin GPIO_PIN_6
+#define DB6_GPIO_Port GPIOB
+#define DB7_Pin GPIO_PIN_7
+#define DB7_GPIO_Port GPIOB
+#define DB8_Pin GPIO_PIN_8
+#define DB8_GPIO_Port GPIOB
+#define DB9_Pin GPIO_PIN_9
+#define DB9_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**
