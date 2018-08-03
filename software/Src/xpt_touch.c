@@ -7,126 +7,141 @@
 #define  XPT_CS_HIGH   HAL_GPIO_WritePin(XPTCS_GPIO_Port, XPTCS_Pin, GPIO_PIN_SET)
 
 
-static FlagStatus IsTouchEnabled = RESET;
-static FlagStatus TouchIsPresset = RESET;
-static volatile uint16_t adc_x, adc_y;
+extern DispHandle_TypeDef LCD;
+extern volatile uint32_t Timestamp;
 
 
-static uint16_t XPT_ReadADC_X (void);
-static uint16_t XPT_ReadADC_Y (void);
+static uint16_t XPT_ReadADC_X(void);
+static uint16_t XPT_ReadADC_Y(void);
+static uint16_t XPT_ReadADC_N(void);
+static uint16_t XPT_ReadTemperature(void);
 
-static void spi_sendbyte(unsigned char d);
-static uint8_t spi_readbyte(void);
+static void     spi_sendbyte(char d);
+static char  spi_readbyte(void);
 
 
 
-void XPT_Process(void) {
+void XPT_Init(void){
 
-    if( IsTouchEnabled == RESET ) return;
+    HAL_GPIO_WritePin(XPTCS_GPIO_Port, XPTCS_Pin, GPIO_PIN_SET);
 
-    TouchIsPresset = (FlagStatus)HAL_GPIO_ReadPin(XPTREQ_GPIO_Port, XPTREQ_Pin);
+    LCD.XPT.OptionByte = START_BIT | PWDOWN_BETWEEN_CONV | CONV_MODE_8BIT | SELBIT_SEREF;
 
-    if( TouchIsPresset == RESET ) {
+    LCD.Options.IsEnabled = ENABLE;
+    LCD.Options.TouchTimeoutOver = RESET;
 
-        adc_x = XPT_ReadADC_X();
-        adc_y = XPT_ReadADC_Y();
+    SoftSpiSend( &LCD.XPT.OptionByte, 1);
 
+    LCD.Options.AdcX_Min = 1500;
+    LCD.Options.AdcX_Max = 32768;
+
+    LCD.Options.AdcY_Min = 2500;
+    LCD.Options.AdcY_Max = 32768;
+
+    LCD.Options.DisplaySizeX_Ratio = LCD.Options.AdcX_Max / LCD.Options.DisplaySizeX;
+    LCD.Options.DisplaySizeY_Ratio = LCD.Options.AdcY_Max / LCD.Options.DisplaySizeY;
+}
+
+void XPT_Process(void){
+
+    if( LCD.Options.IsEnabled == DISABLE ) return;
+
+    LCD.Options.IsPressed = !(FlagStatus)HAL_GPIO_ReadPin(XPTREQ_GPIO_Port, XPTREQ_Pin);
+
+    if( LCD.Options.IsPressed == SET ){
+
+        LCD.XPT.adc_x = XPT_ReadADC_X();
+
+        //if(LCD.XPT.adc_x < LCD.Options.AdcX_Min) LCD.XPT.adc_x = LCD.Options.AdcX_Min;
+        //else if(LCD.XPT.adc_x > LCD.Options.AdcX_Max) LCD.XPT.adc_x = LCD.Options.AdcX_Max;
+
+        LCD.Display.PositionX = (float)LCD.XPT.adc_x / LCD.Options.DisplaySizeX_Ratio;
+
+        LCD.XPT.adc_y = XPT_ReadADC_Y();
+
+        //if(LCD.XPT.adc_y < LCD.Options.AdcY_Min) LCD.XPT.adc_y = LCD.Options.AdcY_Min;
+        //else if(LCD.XPT.adc_y > LCD.Options.AdcY_Max) LCD.XPT.adc_y = LCD.Options.AdcY_Max;
+
+        LCD.Display.PositionY = (float)LCD.XPT.adc_y / LCD.Options.DisplaySizeY_Ratio;
+
+        LCD.XPT.adc_p = XPT_ReadADC_N();
     } else {
 
-
+        LCD.XPT.temperature = XPT_ReadTemperature();
     }
 }
 
 
-static uint16_t XPT_ReadADC_X(void) {
+static uint16_t XPT_ReadADC_X(void){
 
+    char data[2];
 
-    return 0;
+    XPT_CS_LOW;
 
-//	uint8_t c, b;
-//	uint16_t i = 0, a;
-//	// nCS := 0
-//	CS ( );
-//
-//	// Wait 100 ns
-////	delay_ms ( 1 ); //задержка 1мС
-//	for ( i_delay = 0; i_delay < 0x00008000; i_delay ++ );
-//
-//	spi2_sendByte ( 0xB8 ); // 0xB8 = 1011 1000: xxpt2046.pdf, page 22
-//							//  7: S = 1;
-//							//  6..4: A2..0 = 011 - Channel select (Table 1, p.15) - Ch
-//							//  3: 1 - Mode
-//							//  2: SER/nDRF = 0
-//							//  1..0: 00 - Power down mode
-//	c = spi2_sendByte ( 0 );  // Читаем Z1 и Z2 их сумма не должна быть меньше 5
-//	// SPI3_WR(0xC8); // нахрена я не знаю, но мне кажется это связано с
-//	spi2_sendByte ( 0xC8 );		// 0xC8 = 1100 1000 - Channel 100
-//	b = spi2_sendByte ( 0 );  // ошибками чтения
-//	a = c + b;		 //
-//	if ( a >= 5)
-//	{
-//		for ( a = 0; a < 8; a ++ )
-//		{ // 8 раз читаем значение Х и вычисляем среднее
-//			// SPI3_WR(0x90); //команда на чтение координат Х
-//			spi2_sendByte ( 0x90 );		// 0x90 = 1001 0000 - Channel 001
-//			i += RD_t ( );
-//		} // for
-//	} // if
-//
-//	// nCS := 1
-//	D_CS();
-//
-//	i >>= 3;
-//	return i;
+    LCD.XPT.OptionByte = ( LCD.XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_XP0;
+    SoftSpiSend( &LCD.XPT.OptionByte, 1);
+
+    SoftSpiReceive(data, 2);
+
+    XPT_CS_HIGH;
+
+    return (uint16_t)( data[0]<<8 | data[1]);
 }
 
 
-static uint16_t XPT_ReadADC_Y(void) {
+static uint16_t XPT_ReadADC_Y(void){
+
+    char data[2];
+
+    XPT_CS_LOW;
+
+    LCD.XPT.OptionByte = ( LCD.XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_YP;
+    SoftSpiSend( &LCD.XPT.OptionByte, 1);
+
+    SoftSpiReceive(data, 2);
+
+    XPT_CS_HIGH;
+
+    return (uint16_t)( data[0]<<8 | data[1]);
+}
 
 
-    return 0;
+static uint16_t XPT_ReadADC_N(void){
 
-//	uint8_t c, b;
-//	uint16_t i = 0, a;
-//	// nCS := 0
-//	CS();
-//
-//	// Wait 100 ns
-////	delay_ms ( 1 ); //задержка 1мС
-//	for ( i_delay = 0; i_delay < 0x00008000; i_delay ++ );
-//
-//	spi2_sendByte ( 0xB8 ); // 0xB8 = 1011 1000: xxpt2046.pdf, page 22
-//							//  7: S = 1;
-//							//  6..4: A2..0 = 011 - Channel select (Table 1, p.15) - Ch
-//							//  3: 1 - Mode
-//							//  2: SER/nDRF = 0
-//							//  1..0: 00 - Power down mode
-//	c = spi2_sendByte ( 0 );  // Читаем Z1 и Z2 их сумма не должна быть меньше 5
-//	// SPI3_WR(0xC8); // нахрена я не знаю, но мне кажется это связано с
-//	spi2_sendByte ( 0xC8 );		// 0xC8 = 1100 1000 - Channel 100
-//	b = spi2_sendByte ( 0 );  // ошибками чтения
-//	a = c + b;		 //
-//	if ( a >= 5 )
-//	{
-//		for ( a = 0; a < 8; a ++ )
-//		{
-//			// SPI3_WR ( 0xD0 ); //команда на чтение координат Y
-//								// 0xD0 = 1101 0000 - Ch 101
-//			spi2_sendByte ( 0xD0 );
-//			i += RD_t ( );
-//		} // for
-//	} // if
-//
-//	// nCS := 1
-//	D_CS ( );
-//
-//	i >>= 3;
-//	return i;
+    char data[2];
+
+    XPT_CS_LOW;
+
+    LCD.XPT.OptionByte = ( LCD.XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_XP1;
+    SoftSpiSend( &LCD.XPT.OptionByte, 1);
+
+    SoftSpiReceive(data, 2);
+
+    XPT_CS_HIGH;
+
+    return (uint16_t)( data[0]<<8 | data[1]);
+}
+
+
+static uint16_t XPT_ReadTemperature(void){
+
+    char data[2];
+
+    XPT_CS_LOW;
+
+    LCD.XPT.OptionByte = ( LCD.XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_TEMP1;
+    SoftSpiSend( &LCD.XPT.OptionByte, 1);
+
+    SoftSpiReceive(data, 2);
+
+    XPT_CS_HIGH;
+
+    return (uint16_t)( data[0]<<8 | data[1]);
 }
 
 
 
-static int RD_t(void) {
+static int RD_t(void){
 
 
 
@@ -141,38 +156,29 @@ static int RD_t(void) {
 
 
 
-void SoftSpiSend( uint8_t* data, uint8_t len) {
+void SoftSpiSend( char* data, uint8_t len){
 
     uint8_t i = 0;
-
-    XPT_CS_LOW;
 
     do {
         spi_sendbyte( *(data+i) );
 
     } while( ++i < len );
-
-
-    XPT_CS_HIGH;
 }
 
 
-void SoftSpiReceive( uint8_t* data, uint8_t len) {
+void SoftSpiReceive( char* data, uint8_t len){
 
     uint8_t i = 0;
-
-    XPT_CS_LOW;
 
     do {
         *(data+i) = spi_readbyte( );
 
     } while( ++i < len );
-
-    XPT_CS_HIGH;
 }
 
 
-static void spi_sendbyte( unsigned char d ) {
+static void spi_sendbyte( char d ){
 
     uint8_t i;
 
@@ -189,7 +195,7 @@ static void spi_sendbyte( unsigned char d ) {
 
 
 
-static uint8_t spi_readbyte(void) {
+static char spi_readbyte(void){
 
     uint8_t i, spiReadData = 0;
 
@@ -210,7 +216,7 @@ static uint8_t spi_readbyte(void) {
         //delay - reikia palaukti
     }
 
-    return spiReadData;
+    return (char)spiReadData;
 }
 
 

@@ -6,7 +6,7 @@
   ******************************************************************************
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether 
+  * USER CODE END. Other portions of this file, whether
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
@@ -44,6 +44,8 @@
 /* Includes ------------------------------------------------------------------*/
 
 /* USER CODE BEGIN Includes */
+#include <stdint.h>
+#include "stm32f0xx.h"
 
 /* USER CODE END Includes */
 
@@ -66,12 +68,47 @@
 
 /* ########################## Assert Selection ############################## */
 /**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
+  * @brief Uncomment the line below to expanse the "assert_param" macro in the
   *        HAL drivers code
   */
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
+
+typedef struct{
+    struct{
+        char OptionByte;
+
+        uint16_t adc_x;
+        uint16_t adc_y;
+        uint16_t adc_p;
+        uint16_t temperature;
+
+
+    }XPT;
+    struct{
+        uint8_t Brightness;     //0-100%
+
+        uint16_t PositionX;
+        uint16_t PositionY;
+    }Display;
+    struct{
+        FunctionalState IsEnabled;
+        FlagStatus      IsPressed;
+        FlagStatus      TouchTimeoutOver;
+
+        uint16_t    AdcX_Min;   // minimali ADC X koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
+        uint16_t    AdcX_Max;   // maksimali ADC X koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
+        uint16_t    AdcY_Min;   // minimali ADC Y koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
+        uint16_t    AdcY_Max;   // maksimali ADC Y koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
+
+        uint16_t    DisplaySizeX;
+        uint16_t    DisplaySizeY;
+
+        uint8_t     DisplaySizeX_Ratio;
+        uint8_t     DisplaySizeY_Ratio;
+    }Options;
+}DispHandle_TypeDef;
 
 /* USER CODE END Private defines */
 

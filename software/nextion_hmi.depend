@@ -949,7 +949,9 @@
 	"stm32f0xx_hal_usart.h"
 	"stm32f0xx_hal_wwdg.h"
 
-1533219535 c:\working\git\nextion_hmi\software\inc\main.h
+1533300985 c:\working\git\nextion_hmi\software\inc\main.h
+	<stdint.h>
+	"stm32f0xx.h"
 
 1509027297 c:\working\git\nextion_hmi\software\drivers\stm32f0xx_hal_driver\inc\stm32f0xx_hal_rcc.h
 	"stm32f0xx_hal_def.h"
@@ -1473,24 +1475,24 @@
 	"stm32f0xx_hal.h"
 	"main.h"
 
-1533222567 source:c:\working\git\nextion_hmi\software\src\main.c
+1533301182 source:c:\working\git\nextion_hmi\software\src\main.c
 	"main.h"
 	"stm32f0xx_hal.h"
 	"winbond_spi_flash.h"
 	"xpt_touch.h"
 
-1533218282 source:c:\working\git\nextion_hmi\software\src\winbond_spi_flash.c
+1533295470 source:c:\working\git\nextion_hmi\software\src\winbond_spi_flash.c
 	<stdlib.h>
 	"stm32f0xx_hal.h"
 	"winbond_spi_flash.h"
 
-1533211772 c:\working\git\nextion_hmi\software\inc\winbond_spi_flash.h
+1533295470 c:\working\git\nextion_hmi\software\inc\winbond_spi_flash.h
 
-1533222540 source:c:\working\git\nextion_hmi\software\src\xpt_touch.c
+1533301083 source:c:\working\git\nextion_hmi\software\src\xpt_touch.c
 	"stm32f0xx_hal.h"
 	"xpt_touch.h"
 
-1533222312 c:\working\git\nextion_hmi\software\inc\xpt_touch.h
+1533298789 c:\working\git\nextion_hmi\software\inc\xpt_touch.h
 
 1533226721 source:d:\projects\nextion_hmi\software\drivers\cmsis\dsp_lib\source\basicmathfunctions\arm_abs_f32.c
 	"arm_math.h"

@@ -11,9 +11,6 @@
 extern SPI_HandleTypeDef hspi1;
 
 
-//static uint8_t StatusReg1, StatusReg2, StatusReg3;
-
-
 static union{
     uint32_t SR_32BIT;
     struct{
@@ -32,6 +29,9 @@ static void W25Qx_WriteStatusReg2(void);
 static void W25Qx_WriteStatusReg3(void);
 
 
+void W25Qx_Init(void){
+    HAL_GPIO_WritePin(W25QCS_GPIO_Port, W25QCS_Pin, GPIO_PIN_SET);
+}
 
 void W25Qx_ReadUID(uint8_t* pdata){
 

@@ -54,9 +54,9 @@ TIM_HandleTypeDef htim1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-static volatile uint32_t Timestamp = 0;
-\
-uint8_t LCD_Brightness = 20;  //0-100%
+DispHandle_TypeDef LCD;
+
+volatile uint32_t Timestamp = 0;
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -74,6 +74,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
+static void LCD_Init(void);
 static void SystemUpdate(void);
 /* USER CODE END PFP */
 
@@ -89,6 +90,8 @@ static void SystemUpdate(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  uint32_t touch_to_counter = 0;
+
     uint32_t delay = 0;
     uint8_t data[10] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x09};
   /* USER CODE END 1 */
@@ -120,14 +123,12 @@ int main(void)
         Error_Handler();
     }
 
-    HAL_GPIO_WritePin(W25QCS_GPIO_Port, W25QCS_Pin, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(XPTCS_GPIO_Port, XPTCS_Pin, GPIO_PIN_SET);
-
-
+    W25Qx_Init();
     W25Qx_ReadUID(data);
 
-    SoftSpiSend( data, 8);
-    SoftSpiReceive( data, 8);
+    LCD_Init();
+
+    XPT_Init();
 
   /* USER CODE END 2 */
 
@@ -139,13 +140,29 @@ int main(void)
 
             delay = Timestamp + 10;
 
-
             SystemUpdate();
+
+            XPT_Process();
+
+            if(LCD.Options.IsPressed == SET){
+                touch_to_counter = HAL_GetTick() + 3000;
+                LCD.Display.Brightness = 100;
+                LCD.Options.TouchTimeoutOver = RESET;
+            }else{
+
+                if(touch_to_counter < Timestamp){
+
+                    if(LCD.Display.Brightness > 10){
+                        LCD.Display.Brightness--;
+                    }
+
+                    LCD.Options.TouchTimeoutOver = SET;
+                }
+            }
         }
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-        XPT_Process();
     }
   /* USER CODE END 3 */
 
@@ -351,9 +368,18 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+static void LCD_Init(void){
+
+    LCD.Options.DisplaySizeX = 480;
+    LCD.Options.DisplaySizeY = 320;
+
+    LCD.Display.Brightness = 10;
+}
+
+
 static void SystemUpdate(void) {
 
-    __HAL_TIM_SET_COMPARE( &htim1, TIM_CHANNEL_1, LCD_Brightness);
+    __HAL_TIM_SET_COMPARE( &htim1, TIM_CHANNEL_1, LCD.Display.Brightness);
 
 }
 

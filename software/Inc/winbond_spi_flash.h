@@ -51,9 +51,7 @@ typedef enum {
 }W25Qx_Commands_TypeDef;
 
 
-FlagStatus W25Qx_GetStatusWEL_Flag(void);
-FlagStatus W25Qx_GetStatusBUSY_Flag(void);
-
+void W25Qx_Init(void);
 void W25Qx_ReadData(uint8_t* pdata, uint32_t addr, uint32_t len);
 
 void W25Qx_ReadUID(uint8_t* pdata);
@@ -61,6 +59,9 @@ void W25Qx_ReadManDevID(uint8_t* pdata);
 void W25Qx_ResetDevice(void);
 void W25Qx_WriteDisable(void);
 void W25Qx_WriteEnable(void);
+
+FlagStatus W25Qx_GetStatusWEL_Flag(void);
+FlagStatus W25Qx_GetStatusBUSY_Flag(void);
 
 
 #endif /* WINBOND_SPI_FLASH_H_INCLUDED */
