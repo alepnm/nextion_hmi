@@ -919,7 +919,7 @@
 1509027297 c:\working\git\nextion_hmi\software\drivers\stm32f0xx_hal_driver\inc\stm32f0xx_hal.h
 	"stm32f0xx_hal_conf.h"
 
-1533219535 c:\working\git\nextion_hmi\software\inc\stm32f0xx_hal_conf.h
+1533305326 c:\working\git\nextion_hmi\software\inc\stm32f0xx_hal_conf.h
 	"main.h"
 	"stm32f0xx_hal_rcc.h"
 	"stm32f0xx_hal_exti.h"
@@ -949,7 +949,7 @@
 	"stm32f0xx_hal_usart.h"
 	"stm32f0xx_hal_wwdg.h"
 
-1533300985 c:\working\git\nextion_hmi\software\inc\main.h
+1533305327 c:\working\git\nextion_hmi\software\inc\main.h
 	<stdint.h>
 	"stm32f0xx.h"
 
@@ -1463,19 +1463,19 @@
 
 1521184251 source:c:\working\git\nextion_hmi\software\startup\startup_stm32f0xx.s
 
-1533219535 source:c:\working\git\nextion_hmi\software\src\stm32f0xx_hal_msp.c
+1533305326 source:c:\working\git\nextion_hmi\software\src\stm32f0xx_hal_msp.c
 	"stm32f0xx_hal.h"
 
-1533219534 source:c:\working\git\nextion_hmi\software\src\stm32f0xx_it.c
+1533305326 source:c:\working\git\nextion_hmi\software\src\stm32f0xx_it.c
 	"stm32f0xx_hal.h"
 	"stm32f0xx.h"
 	"stm32f0xx_it.h"
 
-1533219534 c:\working\git\nextion_hmi\software\inc\stm32f0xx_it.h
+1533305326 c:\working\git\nextion_hmi\software\inc\stm32f0xx_it.h
 	"stm32f0xx_hal.h"
 	"main.h"
 
-1533301182 source:c:\working\git\nextion_hmi\software\src\main.c
+1533305327 source:c:\working\git\nextion_hmi\software\src\main.c
 	"main.h"
 	"stm32f0xx_hal.h"
 	"winbond_spi_flash.h"
