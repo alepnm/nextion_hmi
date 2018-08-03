@@ -38,8 +38,8 @@ void XPT_Init(void){
     LCD.Options.AdcY_Min = 2500;
     LCD.Options.AdcY_Max = 32768;
 
-    LCD.Options.DisplaySizeX_Ratio = LCD.Options.AdcX_Max / LCD.Options.DisplaySizeX;
-    LCD.Options.DisplaySizeY_Ratio = LCD.Options.AdcY_Max / LCD.Options.DisplaySizeY;
+    LCD.Display.DisplaySizeX_Ratio = LCD.Options.AdcX_Max / LCD.Display.DisplaySizeX;
+    LCD.Display.DisplaySizeY_Ratio = LCD.Options.AdcY_Max / LCD.Display.DisplaySizeY;
 }
 
 void XPT_Process(void){
@@ -52,17 +52,11 @@ void XPT_Process(void){
 
         LCD.XPT.adc_x = XPT_ReadADC_X();
 
-        //if(LCD.XPT.adc_x < LCD.Options.AdcX_Min) LCD.XPT.adc_x = LCD.Options.AdcX_Min;
-        //else if(LCD.XPT.adc_x > LCD.Options.AdcX_Max) LCD.XPT.adc_x = LCD.Options.AdcX_Max;
-
-        LCD.Display.PositionX = (float)LCD.XPT.adc_x / LCD.Options.DisplaySizeX_Ratio;
+        LCD.Display.PositionX = (float)LCD.XPT.adc_x / LCD.Display.DisplaySizeX_Ratio;
 
         LCD.XPT.adc_y = XPT_ReadADC_Y();
 
-        //if(LCD.XPT.adc_y < LCD.Options.AdcY_Min) LCD.XPT.adc_y = LCD.Options.AdcY_Min;
-        //else if(LCD.XPT.adc_y > LCD.Options.AdcY_Max) LCD.XPT.adc_y = LCD.Options.AdcY_Max;
-
-        LCD.Display.PositionY = (float)LCD.XPT.adc_y / LCD.Options.DisplaySizeY_Ratio;
+        LCD.Display.PositionY = (float)LCD.XPT.adc_y / LCD.Display.DisplaySizeY_Ratio;
 
         LCD.XPT.adc_p = XPT_ReadADC_N();
     } else {

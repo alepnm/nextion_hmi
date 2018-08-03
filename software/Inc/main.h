@@ -63,8 +63,50 @@
 #define XPTCLK_GPIO_Port GPIOA
 #define W25QCS_Pin GPIO_PIN_4
 #define W25QCS_GPIO_Port GPIOA
+#define LCD_DB0_Pin GPIO_PIN_0
+#define LCD_DB0_GPIO_Port GPIOB
+#define LCD_DB1_Pin GPIO_PIN_1
+#define LCD_DB1_GPIO_Port GPIOB
+#define LCD_DB2_Pin GPIO_PIN_2
+#define LCD_DB2_GPIO_Port GPIOB
+#define LCD_DB10_Pin GPIO_PIN_10
+#define LCD_DB10_GPIO_Port GPIOB
+#define LCD_DB11_Pin GPIO_PIN_11
+#define LCD_DB11_GPIO_Port GPIOB
+#define LCD_DB12_Pin GPIO_PIN_12
+#define LCD_DB12_GPIO_Port GPIOB
+#define LCD_DB13_Pin GPIO_PIN_13
+#define LCD_DB13_GPIO_Port GPIOB
+#define LCD_DB14_Pin GPIO_PIN_14
+#define LCD_DB14_GPIO_Port GPIOB
+#define LCD_DB15_Pin GPIO_PIN_15
+#define LCD_DB15_GPIO_Port GPIOB
 #define DISPLAY_LED_Pin GPIO_PIN_8
 #define DISPLAY_LED_GPIO_Port GPIOA
+#define LCD_RD_Pin GPIO_PIN_11
+#define LCD_RD_GPIO_Port GPIOA
+#define LCD_WR_Pin GPIO_PIN_12
+#define LCD_WR_GPIO_Port GPIOA
+#define LCD_CS_Pin GPIO_PIN_6
+#define LCD_CS_GPIO_Port GPIOF
+#define LCD_RST_Pin GPIO_PIN_7
+#define LCD_RST_GPIO_Port GPIOF
+#define LCD_RS_Pin GPIO_PIN_15
+#define LCD_RS_GPIO_Port GPIOA
+#define LCD_DB3_Pin GPIO_PIN_3
+#define LCD_DB3_GPIO_Port GPIOB
+#define LCD_DB4_Pin GPIO_PIN_4
+#define LCD_DB4_GPIO_Port GPIOB
+#define LCD_DB5_Pin GPIO_PIN_5
+#define LCD_DB5_GPIO_Port GPIOB
+#define LCD_DB6_Pin GPIO_PIN_6
+#define LCD_DB6_GPIO_Port GPIOB
+#define LCD_DB7_Pin GPIO_PIN_7
+#define LCD_DB7_GPIO_Port GPIOB
+#define LCD_DB8_Pin GPIO_PIN_8
+#define LCD_DB8_GPIO_Port GPIOB
+#define LCD_DB9_Pin GPIO_PIN_9
+#define LCD_DB9_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**
@@ -74,6 +116,8 @@
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
+
+enum {PORTRATE = 0, LANDSCAPE};
 
 typedef struct{
     struct{
@@ -87,10 +131,17 @@ typedef struct{
 
     }XPT;
     struct{
+        uint16_t    DisplaySizeX;
+        uint16_t    DisplaySizeY;
+
+        uint8_t     DisplaySizeX_Ratio;
+        uint8_t     DisplaySizeY_Ratio;
+
         uint8_t Brightness;     //0-100%
 
         uint16_t PositionX;
         uint16_t PositionY;
+        uint8_t Orient;
     }Display;
     struct{
         FunctionalState IsEnabled;
@@ -101,12 +152,6 @@ typedef struct{
         uint16_t    AdcX_Max;   // maksimali ADC X koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
         uint16_t    AdcY_Min;   // minimali ADC Y koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
         uint16_t    AdcY_Max;   // maksimali ADC Y koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
-
-        uint16_t    DisplaySizeX;
-        uint16_t    DisplaySizeY;
-
-        uint8_t     DisplaySizeX_Ratio;
-        uint8_t     DisplaySizeY_Ratio;
     }Options;
 }DispHandle_TypeDef;
 
