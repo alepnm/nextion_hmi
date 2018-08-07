@@ -919,7 +919,7 @@
 1509027297 c:\working\git\nextion_hmi\software\drivers\stm32f0xx_hal_driver\inc\stm32f0xx_hal.h
 	"stm32f0xx_hal_conf.h"
 
-1533305326 c:\working\git\nextion_hmi\software\inc\stm32f0xx_hal_conf.h
+1533651572 c:\working\git\nextion_hmi\software\inc\stm32f0xx_hal_conf.h
 	"main.h"
 	"stm32f0xx_hal_rcc.h"
 	"stm32f0xx_hal_exti.h"
@@ -949,7 +949,7 @@
 	"stm32f0xx_hal_usart.h"
 	"stm32f0xx_hal_wwdg.h"
 
-1533305327 c:\working\git\nextion_hmi\software\inc\main.h
+1533651572 c:\working\git\nextion_hmi\software\inc\main.h
 	<stdint.h>
 	"stm32f0xx.h"
 
@@ -1458,41 +1458,42 @@
 1509027297 c:\working\git\nextion_hmi\software\drivers\stm32f0xx_hal_driver\inc\stm32f0xx_ll_system.h
 	"stm32f0xx.h"
 
-1509027294 source:c:\working\git\nextion_hmi\software\src\system_stm32f0xx.c
+1533534493 source:c:\working\git\nextion_hmi\software\src\system_stm32f0xx.c
 	"stm32f0xx.h"
 
-1521184251 source:c:\working\git\nextion_hmi\software\startup\startup_stm32f0xx.s
+1533534493 source:c:\working\git\nextion_hmi\software\startup\startup_stm32f0xx.s
 
-1533305326 source:c:\working\git\nextion_hmi\software\src\stm32f0xx_hal_msp.c
+1533651572 source:c:\working\git\nextion_hmi\software\src\stm32f0xx_hal_msp.c
 	"stm32f0xx_hal.h"
 
-1533305326 source:c:\working\git\nextion_hmi\software\src\stm32f0xx_it.c
+1533651572 source:c:\working\git\nextion_hmi\software\src\stm32f0xx_it.c
 	"stm32f0xx_hal.h"
 	"stm32f0xx.h"
 	"stm32f0xx_it.h"
 
-1533305326 c:\working\git\nextion_hmi\software\inc\stm32f0xx_it.h
+1533651572 c:\working\git\nextion_hmi\software\inc\stm32f0xx_it.h
 	"stm32f0xx_hal.h"
 	"main.h"
 
-1533305327 source:c:\working\git\nextion_hmi\software\src\main.c
+1533650317 source:c:\working\git\nextion_hmi\software\src\main.c
 	"main.h"
 	"stm32f0xx_hal.h"
+	"lcd_commands.h"
 	"winbond_spi_flash.h"
 	"xpt_touch.h"
 
-1533295470 source:c:\working\git\nextion_hmi\software\src\winbond_spi_flash.c
+1533535722 source:c:\working\git\nextion_hmi\software\src\winbond_spi_flash.c
 	<stdlib.h>
 	"stm32f0xx_hal.h"
 	"winbond_spi_flash.h"
 
-1533295470 c:\working\git\nextion_hmi\software\inc\winbond_spi_flash.h
+1533535722 c:\working\git\nextion_hmi\software\inc\winbond_spi_flash.h
 
-1533301083 source:c:\working\git\nextion_hmi\software\src\xpt_touch.c
+1533639749 source:c:\working\git\nextion_hmi\software\src\xpt_touch.c
 	"stm32f0xx_hal.h"
 	"xpt_touch.h"
 
-1533298789 c:\working\git\nextion_hmi\software\inc\xpt_touch.h
+1533535722 c:\working\git\nextion_hmi\software\inc\xpt_touch.h
 
 1523694475 source:d:\projects\nextion_hmi\software\drivers\cmsis\dsp_lib\source\basicmathfunctions\arm_abs_f32.c
 	"arm_math.h"
@@ -2995,4 +2996,10 @@
 1533326444 source:d:\projects\nextion_hmi\software\src\lcd_commands.c
 	"stm32f0xx_hal.h"
 	"lcd_commands.h"
+
+1533639749 source:c:\working\git\nextion_hmi\software\src\lcd_commands.c
+	"stm32f0xx_hal.h"
+	"lcd_commands.h"
+
+1533643491 c:\working\git\nextion_hmi\software\inc\lcd_commands.h
 

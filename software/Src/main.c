@@ -6,7 +6,7 @@
   ******************************************************************************
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether 
+  * USER CODE END. Other portions of this file, whether
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
@@ -76,9 +76,9 @@ static void MX_GPIO_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
-                                    
+
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-                                
+
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -205,7 +205,7 @@ void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
-    /**Initializes the CPU, AHB and APB busses clocks 
+    /**Initializes the CPU, AHB and APB busses clocks
     */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
@@ -219,7 +219,7 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-    /**Initializes the CPU, AHB and APB busses clocks 
+    /**Initializes the CPU, AHB and APB busses clocks
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1;
@@ -239,11 +239,11 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-    /**Configure the Systick interrupt time 
+    /**Configure the Systick interrupt time
     */
   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
-    /**Configure the Systick 
+    /**Configure the Systick
     */
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
@@ -353,9 +353,9 @@ static void MX_USART1_UART_Init(void)
 
 }
 
-/** Configure pins as 
-        * Analog 
-        * Input 
+/** Configure pins as
+        * Analog
+        * Input
         * Output
         * EVENT_OUT
         * EXTI
@@ -372,23 +372,33 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOF_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, XPTIN_Pin|XPTCS_Pin|XPTCLK_Pin|W25QCS_Pin 
+  HAL_GPIO_WritePin(SD_RST_GPIO_Port, SD_RST_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, XPTIN_Pin|XPTCS_Pin|XPTCLK_Pin|W25QCS_Pin
                           |LCD_RD_Pin|LCD_WR_Pin|LCD_RS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin 
-                          |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin 
-                          |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin 
+  HAL_GPIO_WritePin(GPIOB, LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin
+                          |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin
+                          |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin
                           |LCD_DB6_Pin|LCD_DB7_Pin|LCD_DB8_Pin|LCD_DB9_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOF, LCD_CS_Pin|LCD_RST_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pin : XPTREQ_Pin */
-  GPIO_InitStruct.Pin = XPTREQ_Pin;
+  /*Configure GPIO pin : SD_RST_Pin */
+  GPIO_InitStruct.Pin = SD_RST_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(SD_RST_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : XPTREQ_Pin SD_DETECT_Pin */
+  GPIO_InitStruct.Pin = XPTREQ_Pin|SD_DETECT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(XPTREQ_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : XPTOUT_Pin */
   GPIO_InitStruct.Pin = XPTOUT_Pin;
@@ -403,13 +413,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LCD_DB0_Pin LCD_DB1_Pin LCD_DB2_Pin LCD_DB10_Pin 
-                           LCD_DB11_Pin LCD_DB12_Pin LCD_DB13_Pin LCD_DB14_Pin 
-                           LCD_DB15_Pin LCD_DB3_Pin LCD_DB4_Pin LCD_DB5_Pin 
+  /*Configure GPIO pins : LCD_DB0_Pin LCD_DB1_Pin LCD_DB2_Pin LCD_DB10_Pin
+                           LCD_DB11_Pin LCD_DB12_Pin LCD_DB13_Pin LCD_DB14_Pin
+                           LCD_DB15_Pin LCD_DB3_Pin LCD_DB4_Pin LCD_DB5_Pin
                            LCD_DB6_Pin LCD_DB7_Pin LCD_DB8_Pin LCD_DB9_Pin */
-  GPIO_InitStruct.Pin = LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin 
-                          |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin 
-                          |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin 
+  GPIO_InitStruct.Pin = LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin
+                          |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin
+                          |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin
                           |LCD_DB6_Pin|LCD_DB7_Pin|LCD_DB8_Pin|LCD_DB9_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -442,6 +452,9 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 static void LCD_Init(void)
 {
+    HAL_GPIO_WritePin(SD_RST_GPIO_Port, SD_RST_Pin, GPIO_PIN_SET);
+
+
     LCD.Display.DisplaySizeX = 320;
     LCD.Display.DisplaySizeY = 480;
     LCD.Display.Brightness = 100;
@@ -454,7 +467,6 @@ static void LCD_Init(void)
     HAL_GPIO_WritePin(LCD_WR_GPIO_Port, LCD_WR_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(LCD_RS_GPIO_Port, LCD_RS_Pin, GPIO_PIN_SET);
 
-
     HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_RESET);
     HAL_Delay(20);
     HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_SET);
@@ -463,33 +475,33 @@ static void LCD_Init(void)
 
     HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
 
-    LCD_Write_COM(0x11);
+    LCD_Write_COM(LCD_COMM_EXIT_SLEEP_MODE);
     HAL_Delay(20);
-    LCD_Write_COM(0xD0);
+    LCD_Write_COM(LCD_COMM_POWER_SETTING);
     LCD_Write_DATA_1(0x07);
     LCD_Write_DATA_1(0x42);
     LCD_Write_DATA_1(0x18);
 
-    LCD_Write_COM(0xD1);
+    LCD_Write_COM(LCD_COMM_VCOM_CONTROL);
     LCD_Write_DATA_1(0x00);
     LCD_Write_DATA_1(0x07);
     LCD_Write_DATA_1(0x10);
 
-    LCD_Write_COM(0xD2);
+    LCD_Write_COM(LCD_COMM_POWER_SETTING_FOR_NORMAL_MODE);
     LCD_Write_DATA_1(0x01);
     LCD_Write_DATA_1(0x02);
 
-    LCD_Write_COM(0xC0);
+    LCD_Write_COM(LCD_COMM_PANEL_DRIVING_SETTING);
     LCD_Write_DATA_1(0x10);
     LCD_Write_DATA_1(0x3B);
     LCD_Write_DATA_1(0x00);
     LCD_Write_DATA_1(0x02);
     LCD_Write_DATA_1(0x11);
 
-    LCD_Write_COM(0xC5);
+    LCD_Write_COM(LCD_COMM_FRAME_RATE_AND_INVERSION_CONTROL);
     LCD_Write_DATA_1(0x03);
 
-    LCD_Write_COM(0xC8);
+    LCD_Write_COM(LCD_COMM_GAMMA_SETTING);
     LCD_Write_DATA_1(0x00);
     LCD_Write_DATA_1(0x32);
     LCD_Write_DATA_1(0x36);
@@ -503,25 +515,27 @@ static void LCD_Init(void)
     LCD_Write_DATA_1(0x0C);
     LCD_Write_DATA_1(0x00);
 
-    LCD_Write_COM(0x36);
+    LCD_Write_COM(LCD_COMM_SET_ADDRESS_MODE);
     LCD_Write_DATA_1(0x0A);
 
-    LCD_Write_COM(0x3A);
+    LCD_Write_COM(LCD_COMM_SET_PIXEL_FORMAT);
     LCD_Write_DATA_1(0x55);
 
-    LCD_Write_COM(0x2A);
+    LCD_Write_COM(LCD_COMM_SET_COLUMN_ADDRESS);
     LCD_Write_DATA_1(0x00);
     LCD_Write_DATA_1(0x00);
     LCD_Write_DATA_1(0x01);
     LCD_Write_DATA_1(0x3F);
 
-    LCD_Write_COM(0x2B);
+    LCD_Write_COM(LCD_COMM_SET_PAGE_ADDRESS);
     LCD_Write_DATA_1(0x00);
     LCD_Write_DATA_1(0x00);
     LCD_Write_DATA_1(0x01);
     LCD_Write_DATA_1(0xE0);
+
     HAL_Delay(120);
-    LCD_Write_COM(0x29);
+
+    LCD_Write_COM(LCD_COMM_SET_DISPLAY_ON);
 
     HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 
@@ -531,16 +545,18 @@ static void LCD_Init(void)
 }
 
 
-static void LCD_Write_COM_DATA(unsigned char commmand, int data)
-{
-    LCD_Write_COM(commmand);
-    LCD_Write_DATA(data >> 8, data);
-}
-
 static void LCD_Write_COM(unsigned char vl)
 {
     HAL_GPIO_WritePin(LCD_RS_GPIO_Port, LCD_RS_Pin, GPIO_PIN_RESET);
     LCD_Write_Bus(0x00, vl);
+}
+
+
+
+static void LCD_Write_COM_DATA(unsigned char commmand, int data)
+{
+    LCD_Write_COM(commmand);
+    LCD_Write_DATA((unsigned char)data >> 8, (unsigned char)data);
 }
 
 
@@ -560,11 +576,8 @@ static void LCD_Write_DATA_1(unsigned char vl)
 
 static void LCD_Write_Bus(unsigned char vh, unsigned char vl)
 {
-    GPIOB->ODR = ( vh<<8 | vl );
-
-    //asm("nop");
+    GPIOB->ODR = (uint16_t)( vh<<8 | vl );
     PULSE_WR_LOW()
-    //asm("nop");
 }
 
 
@@ -575,18 +588,15 @@ static void LCD_FillScreen(unsigned int color)
 
     HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
 
-    LCD_Write_COM(0x2a);
-    LCD_Write_DATA_1(0>>8);
-    //LCD_Write_DATA_1(0);
+    LCD_Write_COM(LCD_COMM_SET_COLUMN_ADDRESS);
+    LCD_Write_DATA_1(0);
     LCD_Write_DATA_1(LCD.Display.DisplaySizeX>>8);
-    //LCD_Write_DATA_1(LCD.Display.DisplaySizeX);
-    LCD_Write_COM(0x2b);
-    LCD_Write_DATA_1(0>>8);
-    //LCD_Write_DATA_1(0);
-    LCD_Write_DATA_1(LCD.Display.DisplaySizeY>>8);
-    //LCD_Write_DATA_1(LCD.Display.DisplaySizeY);
-    LCD_Write_COM(0x2c);
 
+    LCD_Write_COM(LCD_COMM_SET_PAGE_ADDRESS);
+    LCD_Write_DATA_1(0);
+    LCD_Write_DATA_1(LCD.Display.DisplaySizeY>>8);
+
+    LCD_Write_COM(LCD_COMM_WRITE_MEMORY_START);
 
     HAL_GPIO_WritePin(LCD_RS_GPIO_Port, LCD_RS_Pin, GPIO_PIN_SET);
 
@@ -601,7 +611,7 @@ static void _fast_fill_16(unsigned int ch, unsigned int cl, unsigned long pix)
     unsigned long blocks;
     unsigned int i;
 
-    GPIOB->ODR = ( ch<<8 | cl );
+    GPIOB->ODR = (uint16_t)( ch<<8 | cl );
 
     blocks = pix / 16;
 
@@ -676,7 +686,7 @@ void _Error_Handler(char *file, int line)
   * @retval None
   */
 void assert_failed(uint8_t* file, uint32_t line)
-{ 
+{
   /* USER CODE BEGIN 6 */
     /* User can add his own implementation to report the file name and line number,
        tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */

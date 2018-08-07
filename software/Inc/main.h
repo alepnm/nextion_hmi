@@ -51,8 +51,12 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define SD_RST_Pin GPIO_PIN_13
+#define SD_RST_GPIO_Port GPIOC
 #define XPTREQ_Pin GPIO_PIN_14
 #define XPTREQ_GPIO_Port GPIOC
+#define SD_DETECT_Pin GPIO_PIN_15
+#define SD_DETECT_GPIO_Port GPIOC
 #define XPTOUT_Pin GPIO_PIN_0
 #define XPTOUT_GPIO_Port GPIOA
 #define XPTIN_Pin GPIO_PIN_1
