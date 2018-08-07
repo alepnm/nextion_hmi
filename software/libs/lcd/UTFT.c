@@ -1,9 +1,6 @@
 //========================================================================================================
-#include <avr/io.h>
-#include <util/delay.h>
-#include <avr/pgmspace.h>
-#include <math.h> 
-#include <string.h> 
+#include <math.h>
+#include <string.h>
 #include <stdlib.h>
 #include "UTFT.h"
 //========================================================================================================
@@ -25,41 +22,13 @@ _delay_ms(10);
 // Выбрали дисплей
 LCD_CLR_CS();
 // Инициализируем дисплей
-switch(display_model)
-{
-  case SSD1289:
-#ifdef SSD1289
-  lcd_param.disp_x_size = 239;
-  lcd_param.disp_y_size = 319;
-  lcd_param.model = display_model;
-  lcd_param.orient = orientacia;
-  lcd_param._transparent = 0;
-  lcd_param.transfer_mode = TRANSFER_MODE_16;
-  #include "drivers/SSD1289/initlcd.h"
-#endif
-  break;
-  case ILI1920:
-#ifdef ILI1920
-  lcd_param.disp_x_size = 239;
-  lcd_param.disp_y_size = 319;
-  lcd_param.model = display_model;
-  lcd_param.orient = orientacia;
-  lcd_param._transparent = 0;
-  lcd_param.transfer_mode = TRANSFER_MODE_16;
-  #include "drivers/ILI1920/initlcd.h"
-#endif
-  break;
-  case ILI9481:
-#ifdef ILI9481
   lcd_param.disp_x_size = 320;
   lcd_param.disp_y_size = 480;
   lcd_param.model = display_model;
   lcd_param.orient = orientacia;
   lcd_param._transparent = 0;
   lcd_param.transfer_mode = TRANSFER_MODE_16;
-  #include "drivers/ILI9481/initlcd.h"
-#endif
-  break;
+  #include "initlcd.h"
 
 }
 //========================================================================================================
@@ -270,7 +239,7 @@ if (y1 == y2) {
   xstep =  x2 > x1 ? 1 : -1;
   dy = (y2 > y1 ? y2 - y1 : y1 - y2);
   ystep =  y2 > y1 ? 1 : -1;
-  col = x1; 
+  col = x1;
   row = y1;
   LCD_CLR_CS();
   if (dx < dy)
@@ -289,7 +258,7 @@ if (y1 == y2) {
 		col += xstep;
 		t -= dy;
 	  }
-	} 
+	}
   }	else {
     t = - (dx >> 1);
 	while (1)
@@ -305,7 +274,7 @@ if (y1 == y2) {
 		row += ystep;
 		t -= dx;
   	  }
-	} 
+	}
   }
   LCD_SET_CS();
 }
@@ -542,7 +511,7 @@ while(x1 < y1)
   }
   x1++;
   ddF_x += 2;
-  f += ddF_x;    
+  f += ddF_x;
   LCD_SetXY(x + x1, y + y1, x + x1, y + y1);
   LCD_Write_DATA(lcd_param.fnt_color_h, lcd_param.fnt_color_l);
   LCD_SetXY(x - x1, y + y1, x - x1, y + y1);
@@ -567,7 +536,7 @@ LCD_ClrXY();
 void LCD_FillCircle(int x, int y, int radius)
 {
 int x1, y1;
-for (y1 =- radius; y1 <= 0; y1++) 
+for (y1 =- radius; y1 <= 0; y1++)
 {
   for (x1 =- radius; x1 <= 0; x1++)
   {
@@ -672,7 +641,7 @@ void LCD_DrawBitmap_1(int x, int y, int sx, int sy, bitmapdatatype data, int deg
 int col;
 int tx, ty, newx, newy;
 double radian;
-radian = deg * 0.0175;  
+radian = deg * 0.0175;
 if (deg == 0) {
   LCD_DrawBitmap(x, y, sx, sy, data, 0);
 } else {
@@ -694,7 +663,7 @@ LCD_ClrXY();
 void LCD_Char(unsigned char c, int x, int y)
 {
 unsigned char i,ch;
-int zz, j, temp; 
+int zz, j, temp;
 LCD_CLR_CS();
 if (!lcd_param._transparent) {
   if (lcd_param.orient == PORTRAIT)	{
@@ -704,12 +673,12 @@ if (!lcd_param._transparent) {
 	{
 	  ch = pgm_read_byte(&cfont.font[temp]);
 	  for(i = 0; i < 8; i++)
-	  {   
+	  {
 		if ((ch & (1<<(7 - i))) != 0) {
 		  LCD_SetPixel((lcd_param.fnt_color_h << 8) | lcd_param.fnt_color_l);
 		} else {
 		  LCD_SetPixel((lcd_param.bg_color_h << 8) | lcd_param.bg_color_l);
-		}   
+		}
 	  }
 	  temp++;
 	}
@@ -722,12 +691,12 @@ if (!lcd_param._transparent) {
 	  {
 		ch = pgm_read_byte(&cfont.font[temp+zz]);
 		for ( i = 0;i < 8; i++)
-		{   
+		{
 		  if ((ch & (1<<i)) != 0) {
 		    LCD_SetPixel((lcd_param.fnt_color_h << 8) | lcd_param.fnt_color_l);
 		  }	else {
 		    LCD_SetPixel((lcd_param.bg_color_h << 8) | lcd_param.bg_color_l);
-		}   
+		}
 	  }
 	}
 	temp += (cfont.x_size / 8);
@@ -739,14 +708,14 @@ if (!lcd_param._transparent) {
   {
 	for (zz = 0; zz < (cfont.x_size / 8); zz++)
 	{
-	  ch = pgm_read_byte(&cfont.font[temp + zz]); 
+	  ch = pgm_read_byte(&cfont.font[temp + zz]);
 	  for (i = 0; i < 8; i++)
-	  {   
+	  {
 		LCD_SetXY(x + i + (zz * 8),y + j,x + i + (zz * 8) + 1,y + j + 1);
-		if ((ch&(1 << (7 - i))) != 0)   
+		if ((ch&(1 << (7 - i))) != 0)
 		{
 		  LCD_SetPixel((lcd_param.fnt_color_h << 8) | lcd_param.fnt_color_l);
-		} 
+		}
 	  }
 	}
 	temp += (cfont.x_size / 8);
@@ -759,29 +728,29 @@ LCD_ClrXY();
 void LCD_RotateChar(unsigned char c, int x, int y, int pos, int deg)
 {
 unsigned char i, j, ch;
-int temp, zz; 
+int temp, zz;
 int newx, newy;
 double radian;
-radian = deg * 0.0175;  
+radian = deg * 0.0175;
 LCD_CLR_CS();
 temp = ((c - cfont.offset) * ((cfont.x_size / 8) * cfont.y_size)) + 4;
-for (j = 0; j < cfont.y_size; j++) 
+for (j = 0; j < cfont.y_size; j++)
 {
   for (zz = 0; zz < (cfont.x_size / 8); zz++)
   {
-	ch = pgm_read_byte(&cfont.font[temp + zz]); 
+	ch = pgm_read_byte(&cfont.font[temp + zz]);
 	for (i = 0; i < 8; i++)
-	{   
+	{
 	  newx = x + (((i + (zz * 8) + (pos * cfont.x_size))* cos(radian))- ((j) * sin(radian)));
 	  newy = y + (((j) * cos(radian)) + ((i + (zz * 8) + (pos * cfont.x_size)) * sin(radian)));
 	  LCD_SetXY(newx, newy, newx + 1,newy + 1);
-	  if ((ch & (1 << (7 - i))) != 0)   
+	  if ((ch & (1 << (7 - i))) != 0)
 	  {
 		LCD_SetPixel((lcd_param.fnt_color_h << 8) | lcd_param.fnt_color_l);
 	  }	else {
 		if (!lcd_param._transparent)
 		  LCD_SetPixel((lcd_param.bg_color_h << 8) | lcd_param.bg_color_l);
-	  }   
+	  }
 	}
   }
   temp += (cfont.x_size / 8);

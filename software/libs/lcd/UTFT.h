@@ -1,80 +1,83 @@
 #ifndef UTFT_h
 #define UTFT_h
+
+#include <stdint.h>
+
 //========================================================================================================
 #define UTFT_VERSION	 1.0
 //========================================================================================================
 // Port UTFT LCD defines
 //========================================================================================================
-#define LCD_LO_DDR   	 PORTA
-#define LCD_LO_PORT  	 PORTA
-#define LCD_LO_PIN   	 PORTA
+//#define LCD_LO_DDR   	 PORTA
+//#define LCD_LO_PORT  	 PORTA
+//#define LCD_LO_PIN   	 PORTA
+//
+//#define LCD_HI_DDR   	 PORTC
+//#define LCD_HI_PORT  	 PORTC
+//#define LCD_HI_PIN   	 PORTC
+//
+//
+//#define LCD_WR_DDR   	 PORTD
+//#define LCD_WR_PORT  	 PORTD
+//#define LCD_WR_PIN   	 PORTD
+//#define LCD_WR_BIT   	 0
+//
+//#define LCD_RS_DDR   	 PORTD
+//#define LCD_RS_PORT  	 PORTD
+//#define LCD_RS_PIN   	 PORTD
+//#define LCD_RS_BIT   	 1
+//
+//#define LCD_RST_DDR  	 PORTD
+//#define LCD_RST_PORT 	 PORTD
+//#define LCD_RST_PIN  	 PORTD
+//#define LCD_RST_BIT  	 2
+//
+//#define LCD_CS_DDR   	 PORTD
+//#define LCD_CS_PORT  	 PORTD
+//#define LCD_CS_PIN   	 PORTD
+//#define LCD_CS_BIT   	 3
+//
+//#define LCD_RD_DDR   	 PORTD
+//#define LCD_RD_PORT  	 PORTD
+//#define LCD_RD_PIN   	 PORTD
+//#define LCD_RD_BIT   	 4
 
-#define LCD_HI_DDR   	 PORTC
-#define LCD_HI_PORT  	 PORTC
-#define LCD_HI_PIN   	 PORTC
-
-
-#define LCD_WR_DDR   	 PORTD
-#define LCD_WR_PORT  	 PORTD
-#define LCD_WR_PIN   	 PORTD
-#define LCD_WR_BIT   	 0
- 
-#define LCD_RS_DDR   	 PORTD
-#define LCD_RS_PORT  	 PORTD
-#define LCD_RS_PIN   	 PORTD
-#define LCD_RS_BIT   	 1 
-
-#define LCD_RST_DDR  	 PORTD
-#define LCD_RST_PORT 	 PORTD
-#define LCD_RST_PIN  	 PORTD
-#define LCD_RST_BIT  	 2
-
-#define LCD_CS_DDR   	 PORTD
-#define LCD_CS_PORT  	 PORTD
-#define LCD_CS_PIN   	 PORTD
-#define LCD_CS_BIT   	 3
- 
-#define LCD_RD_DDR   	 PORTD
-#define LCD_RD_PORT  	 PORTD
-#define LCD_RD_PIN   	 PORTD
-#define LCD_RD_BIT   	 4 
- 
 //===========================================================================================
 // Routines UTFT pins display
 //========================================================================================================
 #define LCD_Bus_Input()	      { LCD_LO_DDR = 0x00; LCD_HI_DDR = 0x00; } // LCD Bus as input
 #define LCD_Bus_Output()      { LCD_LO_DDR = 0xFF; LCD_HI_DDR = 0xFF; LCD_LO_PORT = 0xFF; LCD_HI_PORT = 0xFF; } // LCD Bus as output
- 
-#define LCD_SET_DBH	      LCD_HI_PORT 
-#define LCD_SET_DBL	      LCD_LO_PORT 
- 
-#define LCD_GET_DBH()     LCD_HI_PIN 
-#define LCD_GET_DBL()     LCD_LO_PIN 
- 
-#define LCD_SET_CS()      LCD_CS_PORT |=   1<<LCD_CS_BIT 
-#define LCD_CLR_CS()      LCD_CS_PORT &= ~(1<<LCD_CS_BIT) 
-#define LCD_DIR_CS_OUT()  LCD_CS_DDR |=   1<<LCD_CS_BIT 
-#define LCD_DIR_CS_IN()   LCD_CS_DDR &= ~(1<<LCD_CS_BIT) 
- 
-#define LCD_SET_RS()      LCD_RS_PORT |=   1<<LCD_RS_BIT 
-#define LCD_CLR_RS()      LCD_RS_PORT &= ~(1<<LCD_RS_BIT) 
-#define LCD_DIR_RS_OUT()  LCD_RS_DDR |=   1<<LCD_RS_BIT 
-#define LCD_DIR_RS_IN()   LCD_RS_DDR &= ~(1<<LCD_RS_BIT) 
- 
-#define LCD_SET_WR()      LCD_WR_PORT |=   1<<LCD_WR_BIT 
-#define LCD_CLR_WR()      LCD_WR_PORT &= ~(1<<LCD_WR_BIT) 
-#define LCD_DIR_WR_OUT()  LCD_WR_DDR |=   1<<LCD_WR_BIT 
-#define LCD_DIR_WR_IN()   LCD_WR_DDR &= ~(1<<LCD_WR_BIT) 
- 
-#define LCD_SET_RD()      LCD_RD_PORT |=   1<<LCD_RD_BIT 
-#define LCD_CLR_RD()      LCD_RD_PORT &= ~(1<<LCD_RD_BIT) 
-#define LCD_DIR_RD_OUT()  LCD_RD_DDR |=   1<<LCD_RD_BIT 
-#define LCD_DIR_RD_IN()   LCD_RD_DDR &= ~(1<<LCD_RD_BIT) 
- 
-#define LCD_SET_RST()     LCD_RST_PORT |=  1<<LCD_RST_BIT 
-#define LCD_CLR_RST()     LCD_RST_PORT &= ~(1<<LCD_RST_BIT) 
-#define LCD_DIR_RST_OUT() LCD_RST_DDR |=  1<<LCD_RST_BIT 
-#define LCD_DIR_RST_IN()  LCD_RST_DDR &= ~(1<<LCD_RST_BIT) 
+
+#define LCD_SET_DBH	      LCD_HI_PORT
+#define LCD_SET_DBL	      LCD_LO_PORT
+
+#define LCD_GET_DBH()     LCD_HI_PIN
+#define LCD_GET_DBL()     LCD_LO_PIN
+
+#define LCD_SET_CS()      LCD_CS_PORT |=   1<<LCD_CS_BIT
+#define LCD_CLR_CS()      LCD_CS_PORT &= ~(1<<LCD_CS_BIT)
+#define LCD_DIR_CS_OUT()  LCD_CS_DDR |=   1<<LCD_CS_BIT
+#define LCD_DIR_CS_IN()   LCD_CS_DDR &= ~(1<<LCD_CS_BIT)
+
+#define LCD_SET_RS()      LCD_RS_PORT |=   1<<LCD_RS_BIT
+#define LCD_CLR_RS()      LCD_RS_PORT &= ~(1<<LCD_RS_BIT)
+#define LCD_DIR_RS_OUT()  LCD_RS_DDR |=   1<<LCD_RS_BIT
+#define LCD_DIR_RS_IN()   LCD_RS_DDR &= ~(1<<LCD_RS_BIT)
+
+#define LCD_SET_WR()      LCD_WR_PORT |=   1<<LCD_WR_BIT
+#define LCD_CLR_WR()      LCD_WR_PORT &= ~(1<<LCD_WR_BIT)
+#define LCD_DIR_WR_OUT()  LCD_WR_DDR |=   1<<LCD_WR_BIT
+#define LCD_DIR_WR_IN()   LCD_WR_DDR &= ~(1<<LCD_WR_BIT)
+
+#define LCD_SET_RD()      LCD_RD_PORT |=   1<<LCD_RD_BIT
+#define LCD_CLR_RD()      LCD_RD_PORT &= ~(1<<LCD_RD_BIT)
+#define LCD_DIR_RD_OUT()  LCD_RD_DDR |=   1<<LCD_RD_BIT
+#define LCD_DIR_RD_IN()   LCD_RD_DDR &= ~(1<<LCD_RD_BIT)
+
+#define LCD_SET_RST()     LCD_RST_PORT |=  1<<LCD_RST_BIT
+#define LCD_CLR_RST()     LCD_RST_PORT &= ~(1<<LCD_RST_BIT)
+#define LCD_DIR_RST_OUT() LCD_RST_DDR |=  1<<LCD_RST_BIT
+#define LCD_DIR_RST_IN()  LCD_RST_DDR &= ~(1<<LCD_RST_BIT)
 //===========================================================================================
 #define PULSE_WR_LOW()  LCD_CLR_WR(); asm("nop");  LCD_SET_WR();
 #define PULSE_WR_HIGH() LCD_SET_WR(); asm("nop");  LCD_CLR_WR();
@@ -158,7 +161,7 @@ typedef struct _lcd_param
 
 extern _lcd_param lcd_param;
 
-#define fontbyte(x) pgm_read_byte(&cfont.font[x])  
+#define fontbyte(x) pgm_read_byte(&cfont.font[x])
 #define bitmapdatatype unsigned int*
 
 //===========================================================================================

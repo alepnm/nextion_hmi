@@ -1164,13 +1164,14 @@
 		<Unit filename="Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_ll_utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Inc\lcd.h" />
 		<Unit filename="Inc\lcd_commands.h" />
 		<Unit filename="Inc\main.h" />
 		<Unit filename="Inc\stm32f0xx_hal_conf.h" />
 		<Unit filename="Inc\stm32f0xx_it.h" />
 		<Unit filename="Inc\winbond_spi_flash.h" />
 		<Unit filename="Inc\xpt_touch.h" />
-		<Unit filename="Src\lcd_commands.c">
+		<Unit filename="Src\lcd.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Src\main.c">

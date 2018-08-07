@@ -2415,7 +2415,7 @@
 1523694476 d:\projects\nextion_hmi\software\drivers\stm32f0xx_hal_driver\inc\stm32f0xx_hal.h
 	"stm32f0xx_hal_conf.h"
 
-1533335862 d:\projects\nextion_hmi\software\inc\stm32f0xx_hal_conf.h
+1533671245 d:\projects\nextion_hmi\software\inc\stm32f0xx_hal_conf.h
 	"main.h"
 	"stm32f0xx_hal_rcc.h"
 	"stm32f0xx_hal_exti.h"
@@ -2445,7 +2445,7 @@
 	"stm32f0xx_hal_usart.h"
 	"stm32f0xx_hal_wwdg.h"
 
-1533335862 d:\projects\nextion_hmi\software\inc\main.h
+1533679704 d:\projects\nextion_hmi\software\inc\main.h
 	<stdint.h>
 	"stm32f0xx.h"
 
@@ -2954,10 +2954,10 @@
 1523694476 d:\projects\nextion_hmi\software\drivers\stm32f0xx_hal_driver\inc\stm32f0xx_ll_system.h
 	"stm32f0xx.h"
 
-1533335862 source:d:\projects\nextion_hmi\software\src\main.c
+1533681474 source:d:\projects\nextion_hmi\software\src\main.c
 	"main.h"
 	"stm32f0xx_hal.h"
-	"lcd_commands.h"
+	"lcd.h"
 	"winbond_spi_flash.h"
 	"xpt_touch.h"
 
@@ -2965,15 +2965,15 @@
 
 1533321231 d:\projects\nextion_hmi\software\inc\xpt_touch.h
 
-1533335862 source:d:\projects\nextion_hmi\software\src\stm32f0xx_hal_msp.c
+1533671245 source:d:\projects\nextion_hmi\software\src\stm32f0xx_hal_msp.c
 	"stm32f0xx_hal.h"
 
-1533335861 source:d:\projects\nextion_hmi\software\src\stm32f0xx_it.c
+1533671244 source:d:\projects\nextion_hmi\software\src\stm32f0xx_it.c
 	"stm32f0xx_hal.h"
 	"stm32f0xx.h"
 	"stm32f0xx_it.h"
 
-1533335861 d:\projects\nextion_hmi\software\inc\stm32f0xx_it.h
+1533671244 d:\projects\nextion_hmi\software\inc\stm32f0xx_it.h
 	"stm32f0xx_hal.h"
 	"main.h"
 
@@ -2987,13 +2987,14 @@
 
 1533321231 source:d:\projects\nextion_hmi\software\startup\startup_stm32f0xx.s
 
-1533334032 source:d:\projects\nextion_hmi\software\src\xpt_touch.c
+1533679768 source:d:\projects\nextion_hmi\software\src\xpt_touch.c
 	"stm32f0xx_hal.h"
 	"xpt_touch.h"
+	"lcd.h"
 
-1533322690 d:\projects\nextion_hmi\software\inc\lcd_commands.h
+1533663764 d:\projects\nextion_hmi\software\inc\lcd_commands.h
 
-1533326444 source:d:\projects\nextion_hmi\software\src\lcd_commands.c
+1533503679 source:d:\projects\nextion_hmi\software\src\lcd_commands.c
 	"stm32f0xx_hal.h"
 	"lcd_commands.h"
 
@@ -3002,4 +3003,12 @@
 	"lcd_commands.h"
 
 1533643491 c:\working\git\nextion_hmi\software\inc\lcd_commands.h
+
+1533681360 source:d:\projects\nextion_hmi\software\src\lcd.c
+	"stm32f0xx_hal.h"
+	"lcd.h"
+	"lcd_commands.h"
+
+1533681331 d:\projects\nextion_hmi\software\inc\lcd.h
+	<stdint.h>
 

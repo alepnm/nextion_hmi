@@ -1,6 +1,7 @@
 
 #include "stm32f0xx_hal.h"
 #include "xpt_touch.h"
+#include "lcd.h"
 
 
 #define  XPT_CS_LOW    HAL_GPIO_WritePin(XPTCS_GPIO_Port, XPTCS_Pin, GPIO_PIN_RESET)
@@ -17,7 +18,7 @@ static uint16_t XPT_ReadADC_N(void);
 static uint16_t XPT_ReadTemperature(void);
 
 static void     spi_sendbyte(char d);
-static char  spi_readbyte(void);
+static char     spi_readbyte(void);
 
 
 
@@ -131,21 +132,6 @@ static uint16_t XPT_ReadTemperature(void){
     XPT_CS_HIGH;
 
     return (uint16_t)( data[0]<<8 | data[1]);
-}
-
-
-
-static int RD_t(void){
-
-
-
-    return 0;
-
-//	uint16_t a, b, temp; //данные из сенсора мы получаем 12 разрядные
-//	a = spi2_sendByte ( 0 );
-//	b = spi2_sendByte ( 0 );
-//	temp = ((a << 4) | (b >> 4));
-//	return temp;
 }
 
 
