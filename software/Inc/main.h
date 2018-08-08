@@ -120,7 +120,7 @@
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
-
+#define swap(type, i, j) { type t = i; i = j; j = t; }
 
 /* USER CODE END Private defines */
 

@@ -61,13 +61,4 @@ enum {
 }eLCD_COMMAND;
 
 
-
-
-
-
-
-void SoftReset(void);
-void DisplayOn(void);
-void DisplayOff(void);
-
 #endif /* LCD_COMMANDS_H_INCLUDED */

@@ -8,7 +8,7 @@
 #define  XPT_CS_HIGH   HAL_GPIO_WritePin(XPTCS_GPIO_Port, XPTCS_Pin, GPIO_PIN_SET)
 
 
-extern DispHandle_TypeDef LCD;
+XPT_TypeDef XPT;
 extern volatile uint32_t Timestamp;
 
 
@@ -26,43 +26,28 @@ void XPT_Init(void){
 
     HAL_GPIO_WritePin(XPTCS_GPIO_Port, XPTCS_Pin, GPIO_PIN_SET);
 
-    LCD.XPT.OptionByte = START_BIT | PWDOWN_BETWEEN_CONV | CONV_MODE_8BIT | SELBIT_SEREF;
+    XPT.OptionByte = START_BIT | PWDOWN_BETWEEN_CONV | CONV_MODE_8BIT | SELBIT_SEREF;
 
-    LCD.Options.IsEnabled = ENABLE;
-    LCD.Options.TouchTimeoutOver = RESET;
+    XPT.Options.IsEnabled = ENABLE;
+    XPT.Options.TouchTimeoutOver = RESET;
 
-    SoftSpiSend( &LCD.XPT.OptionByte, 1);
-
-    LCD.Options.AdcX_Min = 1500;
-    LCD.Options.AdcX_Max = 32768;
-
-    LCD.Options.AdcY_Min = 2500;
-    LCD.Options.AdcY_Max = 32768;
-
-    LCD.Display.DisplaySizeX_Ratio = LCD.Options.AdcX_Max / LCD.Display.DisplaySizeX;
-    LCD.Display.DisplaySizeY_Ratio = LCD.Options.AdcY_Max / LCD.Display.DisplaySizeY;
+    SoftSpiSend( &XPT.OptionByte, 1);
 }
 
 void XPT_Process(void){
 
-    if( LCD.Options.IsEnabled == DISABLE ) return;
+    if( XPT.Options.IsEnabled == DISABLE ) return;
 
-    LCD.Options.IsPressed = !(FlagStatus)HAL_GPIO_ReadPin(XPTREQ_GPIO_Port, XPTREQ_Pin);
+    XPT.Options.IsPressed = !(FlagStatus)HAL_GPIO_ReadPin(XPTREQ_GPIO_Port, XPTREQ_Pin);
 
-    if( LCD.Options.IsPressed == SET ){
+    if( XPT.Options.IsPressed == SET ){
 
-        LCD.XPT.adc_x = XPT_ReadADC_X();
-
-        LCD.Display.PositionX = (float)LCD.XPT.adc_x / LCD.Display.DisplaySizeX_Ratio;
-
-        LCD.XPT.adc_y = XPT_ReadADC_Y();
-
-        LCD.Display.PositionY = (float)LCD.XPT.adc_y / LCD.Display.DisplaySizeY_Ratio;
-
-        LCD.XPT.adc_p = XPT_ReadADC_N();
+        XPT.adc_x = XPT_ReadADC_X();
+        XPT.adc_y = XPT_ReadADC_Y();
+        XPT.adc_p = XPT_ReadADC_N();
     } else {
 
-        LCD.XPT.temperature = XPT_ReadTemperature();
+        XPT.temperature = XPT_ReadTemperature();
     }
 }
 
@@ -73,8 +58,8 @@ static uint16_t XPT_ReadADC_X(void){
 
     XPT_CS_LOW;
 
-    LCD.XPT.OptionByte = ( LCD.XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_XP0;
-    SoftSpiSend( &LCD.XPT.OptionByte, 1);
+    XPT.OptionByte = ( XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_XP0;
+    SoftSpiSend( &XPT.OptionByte, 1);
 
     SoftSpiReceive(data, 2);
 
@@ -90,8 +75,8 @@ static uint16_t XPT_ReadADC_Y(void){
 
     XPT_CS_LOW;
 
-    LCD.XPT.OptionByte = ( LCD.XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_YP;
-    SoftSpiSend( &LCD.XPT.OptionByte, 1);
+    XPT.OptionByte = ( XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_YP;
+    SoftSpiSend( &XPT.OptionByte, 1);
 
     SoftSpiReceive(data, 2);
 
@@ -107,8 +92,8 @@ static uint16_t XPT_ReadADC_N(void){
 
     XPT_CS_LOW;
 
-    LCD.XPT.OptionByte = ( LCD.XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_XP1;
-    SoftSpiSend( &LCD.XPT.OptionByte, 1);
+    XPT.OptionByte = ( XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_XP1;
+    SoftSpiSend( &XPT.OptionByte, 1);
 
     SoftSpiReceive(data, 2);
 
@@ -124,8 +109,8 @@ static uint16_t XPT_ReadTemperature(void){
 
     XPT_CS_LOW;
 
-    LCD.XPT.OptionByte = ( LCD.XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_TEMP1;
-    SoftSpiSend( &LCD.XPT.OptionByte, 1);
+    XPT.OptionByte = ( XPT.OptionByte & (~CHANN_SEL_MASK) ) | CHANN_TEMP1;
+    SoftSpiSend( &XPT.OptionByte, 1);
 
     SoftSpiReceive(data, 2);
 

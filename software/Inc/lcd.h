@@ -4,52 +4,75 @@
 #include <stdint.h>
 
 
-enum {PORTRATE = 0, LANDSCAPE};
-
-typedef struct{
-    struct{
-        char OptionByte;
-
-        uint16_t adc_x;
-        uint16_t adc_y;
-        uint16_t adc_p;
-        uint16_t temperature;
+enum {PORTRAIT = 0, LANDSCAPE};
 
 
-    }XPT;
-    struct{
-        uint16_t    DisplaySizeX;
-        uint16_t    DisplaySizeY;
+typedef struct _font {
+    const uint8_t* font;
+    uint8_t x_size;
+    uint8_t y_size;
+    uint8_t offset;
+    uint8_t numchars;
+} Font_TypeDef;
 
-        uint8_t     DisplaySizeX_Ratio;
-        uint8_t     DisplaySizeY_Ratio;
+extern Font_TypeDef Font;
 
-        uint8_t Brightness;     //0-100%
 
-        uint16_t PositionX;
-        uint16_t PositionY;
-        uint8_t Orient;
-    }Display;
-    struct{
-        FunctionalState IsEnabled;
-        FlagStatus      IsPressed;
-        FlagStatus      TouchTimeoutOver;
+typedef struct _lcd_param {
+    uint8_t         orient;
+    uint16_t	    disp_x_size;
+    uint16_t	    disp_y_size;
+    uint8_t         transparent;
+    uint16_t        fnt_color;
+    uint16_t        bg_color;
 
-        uint16_t    AdcX_Min;   // minimali ADC X koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
-        uint16_t    AdcX_Max;   // maksimali ADC X koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
-        uint16_t    AdcY_Min;   // minimali ADC Y koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
-        uint16_t    AdcY_Max;   // maksimali ADC Y koordinates reiksme (priklauso nuo XPT draiverio nustatymu)
-    }Options;
-}DispHandle_TypeDef;
+    uint8_t         Brightnes;     //0-100%
+} LCD_TypeDef;
+
+extern LCD_TypeDef LCD;
 
 
 
-void LCD_Init(void);
-void LCD_ClearScreen(void);
-void LCD_FillScreen_RGB(unsigned char r, unsigned char g, unsigned char b);
-void LCD_FillScreen(unsigned int color);
-void LCD_FillWindow(uint16_t colstart, uint16_t colend, uint16_t pagestart, uint16_t pageend, uint16_t color);
+extern void LCD_BusAsInput(void);
+extern void LCD_BusAsOutput(void);
 
-void LCD_DrawPixel(unsigned int x, unsigned int y);
+
+void        LCD_Init(void);
+void        LCD_ClearScreen(void);
+
+void        LCD_SetColor_RGB(unsigned char r, unsigned char g, unsigned char b);
+void        LCD_SetColor_Word(unsigned int color);
+void        LCD_SetBackColor_RGB(unsigned char r, unsigned char g, unsigned char b);
+void        LCD_SetBackColor_Word(uint32_t color);
+uint16_t    LCD_GetColor(void);
+uint16_t    LCD_GetBackColor(void);
+
+void        LCD_FillScreen_RGB(unsigned char r, unsigned char g, unsigned char b);
+void        LCD_FillScreen_Color(unsigned int color);
+void        LCD_FillWindow(uint16_t colstart, uint16_t colend, uint16_t pagestart, uint16_t pageend, uint16_t color);
+
+void        LCD_DrawPixel(unsigned int x, unsigned int y);
+void        LCD_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2);
+void        LCD_DrawHLine(unsigned int x, unsigned int y, int l);
+void        LCD_DrawVLine(unsigned int x, unsigned int y, int l);
+
+void        LCD_DrawBitmap(int x, int y, int sx, int sy, unsigned int* data, int scale);
+void        LCD_DrawBitmap_1(int x, int y, int sx, int sy, unsigned int* data, int deg, int rox, int roy);
+
+void        LCD_Char(unsigned char c, int x, int y);
+void        LCD_RotateChar(unsigned char c, int x, int y, int pos, int deg);
+void        LCD_Text(char *st, int x, int y, int deg);
+void        LCD_PrintNumI(long num, int x, int y, int length, char filler);
+void        LCD_PrintNumF(double num, unsigned char dec, int x, int y, char divider, int length, char filler);
+
+
+
+void        LCD_SetFont(const uint8_t* font);
+const uint8_t* LCD_GetFont(void);
+uint8_t     LCD_GetFontXsize(void);
+uint8_t     LCD_GetFontYsize(void);
+
+uint16_t    LCD_GetDisplayXSize(void);
+uint16_t    LCD_GetDisplayYSize(void);
 
 #endif /* LCD_H_INCLUDED */
