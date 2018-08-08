@@ -32,6 +32,28 @@
 #define SELBIT_SEREF                (0x01<<2)
 
 
+
+typedef struct {
+    char OptionByte;
+
+    uint16_t adc_x;
+    uint16_t adc_y;
+    uint16_t adc_p;
+    uint16_t temperature;
+
+    struct {
+        FunctionalState IsEnabled;
+        FlagStatus      IsPressed;
+        FlagStatus      TouchTimeoutOver;
+    } Options;
+
+} XPT_TypeDef;
+
+extern XPT_TypeDef XPT;
+
+
+
+
 void    XPT_Init(void);
 void    XPT_Process(void);
 

@@ -6,7 +6,7 @@
   ******************************************************************************
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether
+  * USER CODE END. Other portions of this file, whether 
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
@@ -42,6 +42,7 @@
 
 /* USER CODE BEGIN Includes */
 #include "lcd.h"
+#include "define_fonts.h"
 #include "winbond_spi_flash.h"
 #include "xpt_touch.h"
 
@@ -57,7 +58,8 @@ TIM_HandleTypeDef htim1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-extern DispHandle_TypeDef LCD;
+//extern XPT_TypeDef XPT;
+//extern DispHandle_TypeDef LCD_OLD;
 
 volatile uint32_t Timestamp = 0;
 
@@ -71,9 +73,9 @@ static void MX_GPIO_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
-
+                                    
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-
+                                
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -121,10 +123,12 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-    if (HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1) != HAL_OK)
-    {
+    if (HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1) != HAL_OK) {
         Error_Handler();
     }
+
+
+    HAL_GPIO_WritePin(SD_RST_GPIO_Port, SD_RST_Pin, GPIO_PIN_SET);
 
     W25Qx_Init();
     W25Qx_ReadUID(data);
@@ -132,6 +136,10 @@ int main(void)
     LCD_Init();
 
     LCD_ClearScreen();
+
+
+
+
 
     LCD_FillScreen_RGB(0xFF, 0x00, 0x00);
     LCD_FillScreen_RGB(0x00, 0xFF, 0x00);
@@ -141,41 +149,42 @@ int main(void)
     LCD_FillWindow(100, 200, 201, 300, 0x0F00);
     LCD_FillWindow(100, 200, 301, 400, 0x00FF);
 
+
+    LCD_SetFont(SmallFont);
+
+
+
+
+
+
+
+
     XPT_Init();
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-    while (1)
-    {
+    while (1) {
 
-        if( delay < Timestamp )
-        {
+        if( delay < Timestamp ) {
             delay = Timestamp + 10;
 
             SystemUpdate();
 
             XPT_Process();
 
-            if(LCD.Options.IsPressed == SET)
-            {
+            if(XPT.Options.IsPressed == SET) {
                 touch_to_counter = HAL_GetTick() + 10000;
-                LCD.Display.Brightness = 100;
-                LCD.Options.TouchTimeoutOver = RESET;
-            }
-            else
-            {
+                LCD.Brightnes = 100;
+                XPT.Options.TouchTimeoutOver = RESET;
+            } else {
 
-                if(touch_to_counter < Timestamp)
-                {
+                if(touch_to_counter < Timestamp) {
 
-                    if(LCD.Display.Brightness > 10)
-                    {
-                        LCD.Display.Brightness--;
-                    }
+                    if(LCD.Brightnes > 10) LCD.Brightnes--;
 
-                    LCD.Options.TouchTimeoutOver = SET;
+                    XPT.Options.TouchTimeoutOver = SET;
                 }
             }
         }
@@ -198,7 +207,7 @@ void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
-    /**Initializes the CPU, AHB and APB busses clocks
+    /**Initializes the CPU, AHB and APB busses clocks 
     */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
@@ -212,7 +221,7 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-    /**Initializes the CPU, AHB and APB busses clocks
+    /**Initializes the CPU, AHB and APB busses clocks 
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1;
@@ -232,11 +241,11 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-    /**Configure the Systick interrupt time
+    /**Configure the Systick interrupt time 
     */
   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
-    /**Configure the Systick
+    /**Configure the Systick 
     */
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
@@ -346,9 +355,9 @@ static void MX_USART1_UART_Init(void)
 
 }
 
-/** Configure pins as
-        * Analog
-        * Input
+/** Configure pins as 
+        * Analog 
+        * Input 
         * Output
         * EVENT_OUT
         * EXTI
@@ -368,14 +377,17 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(SD_RST_GPIO_Port, SD_RST_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, XPTIN_Pin|XPTCS_Pin|XPTCLK_Pin|W25QCS_Pin
-                          |LCD_RD_Pin|LCD_WR_Pin|LCD_RS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, XPTIN_Pin|XPTCS_Pin|XPTCLK_Pin|W25QCS_Pin 
+                          |LCD_RS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin
-                          |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin
-                          |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin
+  HAL_GPIO_WritePin(GPIOB, LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin 
+                          |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin 
+                          |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin 
                           |LCD_DB6_Pin|LCD_DB7_Pin|LCD_DB8_Pin|LCD_DB9_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, LCD_RD_Pin|LCD_WR_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOF, LCD_CS_Pin|LCD_RST_Pin, GPIO_PIN_SET);
@@ -406,13 +418,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LCD_DB0_Pin LCD_DB1_Pin LCD_DB2_Pin LCD_DB10_Pin
-                           LCD_DB11_Pin LCD_DB12_Pin LCD_DB13_Pin LCD_DB14_Pin
-                           LCD_DB15_Pin LCD_DB3_Pin LCD_DB4_Pin LCD_DB5_Pin
+  /*Configure GPIO pins : LCD_DB0_Pin LCD_DB1_Pin LCD_DB2_Pin LCD_DB10_Pin 
+                           LCD_DB11_Pin LCD_DB12_Pin LCD_DB13_Pin LCD_DB14_Pin 
+                           LCD_DB15_Pin LCD_DB3_Pin LCD_DB4_Pin LCD_DB5_Pin 
                            LCD_DB6_Pin LCD_DB7_Pin LCD_DB8_Pin LCD_DB9_Pin */
-  GPIO_InitStruct.Pin = LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin
-                          |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin
-                          |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin
+  GPIO_InitStruct.Pin = LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin 
+                          |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin 
+                          |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin 
                           |LCD_DB6_Pin|LCD_DB7_Pin|LCD_DB8_Pin|LCD_DB9_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -443,17 +455,50 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void LCD_BusAsInput(void) {
 
-static void SystemUpdate(void)
-{
+    GPIO_InitTypeDef GPIO_InitStruct;
 
-    __HAL_TIM_SET_COMPARE( &htim1, TIM_CHANNEL_1, LCD.Display.Brightness);
+    GPIO_InitStruct.Pin = LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin
+                          |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin
+                          |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin
+                          |LCD_DB6_Pin|LCD_DB7_Pin|LCD_DB8_Pin|LCD_DB9_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+}
+
+void LCD_BusAsOutput(void) {
+
+    GPIO_InitTypeDef GPIO_InitStruct;
+
+    HAL_GPIO_WritePin(GPIOB, LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin
+                      |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin
+                      |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin
+                      |LCD_DB6_Pin|LCD_DB7_Pin|LCD_DB8_Pin|LCD_DB9_Pin, GPIO_PIN_RESET);
+
+
+    GPIO_InitStruct.Pin = LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin
+                          |LCD_DB11_Pin|LCD_DB12_Pin|LCD_DB13_Pin|LCD_DB14_Pin
+                          |LCD_DB15_Pin|LCD_DB3_Pin|LCD_DB4_Pin|LCD_DB5_Pin
+                          |LCD_DB6_Pin|LCD_DB7_Pin|LCD_DB8_Pin|LCD_DB9_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 }
 
 
 
-void HAL_SYSTICK_Callback(void)
-{
+static void SystemUpdate(void) {
+
+    __HAL_TIM_SET_COMPARE( &htim1, TIM_CHANNEL_1, LCD.Brightnes);
+}
+
+
+
+void HAL_SYSTICK_Callback(void) {
     Timestamp = HAL_GetTick();
 
 }
@@ -469,8 +514,7 @@ void _Error_Handler(char *file, int line)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
     /* User can add his own implementation to report the HAL error return state */
-    while(1)
-    {
+    while(1) {
     }
   /* USER CODE END Error_Handler_Debug */
 }
@@ -484,7 +528,7 @@ void _Error_Handler(char *file, int line)
   * @retval None
   */
 void assert_failed(uint8_t* file, uint32_t line)
-{
+{ 
   /* USER CODE BEGIN 6 */
     /* User can add his own implementation to report the file name and line number,
        tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
