@@ -68,6 +68,8 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
+extern const tImage tulips;
+
 volatile uint32_t Timestamp = 0;
 
 /* Private variables ---------------------------------------------------------*/
@@ -126,91 +128,91 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
-  /*##-1- Link the micro SD disk I/O driver ##################################*/
-  if(FATFS_LinkDriver(&USER_Driver, USERPath) == 0)
-  {
-    /*##-2- Register the file system object to the FatFs module ##############*/
-    if(f_mount(&USERFatFS, (TCHAR const*)USERPath, 0) != FR_OK)
-    {
-      /* FatFs Initialization Error */
-      Error_Handler();
-    }
-    else
-    {
-      /*##-3- Create a FAT file system (format) on the logical drive #########*/
-      /* WARNING: Formatting the uSD card will delete all content on the device */
-      if(f_mkfs((TCHAR const*)USERPath, 0, 0) != FR_OK)
-      {
-        /* FatFs Format Error */
-        Error_Handler();
-      }
-      else
-      {
-        /*##-4- Create and Open a new text file object with write access #####*/
-        if(f_open(&USERFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
-        {
-          /* 'STM32.TXT' file Open for write Error */
-          Error_Handler();
-        }
-        else
-        {
-          /*##-5- Write data to the text file ################################*/
-          res = f_write(&USERFile, wtext, sizeof(wtext), (void *)&byteswritten);
+//  /*##-1- Link the micro SD disk I/O driver ##################################*/
+//  if(FATFS_LinkDriver(&USER_Driver, USERPath) == 0)
+//  {
+//    /*##-2- Register the file system object to the FatFs module ##############*/
+//    if(f_mount(&USERFatFS, (TCHAR const*)USERPath, 0) != FR_OK)
+//    {
+//      /* FatFs Initialization Error */
+//      Error_Handler();
+//    }
+//    else
+//    {
+//      /*##-3- Create a FAT file system (format) on the logical drive #########*/
+//      /* WARNING: Formatting the uSD card will delete all content on the device */
+//      if(f_mkfs((TCHAR const*)USERPath, 0, 0) != FR_OK)
+//      {
+//        /* FatFs Format Error */
+//        Error_Handler();
+//      }
+//      else
+//      {
+//        /*##-4- Create and Open a new text file object with write access #####*/
+//        if(f_open(&USERFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+//        {
+//          /* 'STM32.TXT' file Open for write Error */
+//          Error_Handler();
+//        }
+//        else
+//        {
+//          /*##-5- Write data to the text file ################################*/
+//          res = f_write(&USERFile, wtext, sizeof(wtext), (void *)&byteswritten);
+//
+//          /*##-6- Close the open text file #################################*/
+//          if (f_close(&USERFile) != FR_OK )
+//          {
+//            Error_Handler();
+//          }
+//
+//          if((byteswritten == 0) || (res != FR_OK))
+//          {
+//            /* 'STM32.TXT' file Write or EOF Error */
+//            Error_Handler();
+//          }
+//          else
+//          {
+//            /*##-7- Open the text file object with read access ###############*/
+//            if(f_open(&USERFile, "STM32.TXT", FA_READ) != FR_OK)
+//            {
+//              /* 'STM32.TXT' file Open for read Error */
+//              Error_Handler();
+//            }
+//            else
+//            {
+//              /*##-8- Read data from the text file ###########################*/
+//              res = f_read(&USERFile, rtext, sizeof(rtext), (UINT*)&bytesread);
+//
+//              if((bytesread == 0) || (res != FR_OK))
+//              {
+//                /* 'STM32.TXT' file Read or EOF Error */
+//                Error_Handler();
+//              }
+//              else
+//              {
+//                /*##-9- Close the open text file #############################*/
+//                f_close(&USERFile);
+//
+//                /*##-10- Compare read data with the expected data ############*/
+//                if((bytesread != byteswritten))
+//                {
+//                  /* Read data is different from the expected data */
+//                  Error_Handler();
+//                }
+//                else
+//                {
+//                  /* Success of the demo: no error occurrence */
+//                }
+//              }
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
 
-          /*##-6- Close the open text file #################################*/
-          if (f_close(&USERFile) != FR_OK )
-          {
-            Error_Handler();
-          }
-
-          if((byteswritten == 0) || (res != FR_OK))
-          {
-            /* 'STM32.TXT' file Write or EOF Error */
-            Error_Handler();
-          }
-          else
-          {
-            /*##-7- Open the text file object with read access ###############*/
-            if(f_open(&USERFile, "STM32.TXT", FA_READ) != FR_OK)
-            {
-              /* 'STM32.TXT' file Open for read Error */
-              Error_Handler();
-            }
-            else
-            {
-              /*##-8- Read data from the text file ###########################*/
-              res = f_read(&USERFile, rtext, sizeof(rtext), (UINT*)&bytesread);
-
-              if((bytesread == 0) || (res != FR_OK))
-              {
-                /* 'STM32.TXT' file Read or EOF Error */
-                Error_Handler();
-              }
-              else
-              {
-                /*##-9- Close the open text file #############################*/
-                f_close(&USERFile);
-
-                /*##-10- Compare read data with the expected data ############*/
-                if((bytesread != byteswritten))
-                {
-                  /* Read data is different from the expected data */
-                  Error_Handler();
-                }
-                else
-                {
-                  /* Success of the demo: no error occurrence */
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  /*##-11- Unlink the RAM disk I/O driver ####################################*/
-  FATFS_UnLinkDriver(USERPath);
+//  /*##-11- Unlink the RAM disk I/O driver ####################################*/
+//  FATFS_UnLinkDriver(USERPath);
 
 
 
@@ -239,27 +241,19 @@ int main(void)
 
     LCD_ClearScreen();
 
+    //LCD_Fill(0, LCD.disp_x_size, 0, LCD.disp_y_size, VGA_GREEN);
 
 
+    //LCD_SetFont(SmallFont);
+    LCD_SetFont(BigFont);
+    //LCD_SetFont(SevenSegNumFont);
 
 
-    LCD_FillScreen_RGB(0xFF, 0x00, 0x00);
-    LCD_FillScreen_RGB(0x00, 0xFF, 0x00);
-    LCD_FillScreen_RGB(0x00, 0x00, 0xFF);
-
-    LCD_Fill(100, 200, 100, 200, 0xF000);
-    LCD_Fill(100, 200, 201, 300, 0x0F00);
-    LCD_Fill(100, 200, 301, 400, 0x00FF);
+    char st[] = "1234567890";
+    LCD_Text(st, 10, 50, 0);
 
 
-    LCD_SetFont(SmallFont);
-
-
-
-
-
-
-
+    LCD_DrawBitmap(100, 200, 128, 80, tulips.data, 1);
 
     XPT_Init();
 

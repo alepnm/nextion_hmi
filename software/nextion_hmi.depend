@@ -2447,7 +2447,7 @@
 	"stm32f0xx_hal_usart.h"
 	"stm32f0xx_hal_wwdg.h"
 
-1533747260 d:\projects\nextion_hmi\software\inc\main.h
+1533854081 d:\projects\nextion_hmi\software\inc\main.h
 	<stdint.h>
 	"stm32f0xx.h"
 
@@ -2956,9 +2956,10 @@
 1523694476 d:\projects\nextion_hmi\software\drivers\stm32f0xx_hal_driver\inc\stm32f0xx_ll_system.h
 	"stm32f0xx.h"
 
-1533747260 source:d:\projects\nextion_hmi\software\src\main.c
+1533854725 source:d:\projects\nextion_hmi\software\src\main.c
 	"main.h"
 	"stm32f0xx_hal.h"
+	"fatfs.h"
 	"lcd.h"
 	"define_fonts.h"
 	"winbond_spi_flash.h"
@@ -2968,7 +2969,7 @@
 
 1533746300 d:\projects\nextion_hmi\software\inc\xpt_touch.h
 
-1533747259 source:d:\projects\nextion_hmi\software\src\stm32f0xx_hal_msp.c
+1533833543 source:d:\projects\nextion_hmi\software\src\stm32f0xx_hal_msp.c
 	"stm32f0xx_hal.h"
 
 1533747259 source:d:\projects\nextion_hmi\software\src\stm32f0xx_it.c
@@ -3007,14 +3008,14 @@
 
 1533711037 c:\working\git\nextion_hmi\software\inc\lcd_commands.h
 
-1533747824 source:d:\projects\nextion_hmi\software\src\lcd.c
+1533854678 source:d:\projects\nextion_hmi\software\src\lcd.c
 	<math.h>
 	<string.h>
 	"stm32f0xx_hal.h"
 	"lcd.h"
 	"lcd_commands.h"
 
-1533746300 d:\projects\nextion_hmi\software\inc\lcd.h
+1533854137 d:\projects\nextion_hmi\software\inc\lcd.h
 	<stdint.h>
 
 1533801839 c:\working\git\nextion_hmi\software\inc\lcd.h
@@ -3101,4 +3102,79 @@
 1533828401 source:c:\working\git\nextion_hmi\software\src\user_diskio.c
 	<string.h>
 	"ff_gen_drv.h"
+
+1533833543 source:d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\diskio.c
+	"diskio.h"
+	"ff_gen_drv.h"
+
+1533833543 d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\diskio.h
+	"integer.h"
+
+1533833543 d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\integer.h
+	<windows.h>
+	<tchar.h>
+
+1533833543 d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\ff_gen_drv.h
+	"diskio.h"
+	"ff.h"
+
+1533833543 d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\ff.h
+	"integer.h"
+	"ffconf.h"
+
+1533833543 d:\projects\nextion_hmi\software\inc\ffconf.h
+	"stm32f0xx_hal.h"
+
+1533833543 source:d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\ff.c
+	"ff.h"
+	"diskio.h"
+	<stdarg.h>
+
+1533833543 source:d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\ff_gen_drv.c
+	"ff_gen_drv.h"
+
+1533833543 source:d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\option\syscall.c
+	<stdlib.h>
+	"../ff.h"
+
+1533833543 source:d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\option\unicode.c
+	"../ff.h"
+	"cc932.c"
+	"cc936.c"
+	"cc949.c"
+	"cc950.c"
+	"ccsbcs.c"
+
+1533833543 d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\option\cc932.c
+	"../ff.h"
+
+1533833543 d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\option\cc936.c
+	"../ff.h"
+
+1533833543 d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\option\cc949.c
+	"../ff.h"
+
+1533833543 d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\option\cc950.c
+	"../ff.h"
+
+1533833543 d:\projects\nextion_hmi\software\middlewares\third_party\fatfs\src\option\ccsbcs.c
+	"../ff.h"
+
+1533833543 source:d:\projects\nextion_hmi\software\src\fatfs.c
+	"fatfs.h"
+
+1533833543 d:\projects\nextion_hmi\software\inc\fatfs.h
+	"ff.h"
+	"ff_gen_drv.h"
+	"user_diskio.h"
+
+1533833543 d:\projects\nextion_hmi\software\inc\user_diskio.h
+
+1533833543 source:d:\projects\nextion_hmi\software\src\user_diskio.c
+	<string.h>
+	"ff_gen_drv.h"
+
+1533853854 source:d:\projects\nextion_hmi\software\src\tulips.c
+	<stdint.h>
+	"main.h"
 

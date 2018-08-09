@@ -4,7 +4,26 @@
 #include <stdint.h>
 
 
-enum {PORTRAIT = 0, LANDSCAPE};
+#define VGA_BLACK		  0x0000
+#define VGA_WHITE		  0xFFFF
+#define VGA_RED			  0xF800
+#define VGA_GREEN		  0x0400
+#define VGA_BLUE		  0x001F
+#define VGA_SILVER		  0xC618
+#define VGA_GRAY		  0x8410
+#define VGA_MAROON		  0x8000
+#define VGA_YELLOW		  0xFFE0
+#define VGA_OLIVE		  0x8400
+#define VGA_LIME		  0x07E0
+#define VGA_AQUA		  0x07FF
+#define VGA_TEAL		  0x0410
+#define VGA_NAVY		  0x0010
+#define VGA_FUCHSIA		  0xF81F
+#define VGA_PURPLE		  0x8010
+#define VGA_TRANSPARENT	  0xFFFFFFFF
+
+
+enum {LANDSCAPE = 0, PORTRAIT};
 
 
 typedef struct _font {
@@ -20,8 +39,8 @@ extern Font_TypeDef Font;
 
 typedef struct _lcd_param {
     uint8_t         orient;
-    uint16_t	    disp_a_size;
-    uint16_t	    disp_b_size;
+    uint16_t	    disp_x_size;
+    uint16_t	    disp_y_size;
     uint8_t         transparent;
     uint16_t        fnt_color;
     uint16_t        bg_color;
@@ -51,8 +70,8 @@ void        LCD_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsi
 void        LCD_DrawHLine(unsigned int x, unsigned int y, int l);
 void        LCD_DrawVLine(unsigned int x, unsigned int y, int l);
 
-void        LCD_DrawBitmap(int x, int y, int sx, int sy, unsigned int* data, int scale);
-void        LCD_DrawBitmap_1(int x, int y, int sx, int sy, unsigned int* data, int deg, int rox, int roy);
+void        LCD_DrawBitmap(int x, int y, int sx, int sy, const uint16_t* data, int scale);
+void        LCD_DrawBitmap_1(int x, int y, int sx, int sy, const uint16_t* data, int deg, int rox, int roy);
 
 void        LCD_Char(unsigned char c, int x, int y);
 void        LCD_RotateChar(unsigned char c, int x, int y, int pos, int deg);
@@ -66,8 +85,5 @@ void        LCD_SetFont(const uint8_t* font);
 const uint8_t* LCD_GetFont(void);
 uint8_t     LCD_GetFontXsize(void);
 uint8_t     LCD_GetFontYsize(void);
-
-uint16_t    LCD_GetDisplayXSize(void);
-uint16_t    LCD_GetDisplayYSize(void);
 
 #endif /* LCD_H_INCLUDED */

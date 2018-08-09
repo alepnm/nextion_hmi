@@ -25,24 +25,6 @@
 //===========================================================================================
 // UTFT VGA color palette
 //========================================================================================================
-#define VGA_BLACK		  0x0000
-#define VGA_WHITE		  0xFFFF
-#define VGA_RED			  0xF800
-#define VGA_GREEN		  0x0400
-#define VGA_BLUE		  0x001F
-#define VGA_SILVER		  0xC618
-#define VGA_GRAY		  0x8410
-#define VGA_MAROON		  0x8000
-#define VGA_YELLOW		  0xFFE0
-#define VGA_OLIVE		  0x8400
-#define VGA_LIME		  0x07E0
-#define VGA_AQUA		  0x07FF
-#define VGA_TEAL		  0x0410
-#define VGA_NAVY		  0x0010
-#define VGA_FUCHSIA		  0xF81F
-#define VGA_PURPLE		  0x8010
-#define VGA_TRANSPARENT	  0xFFFFFFFF
-
 
 #define LEFT			  0
 #define RIGHT 			  9999
@@ -58,7 +40,6 @@ Font_TypeDef Font;
 extern void LCD_BusAsInput(void);
 extern void LCD_BusAsOutput(void);
 
-static void LCD_Write_COM_DATA(unsigned char commmand, int data);
 static void LCD_Write_COM(unsigned char vl);
 static void LCD_Write_DATA(unsigned char vh, unsigned char vl);
 static void LCD_Write_DATA_1(unsigned char vl);
@@ -76,10 +57,24 @@ static void _convert_float(char *buf, double num, int width, unsigned char prec)
 /* patikrinta */
 void LCD_Init(void) {
 
-    LCD.disp_a_size = 320;
-    LCD.disp_b_size = 480;
+    uint8_t lcd_addr_mode;
+
+    LCD.orient = PORTRAIT;
+
+    if(LCD.orient == PORTRAIT){
+        LCD.disp_x_size = 320;
+        LCD.disp_y_size = 480;
+        lcd_addr_mode = 0x02;
+    }else{
+        LCD.disp_x_size = 480;
+        LCD.disp_y_size = 320;
+        lcd_addr_mode = 0x01;
+    }
+
+
     LCD.Brightnes = 100;
-    LCD.orient = LANDSCAPE;
+    LCD.fnt_color = VGA_GREEN;
+    LCD.bg_color = VGA_BLACK;
 
     LCD_RST_LOW();
     HAL_Delay(20);
@@ -100,61 +95,49 @@ void LCD_Init(void) {
 
     HAL_Delay(20);
 
-//    LCD_Write_COM(LCD_COMM_POWER_SETTING);
-//    LCD_Write_DATA_1(0x07);
-//    LCD_Write_DATA_1(0x42);
-//    LCD_Write_DATA_1(0x18);
+    LCD_Write_COM(LCD_COMM_POWER_SETTING);
+    LCD_Write_DATA_1(0x07);
+    LCD_Write_DATA_1(0x42);
+    LCD_Write_DATA_1(0x18);
 
-//    LCD_Write_COM(LCD_COMM_VCOM_CONTROL);
-//    LCD_Write_DATA_1(0x00);
-//    LCD_Write_DATA_1(0x07);
-//    LCD_Write_DATA_1(0x10);
+    LCD_Write_COM(LCD_COMM_VCOM_CONTROL);
+    LCD_Write_DATA_1(0x00);
+    LCD_Write_DATA_1(0x07);
+    LCD_Write_DATA_1(0x10);
 
-//    LCD_Write_COM(LCD_COMM_POWER_SETTING_FOR_NORMAL_MODE);
-//    LCD_Write_DATA_1(0x01);
-//    LCD_Write_DATA_1(0x02);
+    LCD_Write_COM(LCD_COMM_POWER_SETTING_FOR_NORMAL_MODE);
+    LCD_Write_DATA_1(0x01);
+    LCD_Write_DATA_1(0x02);
 
-//    LCD_Write_COM(LCD_COMM_FRAME_RATE_AND_INVERSION_CONTROL);
-//    LCD_Write_DATA_1(0x03);
+    LCD_Write_COM(LCD_COMM_FRAME_RATE_AND_INVERSION_CONTROL);
+    LCD_Write_DATA_1(0x03);
 
-//    LCD_Write_COM(LCD_COMM_PANEL_DRIVING_SETTING);
-//    LCD_Write_DATA_1(0x10);
-//    LCD_Write_DATA_1(0x3B);
-//    LCD_Write_DATA_1(0x00);
-//    LCD_Write_DATA_1(0x02);
-//    LCD_Write_DATA_1(0x11);
+    LCD_Write_COM(LCD_COMM_PANEL_DRIVING_SETTING);
+    LCD_Write_DATA_1(0x10);
+    LCD_Write_DATA_1(0x3B);
+    LCD_Write_DATA_1(0x00);
+    LCD_Write_DATA_1(0x02);
+    LCD_Write_DATA_1(0x11);
 
-//    LCD_Write_COM(LCD_COMM_GAMMA_SETTING);
-//    LCD_Write_DATA_1(0x00);
-//    LCD_Write_DATA_1(0x32);
-//    LCD_Write_DATA_1(0x36);
-//    LCD_Write_DATA_1(0x45);
-//    LCD_Write_DATA_1(0x06);
-//    LCD_Write_DATA_1(0x16);
-//    LCD_Write_DATA_1(0x37);
-//    LCD_Write_DATA_1(0x75);
-//    LCD_Write_DATA_1(0x77);
-//    LCD_Write_DATA_1(0x54);
-//    LCD_Write_DATA_1(0x0C);
-//    LCD_Write_DATA_1(0x00);
+    LCD_Write_COM(LCD_COMM_GAMMA_SETTING);
+    LCD_Write_DATA_1(0x00);
+    LCD_Write_DATA_1(0x32);
+    LCD_Write_DATA_1(0x36);
+    LCD_Write_DATA_1(0x45);
+    LCD_Write_DATA_1(0x06);
+    LCD_Write_DATA_1(0x16);
+    LCD_Write_DATA_1(0x37);
+    LCD_Write_DATA_1(0x75);
+    LCD_Write_DATA_1(0x77);
+    LCD_Write_DATA_1(0x54);
+    LCD_Write_DATA_1(0x0C);
+    LCD_Write_DATA_1(0x00);
 
     LCD_Write_COM(LCD_COMM_SET_ADDRESS_MODE);
-    LCD_Write_DATA_1(0x08);
+    LCD_Write_DATA_1( 0x08 | (lcd_addr_mode<<5) );
 
     LCD_Write_COM(LCD_COMM_SET_PIXEL_FORMAT);
     LCD_Write_DATA_1(0x55);
-
-//    LCD_Write_COM(LCD_COMM_SET_COLUMN_ADDRESS);
-//    LCD_Write_DATA_1(0x00);
-//    LCD_Write_DATA_1(0x00);
-//    LCD_Write_DATA_1(0x01);
-//    LCD_Write_DATA_1(0x3F);
-
-//    LCD_Write_COM(LCD_COMM_SET_PAGE_ADDRESS);
-//    LCD_Write_DATA_1(0x00);
-//    LCD_Write_DATA_1(0x00);
-//    LCD_Write_DATA_1(0x01);
-//    LCD_Write_DATA_1(0xE0);
 
     HAL_Delay(120);
 
@@ -218,7 +201,7 @@ uint16_t LCD_GetBackColor(void) {
 
 /* patikrinta */
 void LCD_ClearScreen(void) {
-    LCD_Fill( 0, LCD.disp_a_size, 0, LCD.disp_b_size, 0x0000 );
+    LCD_Fill( 0, LCD.disp_x_size, 0, LCD.disp_y_size, 0x0000 );
 }
 
 
@@ -229,17 +212,17 @@ void LCD_FillScreen_RGB(unsigned char r, unsigned char g, unsigned char b) {
 
     color = ((r & 248) << 8 | (g & 252) << 3 | (b & 248) >> 3);
 
-    LCD_Fill( 0, LCD.disp_a_size, 0, LCD.disp_b_size, color );
+    LCD_Fill( 0, LCD.disp_x_size, 0, LCD.disp_y_size, color );
 }
 
 
 /* patikrinta */
 void LCD_FillScreen_Color(unsigned int color) {
-    LCD_Fill( 0, LCD.disp_a_size, 0, LCD.disp_b_size, color );
+    LCD_Fill( 0, LCD.disp_x_size, 0, LCD.disp_y_size, color );
 }
 
 
-/* tikrinti */
+/* patikrinta */
 void LCD_Fill(uint16_t colstart, uint16_t colend, uint16_t pagestart, uint16_t pageend, uint16_t color) {
 
     unsigned char ch = (unsigned char)(color >> 8);
@@ -247,7 +230,7 @@ void LCD_Fill(uint16_t colstart, uint16_t colend, uint16_t pagestart, uint16_t p
 
     LCD_CS_LOW();
 
-    LCD_SetXY(colstart, colend, pagestart, pageend);
+    LCD_SetXY(colstart, pagestart, colend, pageend);
 
     LCD_RS_HIGH();
 
@@ -257,7 +240,7 @@ void LCD_Fill(uint16_t colstart, uint16_t colend, uint16_t pagestart, uint16_t p
 }
 
 
-/* tikrinti */
+/* patikrinta */
 void LCD_DrawPixel(unsigned int x, unsigned int y) {
 
     LCD_CS_LOW();
@@ -270,7 +253,7 @@ void LCD_DrawPixel(unsigned int x, unsigned int y) {
 }
 
 
-/* tikrinti */
+/* patikrinta */
 void LCD_SetOff(void) {
 
     LCD_CS_LOW();
@@ -283,7 +266,7 @@ void LCD_SetOff(void) {
 }
 
 
-/* tikrinti */
+/* patikrinta */
 void LCD_SetOn(void) {
 
     LCD_CS_LOW();
@@ -303,10 +286,11 @@ void LCD_SetContrast(unsigned char c) {
 }
 
 
-/* tikrinti */
+/* patikrinta */
 void LCD_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2) {
 
     int dx, dy, xstep, ystep, col, row, t;
+
     if (y1 == y2) {
         LCD_DrawHLine(x1, y1, x2 - x1);
     } else if (x1 == x2) {
@@ -361,12 +345,10 @@ void LCD_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned in
 
         LCD_CS_HIGH();
     }
-
-    LCD_ClrXY();
 }
 
 
-/* tikrinti */
+/* patikrinta */
 void LCD_DrawHLine(unsigned int x, unsigned int y, int l) {
 
     if (l < 0) {
@@ -383,12 +365,10 @@ void LCD_DrawHLine(unsigned int x, unsigned int y, int l) {
     _fast_fill_16( (uint8_t)(LCD.fnt_color>>8), (uint8_t)(LCD.fnt_color & 0x00FF), l);
 
     LCD_CS_HIGH();
-
-    LCD_ClrXY();
 }
 
 
-/* tikrinti */
+/* patikrinta */
 void LCD_DrawVLine(unsigned int x, unsigned int y, int l) {
 
     if (l < 0) {
@@ -406,29 +386,8 @@ void LCD_DrawVLine(unsigned int x, unsigned int y, int l) {
 
     LCD_CS_HIGH();
 
-    LCD_ClrXY();
+//    LCD_ClrXY();
 }
-
-
-/* tikrinti */
-uint16_t LCD_GetDisplayXSize(void) {
-    if (LCD.orient == PORTRAIT) {
-        return LCD.disp_a_size + 1;
-    } else {
-        return LCD.disp_b_size + 1;
-    }
-}
-
-
-/* tikrinti */
-uint16_t LCD_GetDisplayYSize(void) {
-    if (LCD.orient == PORTRAIT) {
-        return LCD.disp_b_size + 1;
-    } else {
-        return LCD.disp_a_size + 1;
-    }
-}
-
 
 
 /* patikrinta */
@@ -457,13 +416,13 @@ uint8_t LCD_GetFontYsize(void) {
 
 
 /* tikrinti */
-void LCD_DrawBitmap(int x, int y, int sx, int sy, unsigned int* data, int scale) {
+void LCD_DrawBitmap(int x, int y, int sx, int sy, const uint16_t* data, int scale) {
 
     int col;
     int tx, ty, tc, tsx, tsy;
 
     if (scale == 1) {
-        if (LCD.orient == PORTRAIT)	{
+        if (LCD.orient == LANDSCAPE)	{
 
             LCD_CS_LOW();
 
@@ -544,12 +503,12 @@ void LCD_DrawBitmap(int x, int y, int sx, int sy, unsigned int* data, int scale)
         }
     }
 
-    LCD_ClrXY();
+    //LCD_ClrXY();
 }
 
 
 /* tikrinti */
-void LCD_DrawBitmap_1(int x, int y, int sx, int sy, unsigned int* data, int deg, int rox, int roy) {
+void LCD_DrawBitmap_1(int x, int y, int sx, int sy, const uint16_t* data, int deg, int rox, int roy) {
 
     int col;
     int tx, ty, newx, newy;
@@ -580,11 +539,11 @@ void LCD_DrawBitmap_1(int x, int y, int sx, int sy, unsigned int* data, int deg,
         LCD_CS_HIGH();
     }
 
-    LCD_ClrXY();
+    //LCD_ClrXY();
 }
 
 
-/* tikrinti */
+/* patikrinta */
 void LCD_Char(unsigned char c, int x, int y) {
 
     unsigned char i,ch;
@@ -593,63 +552,43 @@ void LCD_Char(unsigned char c, int x, int y) {
     LCD_CS_LOW();
 
     if (!LCD.transparent) {
-        if (LCD.orient == PORTRAIT)	{
 
-            LCD_SetXY(x,y,x + Font.x_size - 1,y + Font.y_size - 1);
-            temp = ((c - Font.offset) * ((Font.x_size / 8) * Font.y_size)) + 4;
+        LCD_SetXY(x,y,x + Font.x_size - 1,y + Font.y_size - 1);
 
-            for (j = 0; j < ((Font.x_size / 8) * Font.y_size); j++) {
+        temp = ((c - Font.offset) * ((Font.x_size / 8) * Font.y_size)) + 4;
 
-                ch = Font.font[temp];  //ch = pgm_read_byte(&cfont.font[temp]);
+        for (j = 0; j < ((Font.x_size / 8) * Font.y_size); j++) {
 
-                for(i = 0; i < 8; i++) {
+            ch = Font.font[temp];
 
-                    if ((ch & (1<<(7 - i))) != 0) {
-                        LCD_SetPixel(LCD.fnt_color);
-                    } else {
-                        LCD_SetPixel(LCD.bg_color);
-                    }
+            for(i = 0; i < 8; i++) {
+                if ((ch & (1<<(7 - i))) != 0) {
+                    LCD_SetPixel(LCD.fnt_color);
+                } else {
+                    LCD_SetPixel(LCD.bg_color);
                 }
-
-                temp++;
             }
-        }	else {
 
-            temp = ((c - Font.offset) * ((Font.x_size / 8) * Font.y_size)) + 4;
-
-            for (j = 0; j < ((Font.x_size / 8) * Font.y_size); j += (Font.x_size / 8)) {
-
-                LCD_SetXY(x,y + (j / (Font.x_size / 8)), x + Font.x_size - 1,y + (j / (Font.x_size / 8)));
-
-                for (zz = (Font.x_size / 8) - 1; zz >= 0; zz--) {
-
-                    ch = Font.font[temp+zz];   //ch = pgm_read_byte(&cfont.font[temp+zz]);
-
-                    for ( i = 0; i < 8; i++) {
-                        if ((ch & (1<<i)) != 0) {
-                            LCD_SetPixel(LCD.fnt_color);
-                        }	else {
-                            LCD_SetPixel(LCD.bg_color);
-                        }
-                    }
-                }
-
-                temp += (Font.x_size / 8);
-            }
+            temp++;
         }
     } else {
 
         temp = ((c - Font.offset) * ((Font.x_size / 8) * Font.y_size)) + 4;
 
         for (j = 0; j < Font.y_size; j++) {
+
             for (zz = 0; zz < (Font.x_size / 8); zz++) {
 
-                ch = Font.font[temp + zz];     //ch = pgm_read_byte(&cfont.font[temp + zz]);
+                ch = Font.font[temp + zz];
 
                 for (i = 0; i < 8; i++) {
+
                     LCD_SetXY(x + i + (zz * 8),y + j,x + i + (zz * 8) + 1,y + j + 1);
+
                     if ((ch&(1 << (7 - i))) != 0) {
+
                         LCD_SetPixel(LCD.fnt_color);
+
                     }
                 }
             }
@@ -659,8 +598,6 @@ void LCD_Char(unsigned char c, int x, int y) {
     }
 
     LCD_CS_HIGH();
-
-    LCD_ClrXY();
 }
 
 
@@ -680,7 +617,7 @@ void LCD_RotateChar(unsigned char c, int x, int y, int pos, int deg) {
     for (j = 0; j < Font.y_size; j++) {
         for (zz = 0; zz < (Font.x_size / 8); zz++) {
 
-            ch = Font.font[temp + zz]; //ch = pgm_read_byte(&cfont.font[temp + zz]);
+            ch = Font.font[temp + zz];
 
             for (i = 0; i < 8; i++) {
 
@@ -703,30 +640,20 @@ void LCD_RotateChar(unsigned char c, int x, int y, int pos, int deg) {
     }
 
     LCD_CS_HIGH();
-
-    LCD_ClrXY();
 }
 
 
-/* tikrinti */
+/* patikrinta */
 void LCD_Text(char *st, int x, int y, int deg) {
 
     int i, stl = strlen(st);
 
-    if (LCD.orient == PORTRAIT) {
-        if (x == RIGHT) {
-            x = (LCD.disp_a_size + 1) - (stl * Font.x_size);
-        }
-        if (x == CENTER) {
-            x = ((LCD.disp_a_size + 1) - (stl * Font.x_size)) / 2;
-        }
-    } else {
-        if (x == RIGHT) {
-            x = (LCD.disp_b_size + 1) - (stl * Font.x_size);
-        }
-        if (x == CENTER) {
-            x = ((LCD.disp_b_size + 1) - (stl * Font.x_size)) / 2;
-        }
+    if (x == RIGHT) {
+        x = (LCD.disp_x_size + 1) - (stl * Font.x_size);
+    }
+
+    if (x == CENTER) {
+        x = ((LCD.disp_x_size + 1) - (stl * Font.x_size)) / 2;
     }
 
     for (i = 0; i < stl; i++) {
@@ -836,15 +763,6 @@ void LCD_PrintNumF(double num, unsigned char dec, int x, int y, char divider, in
 /* tikrinti */
 static void LCD_SetXY(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2) {
 
-    if (LCD.orient == LANDSCAPE) {
-
-        swap(unsigned int, x1, y1);
-        swap(unsigned int, x2, y2);
-        y1 = LCD.disp_b_size - y1;
-        y2 = LCD.disp_b_size - y2;
-        swap(unsigned int, y1, y2);
-    }
-
     LCD_Write_COM(LCD_COMM_SET_COLUMN_ADDRESS);
     LCD_Write_DATA_1(x1>>8);
     LCD_Write_DATA_1(x1);
@@ -863,11 +781,7 @@ static void LCD_SetXY(unsigned int x1, unsigned int y1, unsigned int x2, unsigne
 
 /* tikrinti */
 static void LCD_ClrXY(void) {
-    if (LCD.orient == PORTRAIT) {
-        LCD_SetXY(0, 0, LCD.disp_a_size, LCD.disp_b_size);
-    } else {
-        LCD_SetXY(0, 0, LCD.disp_b_size, LCD.disp_a_size);
-    }
+    LCD_SetXY(0, 0, LCD.disp_x_size, LCD.disp_y_size);
 }
 
 
@@ -882,12 +796,6 @@ static void LCD_Write_COM(unsigned char vl) {
     LCD_Write_Bus(0x00, vl);
 }
 
-
-/* patikrinta */
-static void LCD_Write_COM_DATA(unsigned char commmand, int data) {
-    LCD_Write_COM(commmand);
-    LCD_Write_DATA((unsigned char)data >> 8, (unsigned char)data);
-}
 
 /* patikrinta */
 static void LCD_Write_DATA(unsigned char vh, unsigned char vl) {
