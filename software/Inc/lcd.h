@@ -20,8 +20,8 @@ extern Font_TypeDef Font;
 
 typedef struct _lcd_param {
     uint8_t         orient;
-    uint16_t	    disp_x_size;
-    uint16_t	    disp_y_size;
+    uint16_t	    disp_a_size;
+    uint16_t	    disp_b_size;
     uint8_t         transparent;
     uint16_t        fnt_color;
     uint16_t        bg_color;
@@ -30,11 +30,6 @@ typedef struct _lcd_param {
 } LCD_TypeDef;
 
 extern LCD_TypeDef LCD;
-
-
-
-extern void LCD_BusAsInput(void);
-extern void LCD_BusAsOutput(void);
 
 
 void        LCD_Init(void);
@@ -49,7 +44,7 @@ uint16_t    LCD_GetBackColor(void);
 
 void        LCD_FillScreen_RGB(unsigned char r, unsigned char g, unsigned char b);
 void        LCD_FillScreen_Color(unsigned int color);
-void        LCD_FillWindow(uint16_t colstart, uint16_t colend, uint16_t pagestart, uint16_t pageend, uint16_t color);
+void        LCD_Fill(uint16_t colstart, uint16_t colend, uint16_t pagestart, uint16_t pageend, uint16_t color);
 
 void        LCD_DrawPixel(unsigned int x, unsigned int y);
 void        LCD_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2);

@@ -5,8 +5,6 @@
 #include "lcd_commands.h"
 
 
-
-
 #define LCD_CS_LOW()        HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
 #define LCD_CS_HIGH()       HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 
@@ -57,6 +55,9 @@ LCD_TypeDef LCD;
 Font_TypeDef Font;
 
 
+extern void LCD_BusAsInput(void);
+extern void LCD_BusAsOutput(void);
+
 static void LCD_Write_COM_DATA(unsigned char commmand, int data);
 static void LCD_Write_COM(unsigned char vl);
 static void LCD_Write_DATA(unsigned char vh, unsigned char vl);
@@ -75,8 +76,8 @@ static void _convert_float(char *buf, double num, int width, unsigned char prec)
 /* patikrinta */
 void LCD_Init(void) {
 
-    LCD.disp_x_size = 320;
-    LCD.disp_y_size = 480;
+    LCD.disp_a_size = 320;
+    LCD.disp_b_size = 480;
     LCD.Brightnes = 100;
     LCD.orient = LANDSCAPE;
 
@@ -217,14 +218,7 @@ uint16_t LCD_GetBackColor(void) {
 
 /* patikrinta */
 void LCD_ClearScreen(void) {
-
-    LCD_CS_LOW();
-
-    LCD_ClrXY();
-
-    LCD_RS_HIGH();
-
-    LCD_FillWindow( 0, LCD.disp_x_size, 0, LCD.disp_y_size, 0x0000 );
+    LCD_Fill( 0, LCD.disp_a_size, 0, LCD.disp_b_size, 0x0000 );
 }
 
 
@@ -235,37 +229,25 @@ void LCD_FillScreen_RGB(unsigned char r, unsigned char g, unsigned char b) {
 
     color = ((r & 248) << 8 | (g & 252) << 3 | (b & 248) >> 3);
 
-    LCD_FillWindow( 0, LCD.disp_x_size, 0, LCD.disp_y_size, color );
+    LCD_Fill( 0, LCD.disp_a_size, 0, LCD.disp_b_size, color );
 }
 
 
 /* patikrinta */
 void LCD_FillScreen_Color(unsigned int color) {
-    LCD_FillWindow( 0, LCD.disp_x_size, 0, LCD.disp_y_size, color );
+    LCD_Fill( 0, LCD.disp_a_size, 0, LCD.disp_b_size, color );
 }
 
 
-/* patikrinta */
-void LCD_FillWindow(uint16_t colstart, uint16_t colend, uint16_t pagestart, uint16_t pageend, uint16_t color) {
+/* tikrinti */
+void LCD_Fill(uint16_t colstart, uint16_t colend, uint16_t pagestart, uint16_t pageend, uint16_t color) {
 
     unsigned char ch = (unsigned char)(color >> 8);
     unsigned char cl = (unsigned char)(color & 0x00FF);
 
     LCD_CS_LOW();
 
-    LCD_Write_COM(LCD_COMM_SET_COLUMN_ADDRESS);
-    LCD_Write_DATA_1( (uint8_t)(colstart>>8) );
-    LCD_Write_DATA_1( (uint8_t)(colstart & 0x00FF) );
-    LCD_Write_DATA_1( (uint8_t)(colend>>8) );
-    LCD_Write_DATA_1( (uint8_t)(colend & 0x00FF) );
-
-    LCD_Write_COM(LCD_COMM_SET_PAGE_ADDRESS);
-    LCD_Write_DATA_1( (uint8_t)(pagestart>>8) );
-    LCD_Write_DATA_1( (uint8_t)(pagestart & 0x00FF) );
-    LCD_Write_DATA_1( (uint8_t)(pageend>>8) );
-    LCD_Write_DATA_1( (uint8_t)(pageend & 0x00FF) );
-
-    LCD_Write_COM(LCD_COMM_WRITE_MEMORY_START);
+    LCD_SetXY(colstart, colend, pagestart, pageend);
 
     LCD_RS_HIGH();
 
@@ -284,16 +266,17 @@ void LCD_DrawPixel(unsigned int x, unsigned int y) {
 
     LCD_SetPixel(LCD.fnt_color);
 
-    LCD_ClrXY();
-
     LCD_CS_HIGH();
 }
 
 
 /* tikrinti */
 void LCD_SetOff(void) {
+
     LCD_CS_LOW();
+
     LCD_Write_COM(LCD_COMM_SET_DISPLAY_OFF);
+
     LCD_CS_HIGH();
 
     __HAL_TIM_SET_COMPARE( &htim1, TIM_CHANNEL_1, 0);
@@ -302,8 +285,11 @@ void LCD_SetOff(void) {
 
 /* tikrinti */
 void LCD_SetOn(void) {
+
     LCD_CS_LOW();
+
     LCD_Write_COM(LCD_COMM_SET_DISPLAY_ON);
+
     LCD_CS_HIGH();
 
     __HAL_TIM_SET_COMPARE( &htim1, TIM_CHANNEL_1, LCD.Brightnes);
@@ -427,9 +413,9 @@ void LCD_DrawVLine(unsigned int x, unsigned int y, int l) {
 /* tikrinti */
 uint16_t LCD_GetDisplayXSize(void) {
     if (LCD.orient == PORTRAIT) {
-        return LCD.disp_x_size + 1;
+        return LCD.disp_a_size + 1;
     } else {
-        return LCD.disp_y_size + 1;
+        return LCD.disp_b_size + 1;
     }
 }
 
@@ -437,9 +423,9 @@ uint16_t LCD_GetDisplayXSize(void) {
 /* tikrinti */
 uint16_t LCD_GetDisplayYSize(void) {
     if (LCD.orient == PORTRAIT) {
-        return LCD.disp_y_size + 1;
+        return LCD.disp_b_size + 1;
     } else {
-        return LCD.disp_x_size + 1;
+        return LCD.disp_a_size + 1;
     }
 }
 
@@ -484,13 +470,15 @@ void LCD_DrawBitmap(int x, int y, int sx, int sy, unsigned int* data, int scale)
             LCD_SetXY(x, y, x + sx - 1, y + sy - 1);
 
             for (tc = 0; tc < (sx * sy); tc++) {
+
                 col = data[tc];     //col = pgm_read_word(&data[tc]);
+
                 LCD_Write_DATA(col >> 8, col & 0xff);
             }
 
             LCD_CS_HIGH();
 
-        }	else {
+        } else {
 
             LCD_CS_LOW();
 
@@ -499,8 +487,10 @@ void LCD_DrawBitmap(int x, int y, int sx, int sy, unsigned int* data, int scale)
                 LCD_SetXY(x, y + ty, x + sx - 1, y + ty);
 
                 for (tx = sx - 1; tx >= 0; tx--) {
+
                     col = data[(ty * sx) + tx];     //col = pgm_read_word(&data[(ty * sx) + tx]);
-                    LCD_Write_DATA(col >> 8,col & 0xff);
+
+                    LCD_Write_DATA( (uint8_t)(col >> 8), (uint8_t)(col & 0x00FF) );
                 }
             }
 
@@ -522,7 +512,7 @@ void LCD_DrawBitmap(int x, int y, int sx, int sy, unsigned int* data, int scale)
                         col = data[(ty*sx)+tx];     //col = pgm_read_word(&data[(ty*sx)+tx]);
 
                         for (tsx = 0; tsx < scale; tsx++) {
-                            LCD_Write_DATA(col>>8,col & 0xff);
+                            LCD_Write_DATA( (uint8_t)(col>>8), (uint8_t)(col & 0x00FF) );
                         }
                     }
                 }
@@ -544,7 +534,7 @@ void LCD_DrawBitmap(int x, int y, int sx, int sy, unsigned int* data, int scale)
                         col = data[(ty * sx) + tx];     //col = pgm_read_word(&data[(ty * sx) + tx]);
 
                         for (tsx = 0; tsx < scale; tsx++) {
-                            LCD_Write_DATA(col >> 8,col & 0xff);
+                            LCD_Write_DATA( (uint8_t)(col >> 8), (uint8_t)(col & 0x00FF) );
                         }
                     }
                 }
@@ -583,7 +573,7 @@ void LCD_DrawBitmap_1(int x, int y, int sx, int sy, unsigned int* data, int deg,
 
                 LCD_SetXY(newx, newy, newx, newy);
 
-                LCD_Write_DATA(col >> 8,col & 0xff);
+                LCD_Write_DATA( (uint8_t)(col >> 8), (uint8_t)(col & 0x00FF) ) ;
             }
         }
 
@@ -725,17 +715,17 @@ void LCD_Text(char *st, int x, int y, int deg) {
 
     if (LCD.orient == PORTRAIT) {
         if (x == RIGHT) {
-            x = (LCD.disp_x_size + 1) - (stl * Font.x_size);
+            x = (LCD.disp_a_size + 1) - (stl * Font.x_size);
         }
         if (x == CENTER) {
-            x = ((LCD.disp_x_size + 1) - (stl * Font.x_size)) / 2;
+            x = ((LCD.disp_a_size + 1) - (stl * Font.x_size)) / 2;
         }
     } else {
         if (x == RIGHT) {
-            x = (LCD.disp_y_size + 1) - (stl * Font.x_size);
+            x = (LCD.disp_b_size + 1) - (stl * Font.x_size);
         }
         if (x == CENTER) {
-            x = ((LCD.disp_y_size + 1) - (stl * Font.x_size)) / 2;
+            x = ((LCD.disp_b_size + 1) - (stl * Font.x_size)) / 2;
         }
     }
 
@@ -850,10 +840,9 @@ static void LCD_SetXY(unsigned int x1, unsigned int y1, unsigned int x2, unsigne
 
         swap(unsigned int, x1, y1);
         swap(unsigned int, x2, y2);
-        y1 = LCD.disp_y_size - y1;
-        y2 = LCD.disp_y_size - y2;
+        y1 = LCD.disp_b_size - y1;
+        y2 = LCD.disp_b_size - y2;
         swap(unsigned int, y1, y2);
-
     }
 
     LCD_Write_COM(LCD_COMM_SET_COLUMN_ADDRESS);
@@ -875,9 +864,9 @@ static void LCD_SetXY(unsigned int x1, unsigned int y1, unsigned int x2, unsigne
 /* tikrinti */
 static void LCD_ClrXY(void) {
     if (LCD.orient == PORTRAIT) {
-        LCD_SetXY(0, 0, LCD.disp_x_size, LCD.disp_y_size);
+        LCD_SetXY(0, 0, LCD.disp_a_size, LCD.disp_b_size);
     } else {
-        LCD_SetXY(0, 0, LCD.disp_y_size, LCD.disp_x_size);
+        LCD_SetXY(0, 0, LCD.disp_b_size, LCD.disp_a_size);
     }
 }
 
@@ -921,6 +910,7 @@ static void LCD_Write_Bus(unsigned char vh, unsigned char vl) {
 
 /* patikrinta */
 static void _fast_fill_16(uint8_t ch, uint8_t cl, unsigned long pix) {
+
     unsigned long i = 0;
 
     GPIOB->ODR = (uint16_t)( ch<<8 | cl );
