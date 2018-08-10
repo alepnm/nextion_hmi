@@ -23,7 +23,7 @@
 	</File>
 	<File name="Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_spi.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="27710" topLine="617" />
+			<Cursor1 position="27863" topLine="617" />
 		</Cursor>
 	</File>
 	<File name="Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_spi_ex.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -41,9 +41,9 @@
 			<Cursor1 position="5254" topLine="33" />
 		</Cursor>
 	</File>
-	<File name="Inc\define_fonts.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Inc\define_fonts.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="22717" topLine="154" />
+			<Cursor1 position="20494" topLine="241" />
 		</Cursor>
 	</File>
 	<File name="Inc\fatfs.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -51,9 +51,9 @@
 			<Cursor1 position="824" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Inc\lcd.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Inc\lcd.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2227" topLine="10" />
+			<Cursor1 position="707" topLine="10" />
 		</Cursor>
 	</File>
 	<File name="Inc\lcd_commands.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -61,14 +61,14 @@
 			<Cursor1 position="769" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Inc\main.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Inc\main.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5598" topLine="70" />
+			<Cursor1 position="4739" topLine="91" />
 		</Cursor>
 	</File>
-	<File name="Inc\winbond_spi_flash.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Inc\winbond_spi_flash.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2397" topLine="0" />
+			<Cursor1 position="1178" topLine="9" />
 		</Cursor>
 	</File>
 	<File name="Inc\xpt_touch.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -83,17 +83,17 @@
 	</File>
 	<File name="Src\fatfs.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1394" topLine="7" />
+			<Cursor1 position="3172" topLine="40" />
 		</Cursor>
 	</File>
-	<File name="Src\lcd.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Src\lcd.c" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2241" topLine="26" />
+			<Cursor1 position="10377" topLine="419" />
 		</Cursor>
 	</File>
-	<File name="Src\main.c" open="1" top="1" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Src\main.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4342" topLine="107" />
+			<Cursor1 position="9316" topLine="248" />
 		</Cursor>
 	</File>
 	<File name="Src\stm32f0xx_hal_msp.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -101,22 +101,25 @@
 			<Cursor1 position="1023" topLine="149" />
 		</Cursor>
 	</File>
-	<File name="Src\stm32f0xx_it.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Src\stm32f0xx_it.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2868" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Src\tulips.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Src\tulips.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="83055" topLine="9" />
+			<Cursor1 position="7983" topLine="5" />
 		</Cursor>
 	</File>
-	<File name="Src\winbond_spi_flash.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Src\winbond_spi_flash.c" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3118" topLine="182" />
+			<Cursor1 position="6565" topLine="216" />
 		</Cursor>
+		<Folding>
+			<Collapse line="10" />
+		</Folding>
 	</File>
-	<File name="Src\xpt_touch.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Src\xpt_touch.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="991" topLine="0" />
 		</Cursor>

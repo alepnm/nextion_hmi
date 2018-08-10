@@ -1167,6 +1167,7 @@
 		<Unit filename="Inc\define_fonts.h" />
 		<Unit filename="Inc\fatfs.h" />
 		<Unit filename="Inc\ffconf.h" />
+		<Unit filename="Inc\img_data.h" />
 		<Unit filename="Inc\lcd.h" />
 		<Unit filename="Inc\lcd_commands.h" />
 		<Unit filename="Inc\main.h" />
@@ -1231,11 +1232,11 @@
 		<Extensions>
 			<code_completion />
 			<debugger>
-				<target_debugging_settings target="Debug" active_interface="ST-link">
+				<target_debugging_settings target="Release" active_interface="J-link">
 					<debug_interface interface_id="J-link" ip_address="" ip_port="" path="" executable="" description="" dont_start_server="false" backoff_time="" options="0" reg_filter="0" active_family="Generic" gdb_before_conn="" gdb_after_conn="">
 						<family_options family_id="Generic" />
 					</debug_interface>
-					<debug_interface interface_id="ST-link" ip_address="localhost" ip_port="4242" path="${EMBITZ}\share\contrib" executable="STLinkGDB.exe" description="" dont_start_server="false" backoff_time="1000" options="2" reg_filter="0" active_family="STMicroelectronics" gdb_before_conn="" gdb_after_conn="">
+					<debug_interface interface_id="ST-link" ip_address="" ip_port="" path="" executable="" description="" dont_start_server="false" backoff_time="" options="0" reg_filter="0" active_family="" gdb_before_conn="" gdb_after_conn="">
 						<family_options family_id="STMicroelectronics">
 							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
 							<option opt_id="ID_VECTOR_START" opt_value="0x08000000" />
@@ -1251,11 +1252,11 @@
 						</family_options>
 					</debug_interface>
 				</target_debugging_settings>
-				<target_debugging_settings target="Release" active_interface="J-link">
+				<target_debugging_settings target="Debug" active_interface="ST-link">
 					<debug_interface interface_id="J-link" ip_address="" ip_port="" path="" executable="" description="" dont_start_server="false" backoff_time="" options="0" reg_filter="0" active_family="Generic" gdb_before_conn="" gdb_after_conn="">
 						<family_options family_id="Generic" />
 					</debug_interface>
-					<debug_interface interface_id="ST-link" ip_address="" ip_port="" path="" executable="" description="" dont_start_server="false" backoff_time="" options="0" reg_filter="0" active_family="" gdb_before_conn="" gdb_after_conn="">
+					<debug_interface interface_id="ST-link" ip_address="localhost" ip_port="4242" path="${EMBITZ}\share\contrib" executable="STLinkGDB.exe" description="" dont_start_server="false" backoff_time="1000" options="2" reg_filter="0" active_family="STMicroelectronics" gdb_before_conn="" gdb_after_conn="">
 						<family_options family_id="STMicroelectronics">
 							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
 							<option opt_id="ID_VECTOR_START" opt_value="0x08000000" />

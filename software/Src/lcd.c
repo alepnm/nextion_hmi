@@ -61,11 +61,11 @@ void LCD_Init(void) {
 
     LCD.orient = PORTRAIT;
 
-    if(LCD.orient == PORTRAIT){
+    if(LCD.orient == PORTRAIT) {
         LCD.disp_x_size = 320;
         LCD.disp_y_size = 480;
         lcd_addr_mode = 0x02;
-    }else{
+    } else {
         LCD.disp_x_size = 480;
         LCD.disp_y_size = 320;
         lcd_addr_mode = 0x01;
@@ -140,8 +140,6 @@ void LCD_Init(void) {
     LCD_Write_DATA_1(0x55);
 
     HAL_Delay(120);
-
-    //LCD_FillScreen(0x0000);
 
     LCD_Write_COM(LCD_COMM_SET_DISPLAY_ON);
 
@@ -291,9 +289,9 @@ void LCD_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned in
 
     int dx, dy, xstep, ystep, col, row, t;
 
-    if (y1 == y2) {
+    if(y1 == y2) {
         LCD_DrawHLine(x1, y1, x2 - x1);
-    } else if (x1 == x2) {
+    } else if(x1 == x2) {
         LCD_DrawVLine(x1, y1, y2 - y1);
     } else {
         dx = (x2 > x1 ? x2 - x1 : x1 - x2);
@@ -305,11 +303,11 @@ void LCD_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned in
 
         LCD_CS_LOW();
 
-        if (dx < dy) {
+        if(dx < dy) {
 
             t = - (dy >> 1);
 
-            while (1) {
+            while(1) {
                 LCD_SetXY(col, row, col, row);
                 LCD_Write_DATA ( (uint8_t)(LCD.fnt_color>>8), (uint8_t)(LCD.fnt_color & 0x00FF) );
                 if (row == y2) {
@@ -327,7 +325,7 @@ void LCD_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned in
 
             t = - (dx >> 1);
 
-            while (1) {
+            while(1) {
                 LCD_SetXY(col, row, col, row);
                 LCD_Write_DATA ( (uint8_t)(LCD.fnt_color>>8), (uint8_t)(LCD.fnt_color & 0x00FF) );
                 if (col == x2) {
@@ -385,8 +383,6 @@ void LCD_DrawVLine(unsigned int x, unsigned int y, int l) {
     _fast_fill_16( (uint8_t)(LCD.fnt_color>>8), (uint8_t)(LCD.fnt_color & 0x00FF), l);
 
     LCD_CS_HIGH();
-
-//    LCD_ClrXY();
 }
 
 
@@ -415,95 +411,83 @@ uint8_t LCD_GetFontYsize(void) {
 }
 
 
-/* tikrinti */
+/* patikrinta */
 void LCD_DrawBitmap(int x, int y, int sx, int sy, const uint16_t* data, int scale) {
 
     int col;
     int tx, ty, tc, tsx, tsy;
 
-    if (scale == 1) {
-        if (LCD.orient == LANDSCAPE)	{
+    LCD_CS_LOW();
 
-            LCD_CS_LOW();
+    if(scale == 1) {
+
+        if(LCD.orient == LANDSCAPE) {
 
             LCD_SetXY(x, y, x + sx - 1, y + sy - 1);
 
-            for (tc = 0; tc < (sx * sy); tc++) {
+            for(tc = 0; tc < (sx * sy); tc++) {
 
-                col = data[tc];     //col = pgm_read_word(&data[tc]);
+                col = data[tc];
 
-                LCD_Write_DATA(col >> 8, col & 0xff);
+                LCD_Write_DATA( (uint8_t)col >> 8, (uint8_t)(col & 0x00FF) );
             }
-
-            LCD_CS_HIGH();
 
         } else {
 
-            LCD_CS_LOW();
-
-            for (ty=0; ty<sy; ty++) {
+            for(ty=0; ty<sy; ty++) {
 
                 LCD_SetXY(x, y + ty, x + sx - 1, y + ty);
 
-                for (tx = sx - 1; tx >= 0; tx--) {
+                for(tx = sx - 1; tx >= 0; tx--) {
 
-                    col = data[(ty * sx) + tx];     //col = pgm_read_word(&data[(ty * sx) + tx]);
+                    col = data[(ty * sx) + tx];
 
                     LCD_Write_DATA( (uint8_t)(col >> 8), (uint8_t)(col & 0x00FF) );
                 }
             }
-
-            LCD_CS_HIGH();
         }
+
     } else {
-        if (LCD.orient == PORTRAIT)	{
 
-            LCD_CS_LOW();
+        if(LCD.orient == LANDSCAPE)	{
 
-            for (ty = 0; ty < sy; ty++) {
+            for(ty = 0; ty < sy; ty++) {
 
-                LCD_SetXY(x, y + (ty * scale), x + ((sx * scale) - 1), y + (ty * scale) + scale);
-
-                for (tsy = 0; tsy < scale; tsy++) {
-
-                    for (tx=0; tx<sx; tx++) {
-
-                        col = data[(ty*sx)+tx];     //col = pgm_read_word(&data[(ty*sx)+tx]);
-
-                        for (tsx = 0; tsx < scale; tsx++) {
-                            LCD_Write_DATA( (uint8_t)(col>>8), (uint8_t)(col & 0x00FF) );
-                        }
-                    }
-                }
-            }
-
-            LCD_CS_HIGH();
-        } else {
-
-            LCD_CS_LOW();
-
-            for (ty = 0; ty < sy; ty++) {
-
-                for (tsy = 0; tsy < scale; tsy++) {
+                for(tsy = 0; tsy < scale; tsy++) {
 
                     LCD_SetXY(x, y + (ty * scale) + tsy, x + ((sx * scale) - 1), y + (ty * scale) + tsy);
 
-                    for (tx = sx - 1; tx >= 0; tx--) {
+                    for(tx = sx - 1; tx >= 0; tx--) {
 
-                        col = data[(ty * sx) + tx];     //col = pgm_read_word(&data[(ty * sx) + tx]);
+                        col = data[(ty * sx) + tx];
 
-                        for (tsx = 0; tsx < scale; tsx++) {
+                        for(tsx = 0; tsx < scale; tsx++) {
                             LCD_Write_DATA( (uint8_t)(col >> 8), (uint8_t)(col & 0x00FF) );
                         }
                     }
                 }
             }
+        } else {
+            for(ty = 0; ty < sy; ty++) {
 
-            LCD_CS_HIGH();
+                LCD_SetXY(x, y + (ty * scale), x + ((sx * scale) - 1), y + (ty * scale) + scale);
+
+                for(tsy = 0; tsy < scale; tsy++) {
+
+                    for(tx=0; tx<sx; tx++) {
+
+                        col = data[(ty*sx)+tx];
+
+                        for(tsx = 0; tsx < scale; tsx++) {
+                            LCD_Write_DATA( (uint8_t)(col>>8), (uint8_t)(col & 0x00FF) );
+                        }
+                    }
+                }
+            }
         }
     }
 
-    //LCD_ClrXY();
+    LCD_CS_HIGH();
 }
 
 
@@ -515,17 +499,17 @@ void LCD_DrawBitmap_1(int x, int y, int sx, int sy, const uint16_t* data, int de
 
     double radian = deg * 0.0175;
 
-    if (deg == 0) {
+    if(deg == 0) {
         LCD_DrawBitmap(x, y, sx, sy, data, 0);
     } else {
 
         LCD_CS_LOW();
 
-        for (ty = 0; ty < sy; ty++) {
+        for(ty = 0; ty < sy; ty++) {
 
-            for (tx = 0; tx < sx; tx++) {
+            for(tx = 0; tx < sx; tx++) {
 
-                col = data[(ty*sx)+tx]; //col = pgm_read_word(&data[(ty*sx)+tx]);
+                col = data[(ty*sx)+tx];
 
                 newx = x + rox + (((tx - rox) * cos(radian)) - ((ty - roy) * sin(radian)));
                 newy = y + roy + (((ty - roy) * cos(radian)) + ((tx - rox) * sin(radian)));
@@ -538,8 +522,6 @@ void LCD_DrawBitmap_1(int x, int y, int sx, int sy, const uint16_t* data, int de
 
         LCD_CS_HIGH();
     }
-
-    //LCD_ClrXY();
 }
 
 
@@ -551,18 +533,18 @@ void LCD_Char(unsigned char c, int x, int y) {
 
     LCD_CS_LOW();
 
-    if (!LCD.transparent) {
+    if(!LCD.transparent) {
 
-        LCD_SetXY(x,y,x + Font.x_size - 1,y + Font.y_size - 1);
+        LCD_SetXY(x, y, x + Font.x_size - 1, y + Font.y_size - 1);
 
         temp = ((c - Font.offset) * ((Font.x_size / 8) * Font.y_size)) + 4;
 
-        for (j = 0; j < ((Font.x_size / 8) * Font.y_size); j++) {
+        for(j = 0; j < ((Font.x_size / 8) * Font.y_size); j++) {
 
             ch = Font.font[temp];
 
             for(i = 0; i < 8; i++) {
-                if ((ch & (1<<(7 - i))) != 0) {
+                if((ch & (1<<(7 - i))) != 0) {
                     LCD_SetPixel(LCD.fnt_color);
                 } else {
                     LCD_SetPixel(LCD.bg_color);
@@ -575,20 +557,19 @@ void LCD_Char(unsigned char c, int x, int y) {
 
         temp = ((c - Font.offset) * ((Font.x_size / 8) * Font.y_size)) + 4;
 
-        for (j = 0; j < Font.y_size; j++) {
+        for(j = 0; j < Font.y_size; j++) {
 
-            for (zz = 0; zz < (Font.x_size / 8); zz++) {
+            for(zz = 0; zz < (Font.x_size / 8); zz++) {
 
                 ch = Font.font[temp + zz];
 
-                for (i = 0; i < 8; i++) {
+                for(i = 0; i < 8; i++) {
 
-                    LCD_SetXY(x + i + (zz * 8),y + j,x + i + (zz * 8) + 1,y + j + 1);
+                    LCD_SetXY(x + i + (zz * 8), y + j, x + i + (zz * 8) + 1, y + j + 1);
 
-                    if ((ch&(1 << (7 - i))) != 0) {
+                    if((ch&(1 << (7 - i))) != 0) {
 
                         LCD_SetPixel(LCD.fnt_color);
-
                     }
                 }
             }
@@ -614,23 +595,23 @@ void LCD_RotateChar(unsigned char c, int x, int y, int pos, int deg) {
 
     temp = ((c - Font.offset) * ((Font.x_size / 8) * Font.y_size)) + 4;
 
-    for (j = 0; j < Font.y_size; j++) {
-        for (zz = 0; zz < (Font.x_size / 8); zz++) {
+    for(j = 0; j < Font.y_size; j++) {
+        for(zz = 0; zz < (Font.x_size / 8); zz++) {
 
             ch = Font.font[temp + zz];
 
-            for (i = 0; i < 8; i++) {
+            for(i = 0; i < 8; i++) {
 
                 newx = x + (((i + (zz * 8) + (pos * Font.x_size))* cos(radian))- ((j) * sin(radian)));
 
                 newy = y + (((j) * cos(radian)) + ((i + (zz * 8) + (pos * Font.x_size)) * sin(radian)));
 
-                LCD_SetXY(newx, newy, newx + 1,newy + 1);
+                LCD_SetXY(newx, newy, newx + 1, newy + 1);
 
-                if ((ch & (1 << (7 - i))) != 0) {
+                if((ch & (1 << (7 - i))) != 0) {
                     LCD_SetPixel(LCD.fnt_color);
-                }	else {
-                    if (!LCD.transparent)
+                } else {
+                    if(!LCD.transparent)
                         LCD_SetPixel(LCD.bg_color);
                 }
             }
@@ -648,16 +629,16 @@ void LCD_Text(char *st, int x, int y, int deg) {
 
     int i, stl = strlen(st);
 
-    if (x == RIGHT) {
+    if(x == RIGHT) {
         x = (LCD.disp_x_size + 1) - (stl * Font.x_size);
     }
 
-    if (x == CENTER) {
+    if(x == CENTER) {
         x = ((LCD.disp_x_size + 1) - (stl * Font.x_size)) / 2;
     }
 
-    for (i = 0; i < stl; i++) {
-        if (deg == 0)
+    for(i = 0; i < stl; i++) {
+        if(deg == 0)
             LCD_Char(*st++, x + (i * (Font.x_size)), y);
         else
             LCD_RotateChar(*st++, x, y, i, deg);
@@ -673,8 +654,8 @@ void LCD_PrintNumI(long num, int x, int y, int length, char filler) {
     unsigned char neg = 0;
     int c = 0, f = 0, i;
 
-    if (num == 0) {
-        if (length != 0) {
+    if(num == 0) {
+        if(length != 0) {
             for (c = 0; c < (length - 1); c++) {
                 st[c] = filler;
                 st[c] = 48;     //?????
@@ -685,12 +666,12 @@ void LCD_PrintNumI(long num, int x, int y, int length, char filler) {
             st[1] = 0;
         }
     } else {
-        if (num < 0) {
+        if(num < 0) {
             neg = 1;
             num = -num;
         }
 
-        while (num > 0) {
+        while(num > 0) {
             buf[c] = 48 + (num % 10);
             c++;
             num = (num - (num % 10)) / 10;
@@ -698,18 +679,18 @@ void LCD_PrintNumI(long num, int x, int y, int length, char filler) {
 
         buf[c] = 0;
 
-        if (neg == 1) {
+        if(neg == 1) {
             st[0] = 45;
         }
 
-        if (length > (c + neg)) {
+        if(length > (c + neg)) {
             for (i = 0; i < (length - c - neg); i++) {
                 st[i + neg] = filler;
                 f++;
             }
         }
 
-        for (i = 0; i < c; i++) {
+        for(i = 0; i < c; i++) {
             st[i + neg + f] = buf[c - i - 1];
         }
 
@@ -727,30 +708,30 @@ void LCD_PrintNumF(double num, unsigned char dec, int x, int y, char divider, in
     unsigned char neg = 0;
     int i;
 
-    if (dec < 1)
+    if(dec < 1)
         dec = 1;
-    else if (dec > 5)
+    else if(dec > 5)
         dec = 5;
-    if (num < 0)
+    if(num < 0)
         neg = 1;
 
     _convert_float(st, num, length, dec);
 
-    if (divider != '.') {
-        for (i = 0; i < sizeof(st); i++)
-            if (st[i] == '.')
+    if(divider != '.') {
+        for(i = 0; i < sizeof(st); i++)
+            if(st[i] == '.')
                 st[i] = divider;
     }
 
-    if (filler != ' ') {
-        if (neg == 1) {
+    if(filler != ' ') {
+        if(neg == 1) {
             st[0] = '-';
-            for (i = 1; i < sizeof(st); i++)
+            for(i = 1; i < sizeof(st); i++)
                 if ((st[i] == ' ') || (st[i] == '-'))
                     st[i] = filler;
-        }	else {
-            for (i = 0; i < sizeof(st); i++)
-                if (st[i] == ' ')
+        } else {
+            for(i = 0; i < sizeof(st); i++)
+                if(st[i] == ' ')
                     st[i] = filler;
         }
     }
@@ -760,7 +741,7 @@ void LCD_PrintNumF(double num, unsigned char dec, int x, int y, char divider, in
 
 
 
-/* tikrinti */
+/* patikrinta */
 static void LCD_SetXY(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2) {
 
     LCD_Write_COM(LCD_COMM_SET_COLUMN_ADDRESS);
@@ -779,13 +760,13 @@ static void LCD_SetXY(unsigned int x1, unsigned int y1, unsigned int x2, unsigne
 }
 
 
-/* tikrinti */
+/* patikrinta */
 static void LCD_ClrXY(void) {
     LCD_SetXY(0, 0, LCD.disp_x_size, LCD.disp_y_size);
 }
 
 
-/* tikrinti */
+/* patikrinta */
 static void LCD_SetPixel(unsigned int color) {
     LCD_Write_DATA((color >> 8),(color & 0xFF));
 }

@@ -57,6 +57,8 @@
 #include "winbond_spi_flash.h"
 #include "xpt_touch.h"
 
+#include "img_data.h"
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -67,8 +69,6 @@ TIM_HandleTypeDef htim1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
-extern const tImage tulips;
 
 volatile uint32_t Timestamp = 0;
 
@@ -236,24 +236,48 @@ int main(void)
 
     W25Qx_Init();
     W25Qx_ReadUID(data);
+    W25Qx_ReadManDevID(data);
 
     LCD_Init();
 
     LCD_ClearScreen();
 
-    //LCD_Fill(0, LCD.disp_x_size, 0, LCD.disp_y_size, VGA_GREEN);
 
+
+
+
+    uint8_t page[256];
+
+
+    page[0] = (uint8_t)( tulips.data[0]>>8 );
+    page[1] = (uint8_t)( tulips.data[0] & 0xFF );
+    page[2] = (uint8_t)( tulips.data[1]>>8 );
+    page[3] = (uint8_t)( tulips.data[1] & 0xFF );
+    page[4] = (uint8_t)( tulips.data[2]>>8 );
+    page[5] = (uint8_t)( tulips.data[2] & 0xFF );
+
+    W25Qx_WritePage(page, 100);
+
+
+
+
+
+    //LCD_Fill(0, LCD.disp_x_size, 0, LCD.disp_y_size, VGA_GREEN);
 
     //LCD_SetFont(SmallFont);
     LCD_SetFont(BigFont);
     //LCD_SetFont(SevenSegNumFont);
 
-
     char st[] = "1234567890";
     LCD_Text(st, 10, 50, 0);
 
-
     LCD_DrawBitmap(100, 200, 128, 80, tulips.data, 1);
+
+
+
+
+
+
 
     XPT_Init();
 

@@ -25,7 +25,7 @@
      } tImage;
 */
 #include <stdint.h>
-#include "main.h"
+#include "img_data.h"
 
 
 
@@ -114,4 +114,3 @@ static const uint16_t image_data_tulips[10240] = {
 
 
 const tImage tulips = { image_data_tulips, 128, 80, 16 };
-

@@ -132,13 +132,6 @@
 /* USER CODE BEGIN Private defines */
 #define swap(type, i, j) { type t = i; i = j; j = t; }
 
- typedef struct {
-     const uint16_t *data;
-     uint16_t width;
-     uint16_t height;
-     uint8_t dataSize;
-} tImage;
-
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
