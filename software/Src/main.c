@@ -56,6 +56,7 @@
 #include "define_fonts.h"
 #include "winbond_spi_flash.h"
 #include "xpt_touch.h"
+#include "microsd.h"
 
 #include "img_data.h"
 
@@ -105,13 +106,12 @@ int main(void)
   /* USER CODE BEGIN 1 */
     FRESULT res;                                          /* FatFs function common result code */
     uint32_t byteswritten, bytesread;                     /* File write/read counts */
-    uint8_t wtext[] = "This is STM32 working with FatFs"; /* File write buffer */
-    uint8_t rtext[100];                                   /* File read buffer */
+    uint8_t wtext[512] = "This is STM32 working with FatFs"; /* File write buffer */
+    uint8_t rtext[512];                                   /* File read buffer */
 
     uint32_t touch_to_counter = 10000;
 
     uint32_t delay = 0;
-    uint8_t data[10] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x09};
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -129,90 +129,67 @@ int main(void)
   /* USER CODE BEGIN SysInit */
 
 //  /*##-1- Link the micro SD disk I/O driver ##################################*/
-//  if(FATFS_LinkDriver(&USER_Driver, USERPath) == 0)
-//  {
-//    /*##-2- Register the file system object to the FatFs module ##############*/
-//    if(f_mount(&USERFatFS, (TCHAR const*)USERPath, 0) != FR_OK)
-//    {
-//      /* FatFs Initialization Error */
-//      Error_Handler();
-//    }
-//    else
-//    {
-//      /*##-3- Create a FAT file system (format) on the logical drive #########*/
-//      /* WARNING: Formatting the uSD card will delete all content on the device */
-//      if(f_mkfs((TCHAR const*)USERPath, 0, 0) != FR_OK)
-//      {
-//        /* FatFs Format Error */
-//        Error_Handler();
-//      }
-//      else
-//      {
-//        /*##-4- Create and Open a new text file object with write access #####*/
-//        if(f_open(&USERFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
-//        {
-//          /* 'STM32.TXT' file Open for write Error */
-//          Error_Handler();
-//        }
-//        else
-//        {
-//          /*##-5- Write data to the text file ################################*/
-//          res = f_write(&USERFile, wtext, sizeof(wtext), (void *)&byteswritten);
-//
-//          /*##-6- Close the open text file #################################*/
-//          if (f_close(&USERFile) != FR_OK )
-//          {
+//    if(FATFS_LinkDriver(&USER_Driver, USERPath) == 0) {
+//        /*##-2- Register the file system object to the FatFs module ##############*/
+//        if(f_mount(&USERFatFS, (TCHAR const*)USERPath, 0) != FR_OK) {
+//            /* FatFs Initialization Error */
 //            Error_Handler();
-//          }
-//
-//          if((byteswritten == 0) || (res != FR_OK))
-//          {
-//            /* 'STM32.TXT' file Write or EOF Error */
-//            Error_Handler();
-//          }
-//          else
-//          {
-//            /*##-7- Open the text file object with read access ###############*/
-//            if(f_open(&USERFile, "STM32.TXT", FA_READ) != FR_OK)
-//            {
-//              /* 'STM32.TXT' file Open for read Error */
-//              Error_Handler();
-//            }
-//            else
-//            {
-//              /*##-8- Read data from the text file ###########################*/
-//              res = f_read(&USERFile, rtext, sizeof(rtext), (UINT*)&bytesread);
-//
-//              if((bytesread == 0) || (res != FR_OK))
-//              {
-//                /* 'STM32.TXT' file Read or EOF Error */
+//        } else {
+//            /*##-3- Create a FAT file system (format) on the logical drive #########*/
+//            /* WARNING: Formatting the uSD card will delete all content on the device */
+//            if(f_mkfs((TCHAR const*)USERPath, 0, 0) != FR_OK) {
+//                /* FatFs Format Error */
 //                Error_Handler();
-//              }
-//              else
-//              {
-//                /*##-9- Close the open text file #############################*/
-//                f_close(&USERFile);
+//            } else {
+//                /*##-4- Create and Open a new text file object with write access #####*/
+//                if(f_open(&USERFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE) != FR_OK) {
+//                    /* 'STM32.TXT' file Open for write Error */
+//                    Error_Handler();
+//                } else {
+//                    /*##-5- Write data to the text file ################################*/
+//                    res = f_write(&USERFile, wtext, sizeof(wtext), (void *)&byteswritten);
 //
-//                /*##-10- Compare read data with the expected data ############*/
-//                if((bytesread != byteswritten))
-//                {
-//                  /* Read data is different from the expected data */
-//                  Error_Handler();
+//                    /*##-6- Close the open text file #################################*/
+//                    if (f_close(&USERFile) != FR_OK ) {
+//                        Error_Handler();
+//                    }
+//
+//                    if((byteswritten == 0) || (res != FR_OK)) {
+//                        /* 'STM32.TXT' file Write or EOF Error */
+//                        Error_Handler();
+//                    } else {
+//                        /*##-7- Open the text file object with read access ###############*/
+//                        if(f_open(&USERFile, "STM32.TXT", FA_READ) != FR_OK) {
+//                            /* 'STM32.TXT' file Open for read Error */
+//                            Error_Handler();
+//                        } else {
+//                            /*##-8- Read data from the text file ###########################*/
+//                            res = f_read(&USERFile, rtext, sizeof(rtext), (UINT*)&bytesread);
+//
+//                            if((bytesread == 0) || (res != FR_OK)) {
+//                                /* 'STM32.TXT' file Read or EOF Error */
+//                                Error_Handler();
+//                            } else {
+//                                /*##-9- Close the open text file #############################*/
+//                                f_close(&USERFile);
+//
+//                                /*##-10- Compare read data with the expected data ############*/
+//                                if((bytesread != byteswritten)) {
+//                                    /* Read data is different from the expected data */
+//                                    Error_Handler();
+//                                } else {
+//                                    /* Success of the demo: no error occurrence */
+//                                }
+//                            }
+//                        }
+//                    }
 //                }
-//                else
-//                {
-//                  /* Success of the demo: no error occurrence */
-//                }
-//              }
 //            }
-//          }
 //        }
-//      }
 //    }
-//  }
 
 //  /*##-11- Unlink the RAM disk I/O driver ####################################*/
-//  FATFS_UnLinkDriver(USERPath);
+//    FATFS_UnLinkDriver(USERPath);
 
 
 
@@ -232,11 +209,7 @@ int main(void)
     }
 
 
-    HAL_GPIO_WritePin(SD_RST_GPIO_Port, SD_RST_Pin, GPIO_PIN_SET);
-
     W25Qx_Init();
-    W25Qx_ReadUID(data);
-    W25Qx_ReadManDevID(data);
 
     LCD_Init();
 
@@ -244,37 +217,59 @@ int main(void)
 
 
 
+    SD_init();
 
-
-    uint8_t page[256];
-
-
-    page[0] = (uint8_t)( tulips.data[0]>>8 );
-    page[1] = (uint8_t)( tulips.data[0] & 0xFF );
-    page[2] = (uint8_t)( tulips.data[1]>>8 );
-    page[3] = (uint8_t)( tulips.data[1] & 0xFF );
-    page[4] = (uint8_t)( tulips.data[2]>>8 );
-    page[5] = (uint8_t)( tulips.data[2] & 0xFF );
-
-    W25Qx_WritePage(page, 100);
+    SD_ReadSector(1, rtext);
 
 
 
+    uint8_t cfont[3200];
+
+
+    //W25Qx_ChipErase();
+    //W25Qx_SectorErase(0);
+
+
+
+    //W25Qx_WriteData(wtext, 250, 30);
+    //W25Qx_WritePage(wtext, 255);
+
+    //W25Qx_WriteData((uint8_t*)SmallFont, 0, 1144);
+    //W25Qx_WriteData((uint8_t*)BigFont, 1144, 3044);
+    //W25Qx_WriteData((uint8_t*)SevenSegNumFont, 1144+3044, 2004);
+
+    //W25Qx_ReadData(cfont, 0, 1144);
+    //W25Qx_ReadData(cfont, 1144, 3044);
+    //W25Qx_ReadData(cfont, 1144+3044, 2004);
 
 
     //LCD_Fill(0, LCD.disp_x_size, 0, LCD.disp_y_size, VGA_GREEN);
 
     //LCD_SetFont(SmallFont);
-    LCD_SetFont(BigFont);
-    //LCD_SetFont(SevenSegNumFont);
+    //LCD_SetFont(BigFont);
+    //LCD_SetFont(cfont);
 
-    char st[] = "1234567890";
+    char st[] = "ABCDEFGH";
+
+    W25Qx_ReadData(cfont, 0, 1144);
+    LCD_SetFont(cfont);
     LCD_Text(st, 10, 50, 0);
 
+
+    W25Qx_ReadData(cfont, 1144, 3044);
+    LCD_SetFont(cfont);
+    LCD_Text(st, 10, 80, 0);
+
+
+    char stt[] = "12345678";
+
+    W25Qx_ReadData(cfont, 1144+3044, 2004);
+    LCD_SetFont(cfont);
+    LCD_Text(stt, 10, 120, 0);
+
+
+
     LCD_DrawBitmap(100, 200, 128, 80, tulips.data, 1);
-
-
-
 
 
 
@@ -385,7 +380,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -494,11 +489,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOF_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(SD_RST_GPIO_Port, SD_RST_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(SDCS_GPIO_Port, SDCS_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, XPTIN_Pin|XPTCS_Pin|XPTCLK_Pin|W25QCS_Pin
-                          |LCD_RS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, XPTIN_Pin|XPTCLK_Pin|LCD_RS_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, XPTCS_Pin|W25QCS_Pin|LCD_RD_Pin|LCD_WR_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LCD_DB0_Pin|LCD_DB1_Pin|LCD_DB2_Pin|LCD_DB10_Pin
@@ -507,17 +504,14 @@ static void MX_GPIO_Init(void)
                           |LCD_DB6_Pin|LCD_DB7_Pin|LCD_DB8_Pin|LCD_DB9_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LCD_RD_Pin|LCD_WR_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOF, LCD_CS_Pin|LCD_RST_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pin : SD_RST_Pin */
-  GPIO_InitStruct.Pin = SD_RST_Pin;
+  /*Configure GPIO pin : SDCS_Pin */
+  GPIO_InitStruct.Pin = SDCS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(SD_RST_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(SDCS_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : XPTREQ_Pin SD_DETECT_Pin */
   GPIO_InitStruct.Pin = XPTREQ_Pin|SD_DETECT_Pin;

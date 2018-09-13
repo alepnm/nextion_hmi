@@ -75,7 +75,7 @@ void        LCD_DrawBitmap_1(int x, int y, int sx, int sy, const uint16_t* data,
 
 void        LCD_Char(unsigned char c, int x, int y);
 void        LCD_RotateChar(unsigned char c, int x, int y, int pos, int deg);
-void        LCD_Text(char *st, int x, int y, int deg);
+void        LCD_Text(const char *st, int x, int y, int deg);
 void        LCD_PrintNumI(long num, int x, int y, int length, char filler);
 void        LCD_PrintNumF(double num, unsigned char dec, int x, int y, char divider, int length, char filler);
 

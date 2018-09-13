@@ -8,8 +8,8 @@
 #define LCD_CS_LOW()        HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
 #define LCD_CS_HIGH()       HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 
-#define LCD_RST_LOW()       HAL_GPIO_WritePin(SD_RST_GPIO_Port, SD_RST_Pin, GPIO_PIN_RESET);
-#define LCD_RST_HIGH()      HAL_GPIO_WritePin(SD_RST_GPIO_Port, SD_RST_Pin, GPIO_PIN_SET);
+#define LCD_RST_LOW()       HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_RESET);
+#define LCD_RST_HIGH()      HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_SET);
 
 #define LCD_RD_LOW()        HAL_GPIO_WritePin(LCD_RD_GPIO_Port, LCD_RD_Pin, GPIO_PIN_RESET);
 #define LCD_RD_HIGH()       HAL_GPIO_WritePin(LCD_RD_GPIO_Port, LCD_RD_Pin, GPIO_PIN_SET);
@@ -625,7 +625,7 @@ void LCD_RotateChar(unsigned char c, int x, int y, int pos, int deg) {
 
 
 /* patikrinta */
-void LCD_Text(char *st, int x, int y, int deg) {
+void LCD_Text(const char *st, int x, int y, int deg) {
 
     int i, stl = strlen(st);
 
