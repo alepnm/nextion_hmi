@@ -93,8 +93,8 @@ typedef enum {
 W25Qx_TypeDef W25Qx_Flash;
 
 
-extern inline void spi_tx( uint8_t* data, uint16_t len);
-extern inline void spi_rx( uint8_t* data, uint16_t len);
+extern uint8_t spi_tx( uint8_t spi, uint8_t* data, uint16_t len);
+extern uint8_t spi_rx( uint8_t spi, uint8_t* data, uint16_t len);
 
 
 static void W25Qx_ReadUID(void);
@@ -162,8 +162,8 @@ static void W25Qx_ReadUID(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 5 );
-    spi_rx( W25Qx_Flash.UID, 8 );
+    spi_tx( 1, cmd, 5 );
+    spi_rx( 1, W25Qx_Flash.UID, 8 );
 
     W25Q_CS_HIGH;
 
@@ -178,8 +178,8 @@ static void W25Qx_ReadManDevID(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 4 );
-    spi_rx( W25Qx_Flash.ManDeviceID, 2 );
+    spi_tx( 1, cmd, 4 );
+    spi_rx( 1, W25Qx_Flash.ManDeviceID, 2 );
 
     W25Q_CS_HIGH;
 
@@ -198,8 +198,8 @@ void W25Qx_ReadSFDPRegister(uint8_t* pdata, uint16_t addr, uint16_t len){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 5 );
-    spi_rx( pdata, len );
+    spi_tx( 1, cmd, 5 );
+    spi_rx( 1, pdata, len );
 
     W25Q_CS_HIGH;
 
@@ -219,8 +219,8 @@ uint8_t W25Qx_ReadSecurityRegister(uint8_t bank, uint8_t reg){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 5 );
-    spi_rx( &reg, 1 );
+    spi_tx( 1, cmd, 5 );
+    spi_rx( 1, &reg, 1 );
 
     W25Q_CS_HIGH;
 
@@ -256,8 +256,8 @@ void W25Qx_ReadSecurityRegisterBank(uint8_t bank) {
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 5 );
-    spi_rx( pdata, 256 );
+    spi_tx( 1, cmd, 5 );
+    spi_rx( 1, pdata, 256 );
 
     W25Q_CS_HIGH;
 
@@ -322,8 +322,8 @@ void W25Qx_ReadData(uint8_t* pdata, uint32_t addr, uint32_t len){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 4 );
-    spi_rx( pdata, len );
+    spi_tx( 1, cmd, 4 );
+    spi_rx( 1, pdata, len );
 
     W25Q_CS_HIGH;
 
@@ -367,8 +367,8 @@ void W25Qx_WritePage(uint8_t* pdata, uint32_t addr){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 4 );
-    spi_tx( pdata, 256 );
+    spi_tx( 1, cmd, 4 );
+    spi_tx( 1, pdata, 256 );
 
     W25Q_CS_HIGH;
 
@@ -401,8 +401,8 @@ void W25Qx_WriteData(uint8_t* pdata, uint32_t addr, uint32_t len){
 
         W25Q_CS_LOW;
 
-        spi_tx( cmd, 4 );
-        spi_tx( pdata, left );
+        spi_tx( 1, cmd, 4 );
+        spi_tx( 1, pdata, left );
 
         W25Q_CS_HIGH;
 
@@ -455,8 +455,8 @@ static void W25Qx_ReadStatusReg1(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
-    spi_rx( &W25Qx_Flash.StatusRegister[0], 1 );
+    spi_tx( 1, cmd, 1 );
+    spi_rx( 1, &W25Qx_Flash.StatusRegister[0], 1 );
 
     W25Q_CS_HIGH;
 
@@ -474,8 +474,8 @@ static void W25Qx_ReadStatusReg2(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
-    spi_rx( &W25Qx_Flash.StatusRegister[1], 1 );
+    spi_tx( 1, cmd, 1 );
+    spi_rx( 1, &W25Qx_Flash.StatusRegister[1], 1 );
 
     W25Q_CS_HIGH;
 
@@ -493,8 +493,8 @@ static void W25Qx_ReadStatusReg3(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
-    spi_rx( &W25Qx_Flash.StatusRegister[2], 1 );
+    spi_tx( 1, cmd, 1 );
+    spi_rx( 1, &W25Qx_Flash.StatusRegister[2], 1 );
 
     W25Q_CS_HIGH;
 
@@ -516,8 +516,8 @@ static void W25Qx_WriteStatusReg1(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
-    spi_tx( &W25Qx_Flash.StatusRegister[0], 1 );
+    spi_tx( 1, cmd, 1 );
+    spi_tx( 1, &W25Qx_Flash.StatusRegister[0], 1 );
 
     W25Q_CS_HIGH;
 
@@ -537,8 +537,8 @@ static void W25Qx_WriteStatusReg2(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
-    spi_tx( &W25Qx_Flash.StatusRegister[1], 1 );
+    spi_tx( 1, cmd, 1 );
+    spi_tx( 1, &W25Qx_Flash.StatusRegister[1], 1 );
 
     W25Q_CS_HIGH;
 
@@ -558,8 +558,8 @@ static void W25Qx_WriteStatusReg3(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
-    spi_tx( &W25Qx_Flash.StatusRegister[2], 1 );
+    spi_tx( 1, cmd, 1 );
+    spi_tx( 1, &W25Qx_Flash.StatusRegister[2], 1 );
 
     W25Q_CS_HIGH;
 
@@ -593,7 +593,7 @@ void W25Qx_ResetDevice(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
+    spi_tx( 1, cmd, 1 );
 
     W25Q_CS_HIGH;
 
@@ -612,7 +612,7 @@ void W25Qx_DisableReset(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
+    spi_tx( 1, cmd, 1 );
 
     W25Q_CS_HIGH;
 
@@ -620,7 +620,7 @@ void W25Qx_DisableReset(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
+    spi_tx( 1, cmd, 1 );
 
     W25Q_CS_HIGH;
 
@@ -637,7 +637,7 @@ void W25Qx_EnableReset(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
+    spi_tx( 1, cmd, 1 );
 
     W25Q_CS_HIGH;
 
@@ -645,7 +645,7 @@ void W25Qx_EnableReset(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
+    spi_tx( 1, cmd, 1 );
 
     W25Q_CS_HIGH;
 
@@ -663,7 +663,7 @@ void W25Qx_WriteDisable(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
+    spi_tx( 1, cmd, 1 );
 
     W25Q_CS_HIGH;
 
@@ -679,7 +679,7 @@ void W25Qx_WriteEnable(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
+    spi_tx( 1, cmd, 1 );
 
     W25Q_CS_HIGH;
 
@@ -698,7 +698,7 @@ void W25Qx_ChipErase(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
+    spi_tx( 1, cmd, 1 );
 
     W25Q_CS_HIGH;
 
@@ -721,7 +721,7 @@ void W25Qx_SectorErase(uint16_t addr){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 4 );
+    spi_tx( 1, cmd, 4 );
 
     W25Q_CS_HIGH;
 
@@ -745,7 +745,7 @@ void W25Qx_Block32kErase(uint16_t bl){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 4 );
+    spi_tx( 1, cmd, 4 );
 
     W25Q_CS_HIGH;
 
@@ -768,7 +768,7 @@ void W25Qx_Block64kErase(uint8_t bl){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 4 );
+    spi_tx( 1, cmd, 4 );
 
     W25Q_CS_HIGH;
 
@@ -791,7 +791,7 @@ void W25Qx_BlockLock(uint16_t bl){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 4 );
+    spi_tx( 1, cmd, 4 );
 
     W25Q_CS_HIGH;
 
@@ -812,7 +812,7 @@ void W25Qx_BlockUnLock(uint16_t bl){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 4 );
+    spi_tx( 1, cmd, 4 );
 
     W25Q_CS_HIGH;
 
@@ -833,8 +833,8 @@ void W25Qx_ReadBlockLock(uint8_t* pdata, uint16_t bl){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 4 );
-    spi_rx( pdata, 8 );//dabaigti!!!
+    spi_tx( 1, cmd, 4 );
+    spi_rx( 1, pdata, 8 );//dabaigti!!!
 
     W25Q_CS_HIGH;
 
@@ -853,7 +853,7 @@ void W25Qx_AllBlocksLock(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
+    spi_tx( 1, cmd, 1 );
 
     W25Q_CS_HIGH;
 
@@ -872,7 +872,7 @@ void W25Qx_AllBlocksUnLock(void){
 
     W25Q_CS_LOW;
 
-    spi_tx( cmd, 1 );
+    spi_tx( 1, cmd, 1 );
 
     W25Q_CS_HIGH;
 

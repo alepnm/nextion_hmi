@@ -1168,6 +1168,7 @@
 		<Unit filename="Inc\define_fonts.h" />
 		<Unit filename="Inc\fatfs.h" />
 		<Unit filename="Inc\ffconf.h" />
+		<Unit filename="Inc\hwlib.h" />
 		<Unit filename="Inc\img_data.h" />
 		<Unit filename="Inc\lcd.h" />
 		<Unit filename="Inc\lcd_commands.h" />
@@ -1199,6 +1200,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Src\fatfs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Src\hwlib.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Src\lcd.c">

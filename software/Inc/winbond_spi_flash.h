@@ -36,17 +36,6 @@ typedef struct{
 
 extern W25Qx_TypeDef W25Qx_Flash;
 
-inline void spi_tx( uint8_t* data, uint16_t len){
-    (void)HAL_SPI_Transmit(&hspi1, data, len, 100);
-    while( hspi1.State == HAL_SPI_STATE_BUSY );
-}
-
-inline void spi_rx( uint8_t* data, uint16_t len){
-    (void)HAL_SPI_Receive(&hspi1, data, len, 100);
-    while( hspi1.State == HAL_SPI_STATE_BUSY );
-}
-
-
 void        W25Qx_Init(void);
 void        W25Qx_ReadPage(uint8_t* pdata, uint16_t addr);
 uint8_t     W25Qx_ReadByte(uint32_t addr);
