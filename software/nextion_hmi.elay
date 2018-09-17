@@ -1,6 +1,81 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <EmBitz_layout_file>
 	<ActiveTarget name="Debug" />
+	<File name="Drivers\BSP\Components\ili9841\ili9841.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1020" topLine="30" />
+		</Cursor>
+	</File>
+	<File name="Drivers\BSP\Components\ili9841\ili9841.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4909" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Drivers\BSP\Components\micro_sd\microsd.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4217" topLine="137" />
+		</Cursor>
+	</File>
+	<File name="Drivers\BSP\Components\micro_sd\microsd.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="438" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Drivers\BSP\Components\w25qx\w25qx.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1048" topLine="15" />
+		</Cursor>
+	</File>
+	<File name="Drivers\BSP\Components\w25qx\w25qx.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2299" topLine="45" />
+		</Cursor>
+	</File>
+	<File name="Drivers\BSP\Components\xpt2046\xpt2046.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2270" topLine="99" />
+		</Cursor>
+	</File>
+	<File name="Drivers\BSP\Components\xpt2046\xpt2046.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1162" topLine="28" />
+		</Cursor>
+	</File>
+	<File name="Drivers\BSP\libs\systick\systick.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="643" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="Drivers\BSP\libs\systick\systick.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="56" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Drivers\BSP\Nextion\nextion.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="186" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="33" />
+			<Collapse line="39" />
+			<Collapse line="46" />
+			<Collapse line="52" />
+			<Collapse line="58" />
+			<Collapse line="64" />
+			<Collapse line="79" />
+			<Collapse line="100" />
+			<Collapse line="105" />
+			<Collapse line="111" />
+			<Collapse line="126" />
+			<Collapse line="153" />
+			<Collapse line="170" />
+		</Folding>
+	</File>
+	<File name="Drivers\BSP\Nextion\nextion.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="107" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="Drivers\CMSIS\Device\ST\STM32F0xx\Include\stm32f051x8.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="37958" topLine="628" />
@@ -9,6 +84,16 @@
 	<File name="Drivers\CMSIS\Device\ST\STM32F0xx\Include\stm32f0xx.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="9198" topLine="143" />
+		</Cursor>
+	</File>
+	<File name="Drivers\STM32F0xx_HAL_Driver\Inc\stm32_assert_template.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2650" topLine="31" />
+		</Cursor>
+	</File>
+	<File name="Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_conf_template.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7773" topLine="158" />
 		</Cursor>
 	</File>
 	<File name="Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_gpio.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -48,7 +133,7 @@
 	</File>
 	<File name="Inc\define_fonts.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="23590" topLine="0" />
+			<Cursor1 position="34424" topLine="0" />
 		</Cursor>
 		<Folding>
 			<Collapse line="5" />
@@ -61,34 +146,14 @@
 			<Cursor1 position="3274" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Inc\lcd.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Inc\main.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1313" topLine="10" />
-		</Cursor>
-	</File>
-	<File name="Inc\lcd_commands.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="769" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Inc\main.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4706" topLine="42" />
+			<Cursor1 position="5458" topLine="45" />
 		</Cursor>
 	</File>
 	<File name="Inc\user_diskio.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="3445" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Inc\winbond_spi_flash.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1067" topLine="21" />
-		</Cursor>
-	</File>
-	<File name="Inc\xpt_touch.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1509" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Middlewares\Third_Party\FatFs\src\diskio.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -116,24 +181,9 @@
 			<Cursor1 position="3237" topLine="7" />
 		</Cursor>
 	</File>
-	<File name="Src\hwlib.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Src\main.c" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="455" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Src\lcd.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="619" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Src\main.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9441" topLine="238" />
-		</Cursor>
-	</File>
-	<File name="Src\microsd.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2938" topLine="81" />
+			<Cursor1 position="5936" topLine="120" />
 		</Cursor>
 	</File>
 	<File name="Src\stm32f0xx_hal_msp.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -149,16 +199,6 @@
 	<File name="Src\user_diskio.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="4918" topLine="90" />
-		</Cursor>
-	</File>
-	<File name="Src\winbond_spi_flash.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3966" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Src\xpt_touch.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3381" topLine="108" />
 		</Cursor>
 	</File>
 </EmBitz_layout_file>

@@ -61,6 +61,34 @@
 					<Add option="-Wl,--gc-sections" />
 				</Linker>
 			</Target>
+			<Target title="Copy of Debug">
+				<Option output="Output\bin\Debug\nextion_hmi.elf" />
+				<Option object_output="Output\obj\Debug\" />
+				<Option type="0" />
+				<Option create_hex="1" />
+				<Option compiler="armgcc_eb" />
+				<Option projectDeviceOptionsRelation="0" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-fdata-sections" />
+					<Add option="-ffunction-sections" />
+					<Add option="-O0" />
+					<Add option="-g3" />
+				</Compiler>
+				<Cpp>
+					<Add option="-Wall" />
+					<Add option="-fdata-sections" />
+					<Add option="-ffunction-sections" />
+					<Add option="-O0" />
+					<Add option="-g3" />
+				</Cpp>
+				<Assembler>
+					<Add option="-Wa,--gdwarf-2" />
+				</Assembler>
+				<Linker>
+					<Add option="-Wl,--gc-sections" />
+				</Linker>
+			</Target>
 		</Build>
 		<Device>
 			<Add option="$device=cortex-m0" />
@@ -80,6 +108,30 @@
 			<Add option="-eb_start_files" />
 			<Add option="-lm" />
 		</Linker>
+		<Unit filename="Drivers\BSP\Components\ili9841\ili9841.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Drivers\BSP\Components\ili9841\ili9841.h" />
+		<Unit filename="Drivers\BSP\Components\micro_sd\microsd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Drivers\BSP\Components\micro_sd\microsd.h" />
+		<Unit filename="Drivers\BSP\Components\w25qx\w25qx.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Drivers\BSP\Components\w25qx\w25qx.h" />
+		<Unit filename="Drivers\BSP\Components\xpt2046\xpt2046.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Drivers\BSP\Components\xpt2046\xpt2046.h" />
+		<Unit filename="Drivers\BSP\libs\systick\systick.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Drivers\BSP\libs\systick\systick.h" />
+		<Unit filename="Drivers\BSP\Nextion\nextion.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Drivers\BSP\Nextion\nextion.h" />
 		<Unit filename="Drivers\CMSIS\Device\ST\STM32F0xx\Include\stm32f030x6.h" />
 		<Unit filename="Drivers\CMSIS\Device\ST\STM32F0xx\Include\stm32f030x8.h" />
 		<Unit filename="Drivers\CMSIS\Device\ST\STM32F0xx\Include\stm32f030xc.h" />
@@ -1168,17 +1220,11 @@
 		<Unit filename="Inc\define_fonts.h" />
 		<Unit filename="Inc\fatfs.h" />
 		<Unit filename="Inc\ffconf.h" />
-		<Unit filename="Inc\hwlib.h" />
 		<Unit filename="Inc\img_data.h" />
-		<Unit filename="Inc\lcd.h" />
-		<Unit filename="Inc\lcd_commands.h" />
 		<Unit filename="Inc\main.h" />
-		<Unit filename="Inc\microsd.h" />
 		<Unit filename="Inc\stm32f0xx_hal_conf.h" />
 		<Unit filename="Inc\stm32f0xx_it.h" />
 		<Unit filename="Inc\user_diskio.h" />
-		<Unit filename="Inc\winbond_spi_flash.h" />
-		<Unit filename="Inc\xpt_touch.h" />
 		<Unit filename="Middlewares\Third_Party\FatFs\src\diskio.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -1202,16 +1248,7 @@
 		<Unit filename="Src\fatfs.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Src\hwlib.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Src\lcd.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="Src\main.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Src\microsd.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Src\stm32f0xx_hal_msp.c">
@@ -1229,18 +1266,32 @@
 		<Unit filename="Src\user_diskio.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Src\winbond_spi_flash.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Src\xpt_touch.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="Startup\startup_stm32f0xx.S">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger>
+				<target_debugging_settings target="Release" active_interface="J-link">
+					<debug_interface interface_id="J-link" ip_address="" ip_port="" path="" executable="" description="" dont_start_server="false" backoff_time="" options="0" reg_filter="0" active_family="Generic" gdb_before_conn="" gdb_after_conn="">
+						<family_options family_id="Generic" />
+					</debug_interface>
+					<debug_interface interface_id="ST-link" ip_address="" ip_port="" path="" executable="" description="" dont_start_server="false" backoff_time="" options="0" reg_filter="0" active_family="" gdb_before_conn="" gdb_after_conn="">
+						<family_options family_id="STMicroelectronics">
+							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
+							<option opt_id="ID_VECTOR_START" opt_value="0x08000000" />
+							<option opt_id="ID_RESET_TYPE" opt_value="System" />
+							<option opt_id="ID_LOAD_PROGRAM" opt_value="1" />
+							<option opt_id="ID_SEMIHOST_CHECK" opt_value="0" />
+							<option opt_id="ID_RAM_EXEC" opt_value="0" />
+							<option opt_id="ID_VEC_TABLE" opt_value="1" />
+							<option opt_id="ID_DONT_CONN_RESET" opt_value="0" />
+							<option opt_id="ID_ALL_MODE_DEBUG" opt_value="0" />
+							<option opt_id="ID_DEV_ADDR" opt_value="" />
+							<option opt_id="ID_VERBOSE_LEVEL" opt_value="3" />
+						</family_options>
+					</debug_interface>
+				</target_debugging_settings>
 				<target_debugging_settings target="Debug" active_interface="ST-link">
 					<debug_interface interface_id="J-link" ip_address="" ip_port="" path="" executable="" description="" dont_start_server="false" backoff_time="" options="0" reg_filter="0" active_family="Generic" gdb_before_conn="" gdb_after_conn="">
 						<family_options family_id="Generic" />
@@ -1261,11 +1312,11 @@
 						</family_options>
 					</debug_interface>
 				</target_debugging_settings>
-				<target_debugging_settings target="Release" active_interface="J-link">
+				<target_debugging_settings target="Copy of Debug" active_interface="ST-link">
 					<debug_interface interface_id="J-link" ip_address="" ip_port="" path="" executable="" description="" dont_start_server="false" backoff_time="" options="0" reg_filter="0" active_family="Generic" gdb_before_conn="" gdb_after_conn="">
 						<family_options family_id="Generic" />
 					</debug_interface>
-					<debug_interface interface_id="ST-link" ip_address="" ip_port="" path="" executable="" description="" dont_start_server="false" backoff_time="" options="0" reg_filter="0" active_family="" gdb_before_conn="" gdb_after_conn="">
+					<debug_interface interface_id="ST-link" ip_address="localhost" ip_port="4242" path="${EMBITZ}\share\contrib" executable="STLinkGDB.exe" description="" dont_start_server="false" backoff_time="1000" options="2" reg_filter="0" active_family="STMicroelectronics" gdb_before_conn="" gdb_after_conn="">
 						<family_options family_id="STMicroelectronics">
 							<option opt_id="ID_JTAG_SWD" opt_value="swd" />
 							<option opt_id="ID_VECTOR_START" opt_value="0x08000000" />
