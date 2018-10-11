@@ -1475,7 +1475,7 @@
 	"stm32f0xx_hal.h"
 	"main.h"
 
-1537195461 source:c:\working\git\nextion_hmi\software\src\main.c
+1537252024 source:c:\working\git\nextion_hmi\software\src\main.c
 	"main.h"
 	"stm32f0xx_hal.h"
 	"fatfs.h"
@@ -3212,21 +3212,21 @@
 1537186197 c:\working\git\nextion_hmi\software\drivers\bsp\components\ili9841\ili9841.h
 	"../Drivers/BSP/Components/Common/lcd.h"
 
-1537188037 source:c:\working\git\nextion_hmi\software\drivers\bsp\nextion\nextion.c
+1537254720 source:c:\working\git\nextion_hmi\software\drivers\bsp\nextion\nextion.c
 	"stm32f0xx_hal.h"
 	"nextion.h"
 	"ili9841.h"
 	"xpt2046.h"
 	"w25qx.h"
 
-1537195373 c:\working\git\nextion_hmi\software\drivers\bsp\nextion\nextion.h
+1537254844 c:\working\git\nextion_hmi\software\drivers\bsp\nextion\nextion.h
 	<stdint.h>
 	"stm32f0xx_hal.h"
 
 1509027294 c:\working\git\nextion_hmi\software\drivers\bsp\components\common\lcd.h
 	<stdint.h>
 
-1537185462 source:c:\working\git\nextion_hmi\software\drivers\bsp\components\xpt2046\xpt2046.c
+1537254720 source:c:\working\git\nextion_hmi\software\drivers\bsp\components\xpt2046\xpt2046.c
 	"nextion.h"
 	"xpt2046.h"
 
@@ -3239,7 +3239,7 @@
 
 1537174522 c:\working\git\nextion_hmi\software\drivers\bsp\components\common\serial_flash.h
 
-1537182409 c:\working\git\nextion_hmi\software\drivers\bsp\components\xpt2046\xpt2046.h
+1537254720 c:\working\git\nextion_hmi\software\drivers\bsp\components\xpt2046\xpt2046.h
 	<stdint.h>
 
 1537174138 c:\working\git\nextion_hmi\software\drivers\bsp\components\common\touch_panel.h
@@ -3250,9 +3250,9 @@
 
 1537193141 c:\working\git\nextion_hmi\software\drivers\bsp\components\micro_sd\microsd.h
 
-1537195743 source:c:\working\git\nextion_hmi\software\drivers\bsp\libs\systick\systick.c
+1537251906 source:c:\working\git\nextion_hmi\software\drivers\bsp\libs\systick\systick.c
 	"nextion.h"
 	"systick.h"
 
-1537195761 c:\working\git\nextion_hmi\software\drivers\bsp\libs\systick\systick.h
+1537251678 c:\working\git\nextion_hmi\software\drivers\bsp\libs\systick\systick.h
 

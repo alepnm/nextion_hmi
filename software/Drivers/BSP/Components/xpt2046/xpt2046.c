@@ -12,7 +12,7 @@ static uint16_t XPT_ReadADC_Y(void);
 static uint16_t XPT_ReadADC_N(void);
 static uint16_t XPT_ReadTemperature(void);
 
-
+/*  */
 void XPT_Init(void){
 
     XPT_CS_HIGH();
@@ -25,6 +25,7 @@ void XPT_Init(void){
     SoftSpiSend( &XPT.OptionByte, 1);
 }
 
+/*  */
 void XPT_Process(void){
 
     if( XPT.Options.IsEnabled == DISABLE ) return;
@@ -42,7 +43,7 @@ void XPT_Process(void){
     }
 }
 
-
+/*  */
 static uint16_t XPT_ReadADC_X(void){
 
     char data[2];
@@ -59,7 +60,7 @@ static uint16_t XPT_ReadADC_X(void){
     return (uint16_t)( data[0]<<8 | data[1]);
 }
 
-
+/*  */
 static uint16_t XPT_ReadADC_Y(void){
 
     char data[2];
@@ -76,7 +77,7 @@ static uint16_t XPT_ReadADC_Y(void){
     return (uint16_t)( data[0]<<8 | data[1]);
 }
 
-
+/*  */
 static uint16_t XPT_ReadADC_N(void){
 
     char data[2];
@@ -93,7 +94,7 @@ static uint16_t XPT_ReadADC_N(void){
     return (uint16_t)( data[0]<<8 | data[1]);
 }
 
-
+/*  */
 static uint16_t XPT_ReadTemperature(void){
 
     char data[2];
@@ -108,28 +109,5 @@ static uint16_t XPT_ReadTemperature(void){
     XPT_CS_HIGH();
 
     return (uint16_t)( data[0]<<8 | data[1]);
-}
-
-
-
-void SoftSpiSend( char* data, uint8_t len){
-
-    uint8_t i = 0;
-
-    do {
-        SoftSpi_SendByte( *(data+i) );
-
-    } while( ++i < len );
-}
-
-
-void SoftSpiReceive( char* data, uint8_t len){
-
-    uint8_t i = 0;
-
-    do {
-        *(data+i) = SoftSpi_ReadByte();
-
-    } while( ++i < len );
 }
 

@@ -133,16 +133,8 @@ int main(void)
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
-    if (HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1) != HAL_OK) {
-        Error_Handler();
-    }
-
 
     Nextion_Init();
-
-
-
-
 
 
     char st[] = "ABCDEFGH";

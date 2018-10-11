@@ -58,8 +58,10 @@ void LCD_Delay(uint32_t Delay);
 void LCD_SetBrightness(void);
 
 
-void SoftSpi_SendByte(char d);
-char SoftSpi_ReadByte(void);
+void SoftSpiSend( char* data, uint8_t len);
+void SoftSpiReceive( char* data, uint8_t len);
+//void SoftSpi_SendByte(uint8_t d);
+//uint8_t SoftSpi_ReadByte(void);
 
 
 uint8_t SPIx_TX( uint8_t spi, uint8_t* data, uint16_t len);

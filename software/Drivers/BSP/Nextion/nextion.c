@@ -11,6 +11,9 @@ extern SPI_HandleTypeDef hspi1;
 
 void Nextion_Init(void) {
 
+    /* startuojam LCD apsvietima */
+    (void)HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+
     LCD.API->Init();
 
     LCD.Brightnes = 100;
@@ -108,46 +111,56 @@ void LCD_SetBrightness(void){
 }
 
 
-/*  */
-void SoftSpi_SendByte( char d ){
-
-    uint8_t i;
-
-    for(i=0; i<8; i++) {
-
-        HAL_GPIO_WritePin( XPTIN_GPIO_Port, XPTIN_Pin, (GPIO_PinState)(d & 0x80) );
-
-        XPT_CLK_HIGH();
-        d <<= 1;
-        XPT_CLK_LOW();
-    }
-}
 
 /*  */
-char SoftSpi_ReadByte(void){
+void SoftSpiSend( char* data, uint8_t len){
 
-    uint8_t i, spiReadData = 0;
+    uint8_t i = 0, j = 0, d = *data;
 
-    for(i=0; i<8; i++) {
+    do {
 
-        spiReadData <<= 1;
+        d = *(data+i);
 
-        XPT_CLK_HIGH();
+        for(j=0; j<8; j++) {
 
-        //delay - reikia palaukti
+            HAL_GPIO_WritePin( XPTIN_GPIO_Port, XPTIN_Pin, (GPIO_PinState)( d & 0x80) );
 
-        if( HAL_GPIO_ReadPin(XPTOUT_GPIO_Port, XPTOUT_Pin) != GPIO_PIN_RESET) {
-            spiReadData |= 0x01;
+            XPT_CLK_HIGH();
+            d <<= 1;
+            XPT_CLK_LOW();
         }
 
-        XPT_CLK_LOW();
-
-        //delay - reikia palaukti
-    }
-
-    return (char)spiReadData;
+    } while( ++i < len );
 }
 
+/*  */
+void SoftSpiReceive( char* data, uint8_t len){
+
+    uint8_t i = 0, j = 0, spiReadData = 0;
+
+    do {
+
+        for(j=0; j<8; j++) {
+
+            spiReadData <<= 1;
+
+            XPT_CLK_HIGH();
+
+            asm("nop");
+
+            if( HAL_GPIO_ReadPin(XPTOUT_GPIO_Port, XPTOUT_Pin) != GPIO_PIN_RESET) {
+                spiReadData |= 0x01;
+            }
+
+            asm("nop");
+
+            XPT_CLK_LOW();
+        }
+
+        *(data+i) = spiReadData;
+
+    } while( ++i < len );
+}
 
 
 /*  */
