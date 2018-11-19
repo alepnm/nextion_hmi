@@ -9,6 +9,9 @@ extern TIM_HandleTypeDef htim1;
 extern SPI_HandleTypeDef hspi1;
 
 
+static void LCD_IO_Write_Bus(unsigned char vh, unsigned char vl);
+
+
 void Nextion_Init(void) {
 
     /* startuojam LCD apsvietima */
@@ -26,9 +29,6 @@ void Nextion_Init(void) {
 
     W25Qx_Init();
 }
-
-
-static void LCD_IO_Write_Bus(unsigned char vh, unsigned char vl);
 
 
 

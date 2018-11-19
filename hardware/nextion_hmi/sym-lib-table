@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name nextion_hmi-rescue)(type Legacy)(uri ${KIPRJMOD}/nextion_hmi-rescue.lib)(options "")(descr ""))
+)

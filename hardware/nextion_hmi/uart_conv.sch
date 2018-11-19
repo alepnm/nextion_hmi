@@ -1,0 +1,364 @@
+EESchema Schematic File Version 4
+LIBS:nextion_hmi-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L nextion_hmi-rescue:1N4148- D3
+U 1 1 5BF96A09
+P 5750 3950
+F 0 "D3" H 5750 3750 50  0000 C CNN
+F 1 "BAS85" H 5750 3850 50  0000 C CNN
+F 2 "Diodes_SMD:D_MiniMELF_Handsoldering" H 5750 3775 50  0001 C CNN
+F 3 "" H 5750 3950 50  0001 C CNN
+	1    5750 3950
+	1    0    0    1   
+$EndComp
+Text HLabel 4100 4250 0    60   Input ~ 0
+DATA
+Connection ~ 4900 4850
+Connection ~ 6500 3950
+Wire Wire Line
+	6500 4100 6500 3950
+Wire Wire Line
+	6600 4550 6300 4550
+Connection ~ 6000 4850
+Wire Wire Line
+	6500 4850 6500 4400
+Wire Wire Line
+	6400 3950 6500 3950
+Wire Wire Line
+	6650 3650 7000 3650
+Connection ~ 4900 3650
+Wire Wire Line
+	4400 3650 4400 4400
+Wire Wire Line
+	4400 3650 4900 3650
+Wire Wire Line
+	4900 3650 4900 3750
+Wire Wire Line
+	4400 4850 4400 4700
+Wire Wire Line
+	5400 4250 4100 4250
+Wire Wire Line
+	5250 3950 5200 3950
+Wire Wire Line
+	5600 3950 5550 3950
+Connection ~ 6000 4250
+Wire Wire Line
+	5700 4250 6000 4250
+Wire Wire Line
+	6900 4550 7000 4550
+Wire Wire Line
+	4900 4850 4900 4150
+Connection ~ 6000 3950
+Wire Wire Line
+	6000 4850 6000 4750
+Wire Wire Line
+	4400 4850 4900 4850
+Wire Wire Line
+	6000 3950 6000 4250
+Wire Wire Line
+	5900 3950 6000 3950
+Text Label 5500 4850 2    60   ~ 0
+COM
+Wire Wire Line
+	4900 4850 6000 4850
+Wire Wire Line
+	6500 3950 7000 3950
+Wire Wire Line
+	6000 4850 6500 4850
+Wire Wire Line
+	6000 4250 6000 4350
+Wire Wire Line
+	6000 3950 6100 3950
+$Comp
+L Device:R R12
+U 1 1 5BF96A3A
+P 5550 4250
+F 0 "R12" V 5650 4300 50  0000 L CNN
+F 1 "100" V 5650 4100 50  0000 L CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5480 4250 50  0001 C CNN
+F 3 "~" H 5550 4250 50  0001 C CNN
+	1    5550 4250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 5BF96A41
+P 5400 3950
+F 0 "R10" V 5500 4000 50  0000 L CNN
+F 1 "1k0" V 5500 3800 50  0000 L CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5330 3950 50  0001 C CNN
+F 3 "~" H 5400 3950 50  0001 C CNN
+	1    5400 3950
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R11
+U 1 1 5BF96A48
+P 6250 3950
+F 0 "R11" V 6350 4000 50  0000 L CNN
+F 1 "10k" V 6350 3800 50  0000 L CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 6180 3950 50  0001 C CNN
+F 3 "~" H 6250 3950 50  0001 C CNN
+	1    6250 3950
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R9
+U 1 1 5BF96A4F
+P 6500 3650
+F 0 "R9" V 6600 3700 50  0000 L CNN
+F 1 "1k0" V 6600 3500 50  0000 L CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 6430 3650 50  0001 C CNN
+F 3 "~" H 6500 3650 50  0001 C CNN
+	1    6500 3650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 5BF96A56
+P 5200 3350
+F 0 "R8" V 5300 3400 50  0000 L CNN
+F 1 "10k" V 5300 3200 50  0000 L CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 5130 3350 50  0001 C CNN
+F 3 "~" H 5200 3350 50  0001 C CNN
+	1    5200 3350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R13
+U 1 1 5BF96A5D
+P 6750 4550
+F 0 "R13" V 6850 4600 50  0000 L CNN
+F 1 "5k1" V 6850 4400 50  0000 L CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 6680 4550 50  0001 C CNN
+F 3 "~" H 6750 4550 50  0001 C CNN
+	1    6750 4550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:C C10
+U 1 1 5BF96A64
+P 4400 4550
+F 0 "C10" H 4200 4600 50  0000 C CNN
+F 1 "1nF" H 4200 4500 50  0000 C CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 4438 4400 50  0001 C CNN
+F 3 "~" H 4400 4550 50  0001 C CNN
+	1    4400 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C9
+U 1 1 5BF96A6B
+P 6500 4250
+F 0 "C9" H 6700 4300 50  0000 C CNN
+F 1 "100nF" H 6750 4200 50  0000 C CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 6538 4100 50  0001 C CNN
+F 3 "~" H 6500 4250 50  0001 C CNN
+	1    6500 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC817 Q1
+U 1 1 5BF96A72
+P 5000 3950
+F 0 "Q1" H 5190 3996 50  0000 L CNN
+F 1 "BC817" H 5190 3905 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-23" H 5200 3875 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC817.pdf" H 5000 3950 50  0001 L CNN
+	1    5000 3950
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC817 Q2
+U 1 1 5BF96A79
+P 6100 4550
+F 0 "Q2" H 6290 4596 50  0000 L CNN
+F 1 "BC817" H 6290 4505 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-23" H 6300 4475 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/BC/BC817.pdf" H 6100 4550 50  0001 L CNN
+	1    6100 4550
+	-1   0    0    -1  
+$EndComp
+Text HLabel 7000 3650 2    50   Input ~ 0
+MCURX
+Text HLabel 4100 2700 0    50   Input ~ 0
+12VDC
+Text HLabel 7000 4550 2    50   Input ~ 0
+MCUTX
+$Comp
+L disc:LM340-5.0-SMD U4
+U 1 1 5BFA46FD
+P 5300 2750
+F 0 "U4" H 5300 3082 50  0000 C CNN
+F 1 "LM340-5.0-SMD" H 6400 3050 50  0001 L CNN
+F 2 "disc:TO-263-3_TabPin2" H 6550 2750 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/lm340.pdf" H 5800 2400 50  0001 C CNN
+F 4 "ZELM" H 6450 2850 60  0001 C CNN "ventcode"
+F 5 "-" H 7150 2850 60  0001 C CNN "Nominalas"
+F 6 "0.53" H 6850 2850 60  0001 C CNN "Kaina"
+F 7 "SMD" H 6050 2850 60  0001 C CNN "Korpuso tipas"
+F 8 "Itampos stabilizatorius" H 6500 2950 60  0001 C CNN "Pavadinimas"
+F 9 "LM340S-5 TO-263" H 6700 3150 60  0001 C CNN "Gamintojo Kodas"
+F 10 "SOT-263" H 7250 2950 60  0001 C CNN "Korpusas"
+F 11 "1.7" H 6350 2750 60  0001 C CNN "Aukstis"
+F 12 "LM340-5" H 5300 2983 60  0000 C CNN "Marke"
+F 13 "-" H 7050 2750 60  0001 C CNN "Nuoroda"
+F 14 "-" H 6950 2650 60  0001 C CNN "Parametras"
+F 15 "-" H 7050 2750 60  0001 C CNN "Komentaras"
+	1    5300 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 2700 4800 2700
+Wire Wire Line
+	5300 3000 5300 3100
+Text Label 5650 3100 2    60   ~ 0
+COM
+Text HLabel 7000 2700 2    50   Input ~ 0
+5VDC
+Text Label 7000 3950 2    50   ~ 0
+12VDC
+Text HLabel 4100 3100 0    50   Input ~ 0
+COM
+Wire Wire Line
+	4100 3100 4300 3100
+Wire Wire Line
+	4900 3650 6350 3650
+Wire Wire Line
+	5050 3350 4900 3350
+Wire Wire Line
+	4900 3350 4900 3650
+Wire Wire Line
+	5350 3350 5550 3350
+Wire Wire Line
+	5850 3350 5950 3350
+Wire Wire Line
+	5700 2700 5800 2700
+Wire Wire Line
+	6250 3350 6850 3350
+Wire Wire Line
+	6850 3350 6850 2700
+Connection ~ 6850 2700
+$Comp
+L Device:C C7
+U 1 1 5BFB2560
+P 5800 2900
+F 0 "C7" H 6000 2950 50  0000 C CNN
+F 1 "100nF" H 6050 2850 50  0000 C CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 5838 2750 50  0001 C CNN
+F 3 "~" H 5800 2900 50  0001 C CNN
+	1    5800 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C6
+U 1 1 5BFB3F4E
+P 4800 2900
+F 0 "C6" H 4600 2950 50  0000 C CNN
+F 1 "100nF" H 4600 2850 50  0000 C CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 4838 2750 50  0001 C CNN
+F 3 "~" H 4800 2900 50  0001 C CNN
+	1    4800 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 2750 4800 2700
+Connection ~ 4800 2700
+Wire Wire Line
+	4800 2700 4300 2700
+Wire Wire Line
+	4800 3050 4800 3100
+Connection ~ 4800 3100
+Wire Wire Line
+	4800 3100 5300 3100
+Wire Wire Line
+	5300 3100 5800 3100
+Wire Wire Line
+	5800 3100 5800 3050
+Connection ~ 5300 3100
+Wire Wire Line
+	5800 2750 5800 2700
+Connection ~ 5800 2700
+Wire Wire Line
+	5800 2700 6400 2700
+$Comp
+L Device:CP C8
+U 1 1 5BFFFB6B
+P 6400 2900
+F 0 "C8" H 6550 2850 50  0000 L CNN
+F 1 "100,0x16V" H 6450 2750 50  0000 L CNN
+F 2 "Capacitors_SMD:CP_Elec_8x6.5" H 6438 2750 50  0001 C CNN
+F 3 "~" H 6400 2900 50  0001 C CNN
+	1    6400 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5800 3100 6400 3100
+Wire Wire Line
+	6400 3100 6400 3050
+Connection ~ 5800 3100
+Wire Wire Line
+	6400 2750 6400 2700
+Connection ~ 6400 2700
+Wire Wire Line
+	6400 2700 6850 2700
+$Comp
+L nextion_hmi-rescue:1N4148- D1
+U 1 1 5C0049AE
+P 5700 3350
+F 0 "D1" H 5700 3250 50  0000 C CNN
+F 1 "BAS85" H 5700 3450 50  0000 C CNN
+F 2 "Diodes_SMD:D_MiniMELF_Handsoldering" H 5700 3175 50  0001 C CNN
+F 3 "" H 5700 3350 50  0001 C CNN
+	1    5700 3350
+	1    0    0    1   
+$EndComp
+$Comp
+L nextion_hmi-rescue:1N4148- D2
+U 1 1 5C0049F8
+P 6100 3350
+F 0 "D2" H 6100 3250 50  0000 C CNN
+F 1 "BAS85" H 6100 3450 50  0000 C CNN
+F 2 "Diodes_SMD:D_MiniMELF_Handsoldering" H 6100 3175 50  0001 C CNN
+F 3 "" H 6100 3350 50  0001 C CNN
+	1    6100 3350
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:CP C5
+U 1 1 5C08A5FF
+P 4300 2900
+F 0 "C5" H 4050 2950 50  0000 L CNN
+F 1 "100,0x16V" H 3800 2850 50  0000 L CNN
+F 2 "Capacitors_SMD:CP_Elec_8x6.5" H 4338 2750 50  0001 C CNN
+F 3 "~" H 4300 2900 50  0001 C CNN
+	1    4300 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4300 2750 4300 2700
+Connection ~ 4300 2700
+Wire Wire Line
+	4300 2700 4100 2700
+Wire Wire Line
+	4300 3050 4300 3100
+Connection ~ 4300 3100
+Wire Wire Line
+	4300 3100 4800 3100
+Wire Wire Line
+	6850 2700 7000 2700
+$EndSCHEMATC

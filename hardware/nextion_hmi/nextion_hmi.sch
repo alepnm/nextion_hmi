@@ -1,0 +1,748 @@
+EESchema Schematic File Version 4
+LIBS:nextion_hmi-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L ics:STM32F051C8Tx U1
+U 1 1 5BF26DB2
+P 6400 2450
+F 0 "U1" H 6350 2200 50  0000 L CNN
+F 1 "STM32F051C8Tx" H 6100 2100 50  0000 L CNN
+F 2 "" H 9850 2900 50  0001 R TNN
+F 3 "www.st.com/resource/en/datasheet/stm32f051t8.pdf" H 9150 2600 50  0001 C CNN
+F 4 "ZELM144" H 6400 2150 60  0001 C CNN "ventcode"
+F 5 "-" H 8200 2800 60  0001 C CNN "Nominalas"
+F 6 "0" H 9200 2700 60  0001 C CNN "Kaina"
+F 7 "LQFP-48" H 9600 2700 60  0001 C CNN "Korpusas"
+F 8 "1" H 10000 2700 60  0001 C CNN "Aukstis"
+F 9 "-" H 8350 2800 60  0001 C CNN "Marke"
+F 10 "Mikroschema" H 8450 2950 60  0001 C CNN "Pavadinimas"
+F 11 "STM32F051C8Tx" H 9200 2950 60  0001 C CNN "Gamintojo Kodas"
+F 12 "-" H 8550 2800 60  0001 C CNN "Nuoroda"
+F 13 "SMD" H 8900 2700 60  0001 C CNN "Korpuso tipas"
+F 14 "FLASH 64kB, RAM 16kB" H 9350 2800 60  0001 C CNN "Parametras"
+F 15 "-" H 8700 2800 60  0001 C CNN "Komentaras"
+	1    6400 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L SparkFun-IC-Memory:W25Q32FVSS U2
+U 1 1 5BF26EDF
+P 4900 5500
+F 0 "U2" H 4500 5800 45  0000 C CNN
+F 1 "W25Q32FVSS" H 4900 5800 45  0000 C CNN
+F 2 "" H 4900 5850 20  0001 C CNN
+F 3 "" H 4900 5500 50  0001 C CNN
+F 4 "IC-13229" H 4900 5831 60  0001 C CNN "Field4"
+	1    4900 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Driver_Display:XPT2046TS U3
+U 1 1 5BF27110
+P 4900 6900
+F 0 "U3" H 4600 7350 50  0000 C CNN
+F 1 "XPT2046TS" H 5200 7350 50  0000 C CNN
+F 2 "" H 4900 6300 50  0001 C CIN
+F 3 "http://www.xptek.com.cn/uploadfile/download/201707171401161883.pdf" H 5100 6350 50  0001 C CNN
+	1    4900 6900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 2000 4900 2000
+Text Label 4900 2000 0    50   ~ 0
+~SDCS
+Wire Wire Line
+	5350 2100 4900 2100
+Wire Wire Line
+	5350 2200 4900 2200
+Wire Wire Line
+	5350 2500 4900 2500
+Wire Wire Line
+	5350 2600 4900 2600
+Wire Wire Line
+	5350 2700 4650 2700
+Wire Wire Line
+	5350 2800 4900 2800
+Wire Wire Line
+	5350 2900 4900 2900
+Wire Wire Line
+	5350 3000 4900 3000
+Text Label 4900 2100 0    50   ~ 0
+~XPTREQ
+Text Label 4900 2200 0    50   ~ 0
+~SDDETECT
+Text Label 4900 2800 0    50   ~ 0
+XPTOUT
+Text Label 4900 2900 0    50   ~ 0
+XPTIN
+Text Label 4900 3000 0    50   ~ 0
+~XPTCS
+Wire Wire Line
+	5850 3500 5850 3950
+Wire Wire Line
+	5950 3500 5950 3950
+Wire Wire Line
+	6050 3500 6050 3950
+Wire Wire Line
+	6150 3500 6150 3950
+Wire Wire Line
+	6250 3500 6250 3950
+Wire Wire Line
+	6350 3500 6350 3950
+Wire Wire Line
+	6450 3500 6450 3950
+Wire Wire Line
+	6550 3500 6550 3950
+Wire Wire Line
+	6650 3500 6650 3950
+Wire Wire Line
+	6750 3500 6750 3950
+Wire Wire Line
+	6850 3500 6850 3950
+Wire Wire Line
+	6950 3500 6950 3950
+Text Label 5850 3950 1    50   ~ 0
+XPTCLK
+Text Label 5950 3950 1    50   ~ 0
+~W25QCS
+Text Label 6050 3950 1    50   ~ 0
+SPI_SCK
+Text Label 6150 3950 1    50   ~ 0
+SPI_MISO
+Text Label 6250 3950 1    50   ~ 0
+SPI_MOSI
+Text Label 6350 3950 1    50   ~ 0
+LCD_DB0
+Text Label 6450 3950 1    50   ~ 0
+LCD_DB1
+Text Label 6550 3950 1    50   ~ 0
+LCD_DB2
+Text Label 6650 3950 1    50   ~ 0
+LCD_DB10
+Text Label 6750 3950 1    50   ~ 0
+LCD_DB11
+Wire Wire Line
+	7450 3000 8050 3000
+Wire Wire Line
+	7450 2900 8050 2900
+Wire Wire Line
+	7450 2800 8050 2800
+Wire Wire Line
+	7450 2700 8050 2700
+Wire Wire Line
+	7450 2600 8050 2600
+Wire Wire Line
+	7450 2500 8050 2500
+Wire Wire Line
+	7450 2400 8400 2400
+Wire Wire Line
+	7450 2300 8050 2300
+Wire Wire Line
+	7450 2200 8050 2200
+Wire Wire Line
+	7450 2100 8050 2100
+Wire Wire Line
+	7450 2000 8050 2000
+Wire Wire Line
+	7450 1900 8050 1900
+Text Label 8050 3000 2    50   ~ 0
+LCD_DB12
+Text Label 8050 2900 2    50   ~ 0
+LCD_DB13
+Text Label 8050 2800 2    50   ~ 0
+LCD_DB14
+Text Label 8050 2700 2    50   ~ 0
+LCD_DB15
+Text Label 8050 2600 2    50   ~ 0
+DISPLAY_LED
+Text Label 8050 2500 2    50   ~ 0
+DATA_TX
+Text Label 8800 2400 2    50   ~ 0
+DATA_RX
+Text Label 8050 2300 2    50   ~ 0
+LCD_RD
+Text Label 8050 2200 2    50   ~ 0
+LCD_WR
+Text Label 8050 2100 2    50   ~ 0
+SWDIO
+Text Label 8050 2000 2    50   ~ 0
+LCD_CS
+Text Label 8050 1900 2    50   ~ 0
+LCD_RST
+Wire Wire Line
+	6950 1400 6950 950 
+Wire Wire Line
+	6850 1400 6850 950 
+Wire Wire Line
+	6750 1400 6750 950 
+Wire Wire Line
+	6650 1400 6650 950 
+Wire Wire Line
+	6550 1400 6550 950 
+Wire Wire Line
+	6450 1400 6450 950 
+Wire Wire Line
+	6350 1400 6350 950 
+Wire Wire Line
+	6150 1400 6150 950 
+Wire Wire Line
+	6050 1400 6050 950 
+Wire Wire Line
+	5950 1400 5950 950 
+Wire Wire Line
+	5850 1400 5850 1300
+Text Label 6950 950  3    50   ~ 0
+SWCLK
+Text Label 6850 950  3    50   ~ 0
+LCD_RS
+Text Label 6750 950  3    50   ~ 0
+LCD_DB3
+Text Label 6650 950  3    50   ~ 0
+LCD_DB4
+Text Label 6550 950  3    50   ~ 0
+LCD_DB5
+Text Label 6450 950  3    50   ~ 0
+LCD_DB6
+Text Label 6350 950  3    50   ~ 0
+LCD_DB7
+Text Label 6150 950  3    50   ~ 0
+LCD_DB8
+Text Label 6050 950  3    50   ~ 0
+LCD_DB9
+Text Label 5950 950  3    50   ~ 0
+GND
+Text Label 4900 2600 0    50   ~ 0
+GND
+Text Label 6850 3950 1    50   ~ 0
+GND
+Text Label 4900 2500 0    50   ~ 0
+~NRST
+Text Label 4350 2700 0    50   ~ 0
+VDD
+Text Label 5850 950  3    50   ~ 0
+VDD
+Text Label 6950 3950 1    50   ~ 0
+VDD
+Wire Wire Line
+	4800 6400 4800 6200
+Wire Wire Line
+	4800 6200 4900 6200
+Wire Wire Line
+	4900 6200 4900 6400
+Wire Wire Line
+	4900 7400 4900 7600
+Text Label 4900 7600 1    50   ~ 0
+GND
+Text Label 4550 6200 0    50   ~ 0
+VDD
+Wire Wire Line
+	4800 6200 4550 6200
+Connection ~ 4800 6200
+Wire Wire Line
+	4400 6600 4050 6600
+Wire Wire Line
+	4400 6700 4050 6700
+Wire Wire Line
+	4400 6800 4050 6800
+Wire Wire Line
+	4400 6900 4050 6900
+Wire Wire Line
+	5400 7000 5750 7000
+Wire Wire Line
+	5400 6800 5750 6800
+Wire Wire Line
+	5400 6700 5750 6700
+Wire Wire Line
+	5400 6600 5750 6600
+Text Label 5750 6700 2    50   ~ 0
+XPTIN
+Text Label 5750 6600 2    50   ~ 0
+XPTOUT
+Text Label 5750 6800 2    50   ~ 0
+XPTCLK
+Text Label 6600 7100 2    50   ~ 0
+~XPTREQ
+Text Label 5750 7000 2    50   ~ 0
+~XPTCS
+Text Label 4050 6600 0    50   ~ 0
+XP
+Text Label 4050 6700 0    50   ~ 0
+YP
+Text Label 4050 6800 0    50   ~ 0
+XN
+Text Label 4050 6900 0    50   ~ 0
+YN
+$Comp
+L Device:R R7
+U 1 1 5BF4363B
+P 6150 6850
+F 0 "R7" H 6220 6896 50  0000 L CNN
+F 1 "10k" H 6220 6805 50  0000 L CNN
+F 2 "" V 6080 6850 50  0001 C CNN
+F 3 "~" H 6150 6850 50  0001 C CNN
+	1    6150 6850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4300 5350 3800 5350
+Wire Wire Line
+	4300 5450 3800 5450
+Wire Wire Line
+	4300 5550 3800 5550
+Wire Wire Line
+	4300 5650 3800 5650
+Wire Wire Line
+	5500 5450 5950 5450
+Wire Wire Line
+	5500 5550 5950 5550
+Wire Wire Line
+	5500 5650 5950 5650
+Text Label 3800 5350 0    50   ~ 0
+~W25QCS
+Text Label 5950 5350 2    50   ~ 0
+VDD
+Text Label 3800 5650 0    50   ~ 0
+GND
+Text Label 3800 5450 0    50   ~ 0
+SPI_MISO
+Text Label 5950 5650 2    50   ~ 0
+SPI_MOSI
+Text Label 5950 5550 2    50   ~ 0
+SPI_SCK
+Text Label 3800 5550 0    50   ~ 0
+VDD
+Wire Wire Line
+	5500 5350 5600 5350
+Text Label 5950 5450 2    50   ~ 0
+5VDC
+$Comp
+L Device:C C3
+U 1 1 5BF60430
+P 5350 5000
+F 0 "C3" V 5190 5000 50  0000 C CNN
+F 1 "C" V 5189 5000 50  0001 C CNN
+F 2 "" H 5388 4850 50  0001 C CNN
+F 3 "~" H 5350 5000 50  0001 C CNN
+	1    5350 5000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5200 5000 4950 5000
+Wire Wire Line
+	5500 5000 5600 5000
+Wire Wire Line
+	5600 5000 5600 5350
+Connection ~ 5600 5350
+Wire Wire Line
+	5600 5350 5950 5350
+Text Label 4950 5000 0    50   ~ 0
+GND
+$Comp
+L Device:C C2
+U 1 1 5BF64FD1
+P 4650 2950
+F 0 "C2" H 4400 3000 50  0000 L CNN
+F 1 "C" V 4489 2950 50  0001 C CNN
+F 2 "" H 4688 2800 50  0001 C CNN
+F 3 "~" H 4650 2950 50  0001 C CNN
+	1    4650 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4650 2800 4650 2700
+Connection ~ 4650 2700
+Wire Wire Line
+	4650 2700 4350 2700
+Wire Wire Line
+	4650 3100 4650 3200
+Wire Wire Line
+	4650 3200 4350 3200
+Text Label 4350 3200 0    50   ~ 0
+GND
+$Comp
+L Device:C C4
+U 1 1 5BF6E0E3
+P 5150 6200
+F 0 "C4" V 4990 6200 50  0000 C CNN
+F 1 "C" V 4989 6200 50  0001 C CNN
+F 2 "" H 5188 6050 50  0001 C CNN
+F 3 "~" H 5150 6200 50  0001 C CNN
+	1    5150 6200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4900 6200 5000 6200
+Connection ~ 4900 6200
+Wire Wire Line
+	5300 6200 5500 6200
+Text Label 5500 6200 2    50   ~ 0
+GND
+Wire Wire Line
+	6150 7000 6150 7100
+Wire Wire Line
+	6150 6700 6150 6500
+Text Label 6150 6500 3    50   ~ 0
+VDD
+Connection ~ 6150 7100
+Wire Wire Line
+	6150 7100 6600 7100
+$Comp
+L Device:C C1
+U 1 1 5BF8C142
+P 5600 1300
+F 0 "C1" V 5440 1300 50  0000 C CNN
+F 1 "C" V 5439 1300 50  0001 C CNN
+F 2 "" H 5638 1150 50  0001 C CNN
+F 3 "~" H 5600 1300 50  0001 C CNN
+	1    5600 1300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5750 1300 5850 1300
+Connection ~ 5850 1300
+Wire Wire Line
+	5850 1300 5850 950 
+Wire Wire Line
+	5450 1300 5200 1300
+Text Label 5200 1300 0    50   ~ 0
+GND
+Wire Wire Line
+	9700 2850 9700 3200
+Text Label 9700 3200 1    50   ~ 0
+VDD
+Wire Wire Line
+	9500 2850 9500 3150
+Wire Wire Line
+	9600 2850 9600 3350
+$Comp
+L Device:R R2
+U 1 1 5BF9B02B
+P 9250 3150
+F 0 "R2" V 9150 3100 50  0000 C CNN
+F 1 "4k7" V 9150 3250 50  0000 C CNN
+F 2 "" V 9180 3150 50  0001 C CNN
+F 3 "~" H 9250 3150 50  0001 C CNN
+	1    9250 3150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9400 3150 9500 3150
+Connection ~ 9500 3150
+Wire Wire Line
+	9500 3150 9500 3950
+$Comp
+L Device:R R4
+U 1 1 5BF9D1F6
+P 9250 3350
+F 0 "R4" V 9150 3300 50  0000 C CNN
+F 1 "4k7" V 9150 3450 50  0000 C CNN
+F 2 "" V 9180 3350 50  0001 C CNN
+F 3 "~" H 9250 3350 50  0001 C CNN
+	1    9250 3350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9400 3350 9600 3350
+Connection ~ 9600 3350
+Wire Wire Line
+	9600 3350 9600 3950
+Wire Wire Line
+	9100 3350 9000 3350
+Wire Wire Line
+	9000 3350 9000 3150
+Wire Wire Line
+	9000 3150 9100 3150
+Wire Wire Line
+	9000 3150 8800 3150
+Connection ~ 9000 3150
+Text Label 8800 3150 0    50   ~ 0
+VDD
+$Comp
+L Device:R R5
+U 1 1 5BFAA312
+P 9250 3550
+F 0 "R5" V 9150 3500 50  0000 C CNN
+F 1 "4k7" V 9150 3650 50  0000 C CNN
+F 2 "" V 9180 3550 50  0001 C CNN
+F 3 "~" H 9250 3550 50  0001 C CNN
+	1    9250 3550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9400 3550 9800 3550
+Wire Wire Line
+	9800 3550 9800 2850
+Wire Wire Line
+	9800 3550 9800 3950
+Connection ~ 9800 3550
+Wire Wire Line
+	9100 3550 9000 3550
+Wire Wire Line
+	9000 3550 9000 3350
+Connection ~ 9000 3350
+Text Label 9900 3200 1    50   ~ 0
+GND
+Wire Wire Line
+	10000 2850 10000 3150
+$Comp
+L Device:R R3
+U 1 1 5BFC2944
+P 10450 3150
+F 0 "R3" V 10350 3100 50  0000 C CNN
+F 1 "4k7" V 10350 3250 50  0000 C CNN
+F 2 "" V 10380 3150 50  0001 C CNN
+F 3 "~" H 10450 3150 50  0001 C CNN
+	1    10450 3150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10300 3150 10000 3150
+Connection ~ 10000 3150
+Wire Wire Line
+	10000 3150 10000 3950
+Wire Wire Line
+	10600 3150 10700 3150
+Wire Wire Line
+	10200 2850 10200 3550
+$Comp
+L Device:R R6
+U 1 1 5BFCA9F4
+P 10450 3550
+F 0 "R6" V 10350 3500 50  0000 C CNN
+F 1 "10k" V 10350 3650 50  0000 C CNN
+F 2 "" V 10380 3550 50  0001 C CNN
+F 3 "~" H 10450 3550 50  0001 C CNN
+	1    10450 3550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10600 3550 10700 3550
+Wire Wire Line
+	10700 3550 10700 3150
+Connection ~ 10700 3150
+Wire Wire Line
+	10700 3150 10950 3150
+Text Label 10950 3150 2    50   ~ 0
+VDD
+Wire Wire Line
+	10300 3550 10200 3550
+Connection ~ 10200 3550
+Wire Wire Line
+	10200 3550 10200 3950
+$Comp
+L mech:X_Micro_SD_Card_Det K1
+U 1 1 5BFEA722
+P 9800 1950
+F 0 "K1" V 10650 2500 50  0000 R CNN
+F 1 "X_Micro_SD_Card_Det" V 9700 1420 50  0001 R CNN
+F 2 "" H 11850 2650 50  0001 C CNN
+F 3 "https://www.tme.eu/lt/Document/83ba12ba0c08b3a2f6df6fc72128cfd8/MCC-SDMICRO3.pdf" H 9700 1350 50  0001 C CNN
+F 4 "ZAJ343" H 9250 2750 60  0001 C CNN "ventcode"
+F 5 "-" H 9350 2850 60  0001 C CNN "Nominalas"
+F 6 "0.84" H 9450 2950 60  0001 C CNN "Kaina"
+F 7 "-" H 9550 3050 60  0001 C CNN "Korpusas"
+F 8 "2" H 9650 3150 60  0001 C CNN "Aukstis"
+F 9 "MMC-SDMICRO/3" H 9750 3250 60  0001 C CNN "Marke"
+F 10 "Jungtis" H 9850 3350 60  0001 C CNN "Pavadinimas"
+F 11 "112J-TDAR-R01" H 9950 3450 60  0001 C CNN "Gamintojo Kodas"
+F 12 "https://www.tme.eu/lt/details/mcc-sdmicro_3/jungtys-kortelems/attend/112j-tdar-r01/" H 10050 3550 60  0001 C CNN "Nuoroda"
+F 13 "SMT" H 10150 3650 60  0001 C CNN "Korpuso tipas"
+F 14 "-" H 10250 3750 60  0001 C CNN "Parametras"
+F 15 "-" H 10350 3850 60  0001 C CNN "Komentaras"
+	1    9800 1950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9900 2850 9900 3200
+Text Label 9800 3950 1    50   ~ 0
+SPI_SCK
+Text Label 10200 3950 1    50   ~ 0
+~SDDETECT
+Text Label 9600 3950 1    50   ~ 0
+~SDCS
+$Comp
+L Device:R R1
+U 1 1 5C0356BB
+P 8400 2150
+F 0 "R1" H 8470 2196 50  0000 L CNN
+F 1 "10k" H 8470 2105 50  0000 L CNN
+F 2 "" V 8330 2150 50  0001 C CNN
+F 3 "~" H 8400 2150 50  0001 C CNN
+	1    8400 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8400 2300 8400 2400
+Connection ~ 8400 2400
+Wire Wire Line
+	8400 2400 8800 2400
+Wire Wire Line
+	8400 1800 8400 2000
+Text Label 8400 1800 3    50   ~ 0
+VDD
+Wire Wire Line
+	5400 7100 6150 7100
+$Comp
+L SparkFun-Connectors:CONN_04LOCK J6
+U 1 1 5C0A3E06
+P 3450 4150
+F 0 "J6" H 3350 4550 45  0000 C CNN
+F 1 "UART" V 3200 4300 45  0000 C CNN
+F 2 "" H 3450 4650 20  0001 C CNN
+F 3 "" H 3450 4150 50  0001 C CNN
+F 4 "CONN-09696" H 3406 4581 60  0001 C CNN "Field4"
+	1    3450 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3550 4150 3900 4150
+Wire Wire Line
+	3550 4050 3900 4050
+Wire Wire Line
+	3550 3950 3900 3950
+Wire Wire Line
+	3550 3850 3900 3850
+Text Label 3900 3850 2    50   ~ 0
+5VDC
+Text Label 3900 3950 2    50   ~ 0
+DAT_TX
+Text Label 3900 4050 2    50   ~ 0
+DAT_RX
+Text Label 3900 4150 2    50   ~ 0
+GND
+$Sheet
+S 2250 1550 1000 600 
+U 5BF96868
+F0 "UART konverteris" 50
+F1 "uart_conv.sch" 50
+F2 "DATA" B L 2250 1850 50 
+F3 "MCURX" O R 3250 1950 50 
+F4 "12VDC" I L 2250 1750 50 
+F5 "MCUTX" I R 3250 1850 50 
+F6 "5VDC" I R 3250 1750 50 
+F7 "COM" I L 2250 1950 50 
+$EndSheet
+Wire Wire Line
+	3450 1750 3250 1750
+Wire Wire Line
+	3750 1850 3250 1850
+Wire Wire Line
+	3450 1950 3250 1950
+Wire Wire Line
+	3750 2050 3300 2050
+Text Label 3300 2050 0    50   ~ 0
+GND
+Wire Wire Line
+	2250 1750 1850 1750
+Wire Wire Line
+	2250 1950 1850 1950
+Text Label 1950 1850 0    50   ~ 0
+DATA
+Text Label 1950 1750 0    50   ~ 0
+12VDC
+Text Label 1950 1950 0    50   ~ 0
+GND
+$Comp
+L SparkFun-Connectors:CONN_01 J1
+U 1 1 5C019D8D
+P 3550 1750
+F 0 "J1" H 3450 1550 45  0001 C CNN
+F 1 "5VDC" H 3450 1750 45  0000 C CNN
+F 2 "1X01" H 3550 1950 20  0001 C CNN
+F 3 "" H 3550 1750 50  0001 C CNN
+F 4 "XXX-00000" H 3507 1619 60  0001 C CNN "Field4"
+	1    3550 1750
+	-1   0    0    1   
+$EndComp
+$Comp
+L SparkFun-Connectors:CONN_01 J2
+U 1 1 5C019FF7
+P 3850 1850
+F 0 "J2" H 3750 1650 45  0001 C CNN
+F 1 "TX" H 3750 1850 45  0000 C CNN
+F 2 "1X01" H 3850 2050 20  0001 C CNN
+F 3 "" H 3850 1850 50  0001 C CNN
+F 4 "XXX-00000" H 3807 1719 60  0001 C CNN "Field4"
+	1    3850 1850
+	-1   0    0    1   
+$EndComp
+$Comp
+L SparkFun-Connectors:CONN_01 J4
+U 1 1 5C01A512
+P 3550 1950
+F 0 "J4" H 3450 1750 45  0001 C CNN
+F 1 "RX" H 3450 1950 45  0000 C CNN
+F 2 "1X01" H 3550 2150 20  0001 C CNN
+F 3 "" H 3550 1950 50  0001 C CNN
+F 4 "XXX-00000" H 3507 1819 60  0001 C CNN "Field4"
+	1    3550 1950
+	-1   0    0    1   
+$EndComp
+$Comp
+L SparkFun-Connectors:CONN_01 J5
+U 1 1 5C01A565
+P 3850 2050
+F 0 "J5" H 3750 1850 45  0001 C CNN
+F 1 "GND" H 3750 2050 45  0000 C CNN
+F 2 "1X01" H 3850 2250 20  0001 C CNN
+F 3 "" H 3850 2050 50  0001 C CNN
+F 4 "XXX-00000" H 3807 1919 60  0001 C CNN "Field4"
+	1    3850 2050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:RJ45_Shielded J3
+U 1 1 5C048F23
+P 1250 1900
+F 0 "J3" H 1305 2476 50  0000 C CNN
+F 1 "RJ45_Shielded" H 1305 2476 50  0001 C CNN
+F 2 "Connectors:RJ45_8" V 1250 1925 50  0001 C CNN
+F 3 "~" V 1250 1925 50  0001 C CNN
+	1    1250 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1650 1500 1850 1500
+Wire Wire Line
+	1850 1500 1850 1600
+Wire Wire Line
+	1850 1600 1650 1600
+Wire Wire Line
+	1650 2200 1850 2200
+Wire Wire Line
+	1850 2200 1850 2100
+Wire Wire Line
+	1850 2100 1650 2100
+Wire Wire Line
+	1250 2400 1250 2500
+Wire Wire Line
+	1250 2500 1850 2500
+Wire Wire Line
+	1850 2500 1850 2200
+Connection ~ 1850 2200
+Wire Wire Line
+	1850 2100 1850 1950
+Connection ~ 1850 2100
+Wire Wire Line
+	1850 1600 1850 1750
+Connection ~ 1850 1600
+Wire Wire Line
+	1650 1800 1750 1800
+Wire Wire Line
+	1750 1800 1750 1850
+Wire Wire Line
+	1750 1850 2250 1850
+$EndSCHEMATC
