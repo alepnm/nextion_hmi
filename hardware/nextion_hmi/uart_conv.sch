@@ -25,7 +25,7 @@ F 3 "" H 5750 3950 50  0001 C CNN
 	1    5750 3950
 	1    0    0    1   
 $EndComp
-Text HLabel 4100 4250 0    60   Input ~ 0
+Text HLabel 4100 4250 0    60   BiDi ~ 0
 DATA
 Connection ~ 4900 4850
 Connection ~ 6500 3950
@@ -254,10 +254,10 @@ Wire Wire Line
 	6850 3350 6850 2700
 Connection ~ 6850 2700
 $Comp
-L Device:C C7
+L Device:C C11
 U 1 1 5BFB2560
 P 5800 2900
-F 0 "C7" H 6000 2950 50  0000 C CNN
+F 0 "C11" H 6000 2950 50  0000 C CNN
 F 1 "100nF" H 6050 2850 50  0000 C CNN
 F 2 "Capacitors_SMD:C_0805_HandSoldering" H 5838 2750 50  0001 C CNN
 F 3 "~" H 5800 2900 50  0001 C CNN
