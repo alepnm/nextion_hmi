@@ -17,9 +17,9 @@ void Nextion_Init(void) {
     /* startuojam LCD apsvietima */
     (void)HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 
-    LCD.API->Init();
+    //LCD.API->Init();
 
-    LCD.Brightnes = 100;
+    LCD.Brightness = 100;
     LCD.fnt_color = VGA_GREEN;
     LCD.bg_color = VGA_BLACK;
 
@@ -43,25 +43,21 @@ void LCD_IO_Init(void) {
 void LCD_IO_Write_COM(unsigned char vl) {
     LCD_RS_LOW();
     LCD_IO_Write_Bus(0x00, vl);
+    PULSE_WR_LOW();
 }
-
 
 /* patikrinta */
 void LCD_IO_Write_DATA(unsigned char vh, unsigned char vl) {
     LCD_RS_HIGH();
     LCD_IO_Write_Bus(vh, vl);
+    PULSE_WR_LOW();
 }
 
 /* patikrinta */
 void LCD_IO_Write_DATA_1(unsigned char vl) {
     LCD_RS_HIGH();
     LCD_IO_Write_Bus(0x00, vl);
-}
-
-/* patikrinta */
-static void LCD_IO_Write_Bus(unsigned char vh, unsigned char vl) {
-    GPIOB->ODR = (uint16_t)( vh<<8 | vl );
-    PULSE_WR_LOW()
+    PULSE_WR_LOW();
 }
 
 /*  */
@@ -105,9 +101,14 @@ void LCD_Delay(uint32_t Delay) {
     HAL_Delay(Delay);
 }
 
-
+/*  */
 void LCD_SetBrightness(void){
-    __HAL_TIM_SET_COMPARE( &htim1, TIM_CHANNEL_1, LCD.Brightnes);
+    __HAL_TIM_SET_COMPARE( &htim1, TIM_CHANNEL_1, LCD.Brightness);
+}
+
+/* patikrinta */
+static void LCD_IO_Write_Bus(unsigned char vh, unsigned char vl) {
+    GPIOB->ODR = (uint16_t)( vh<<8 | vl );
 }
 
 

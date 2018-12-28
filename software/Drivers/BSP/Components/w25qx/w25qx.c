@@ -143,7 +143,6 @@ void W25Qx_Init(void){
 
     W25Qx_ReadUID();
     W25Qx_ReadManDevID();
-
 }
 
 /* skaitom UID */
@@ -492,9 +491,6 @@ static void W25Qx_ReadStatusReg3(void){
 
     free(cmd);
 }
-
-
-
 
 
 /* tikrinti */

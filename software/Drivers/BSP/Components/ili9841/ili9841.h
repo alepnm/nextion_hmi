@@ -2,7 +2,7 @@
 #define ILI9841_H_INCLUDED
 
 
-#include "../Drivers/BSP/Components/Common/lcd.h"
+#include "lcd.h"
 
 
 #define VGA_BLACK		  0x0000
@@ -96,7 +96,7 @@ typedef struct _lcd_param {
     uint16_t            fnt_color;
     uint16_t            bg_color;
 
-    uint8_t             Brightnes;      //0-100%
+    uint8_t             Brightness;      //0-100%
     LCD_DrvTypeDef*     API;            //  API funkcijos
 } LCD_TypeDef;
 

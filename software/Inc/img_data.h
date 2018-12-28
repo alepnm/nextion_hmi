@@ -2,10 +2,10 @@
 #define IMG_DATA_H_INCLUDED
 
  typedef struct {
-     const uint16_t *data;
-     uint16_t width;
-     uint16_t height;
-     uint8_t dataSize;
+     const uint16_t     *data;
+     uint16_t           width;
+     uint16_t           height;
+     uint8_t            dataSize;
 } tImage;
 
 

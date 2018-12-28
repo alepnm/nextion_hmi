@@ -52,13 +52,8 @@ typedef struct {
 extern XPT_TypeDef XPT;
 
 
-
-
 void    XPT_Init(void);
 void    XPT_Process(void);
-
-//void    SoftSpiSend( char* data, uint8_t len);
-//void    SoftSpiReceive( char* data, uint8_t len);
 
 
 #endif /* XPT2046_H_INCLUDED */

@@ -4,30 +4,38 @@
 #include "ili9841.h"
 
 
+
 LCD_DrvTypeDef   ILI9841_DRV = {
     ili9841_Init,
-    0,
+    NULL,
     ili9841_DisplayOn,
     ili9841_DisplayOff,
     ili9841_SetCursor,
     ili9841_WritePixel,
-    0,
+    NULL,
     ili9841_SetDisplayWindow,
     ili9841_DrawHLine,
     ili9841_DrawVLine,
     ili9841_GetLcdPixelWidth,
     ili9841_GetLcdPixelHeight,
-    ili9841_DrawBitmap
+    ili9841_DrawBitmap,
+
 };
 
-
 LCD_TypeDef LCD;
+
+
+static uint8_t BrightnessTemp = 0;
 
 
 /*  */
 void ili9841_Init(void) {
 
     uint8_t lcd_addr_mode = 1;
+
+
+    LCD_IO_Init();
+
 
     LCD.orient = PORTRAIT;
 
@@ -43,18 +51,20 @@ void ili9841_Init(void) {
 
     LCD.API = &ILI9841_DRV;
 
-    LCD_RST_LOW();
-    LCD_Delay(20);
-    LCD_RST_HIGH();
-
     LCD_IO_Init();
 
     LCD_CS_HIGH();
-    LCD_RST_HIGH();
     LCD_RD_HIGH();
     LCD_WR_HIGH();
+    LCD_RS_HIGH();
+    LCD_RST_HIGH();
 
     LCD_IO_BusAsOutput();
+
+    LCD_Delay(20);
+    LCD_RST_LOW();
+    LCD_Delay(20);
+    LCD_RST_HIGH();
 
     LCD_Delay(10);
 
@@ -121,14 +131,66 @@ uint16_t ili9841_ReadID(void) {
     return 0;
 }
 
+
+/*  */
+void ili9841_SetColor_RGB(uint8_t r, uint8_t g, uint8_t b) {
+    //LCD.fnt_color_h = ((r & 248) | g >> 5);
+    //LCD.fnt_color_l = ((g & 28) << 3 | b >> 3);
+}
+
+/*  */
+void ili9841_SetColor_Word(uint16_t color) {
+    LCD.fnt_color = color;
+}
+
+/*  */
+void ili9841_SetBackColor_RGB(uint8_t r, uint8_t g, uint8_t b) {
+    //LCD.bg_color_h = ((r & 248) | g >> 5);
+    //LCD.bg_color_l = ((g & 28) << 3 | b >> 3);
+    LCD.transparent = 0;
+}
+
+/*  */
+void ili9841_SetBackColor_Word(uint32_t color) {
+    if (color == VGA_TRANSPARENT) {
+        LCD.transparent = 1;
+    } else {
+        LCD.bg_color = (uint16_t)(color & 0x0000FFFF);
+        LCD.transparent = 0;
+    }
+}
+
+/*   */
+uint16_t ili9841_GetColor(void) {
+    return LCD.fnt_color;
+}
+
+/*   */
+uint16_t ili9841_GetBackColor(void) {
+    return LCD.bg_color;
+}
+
+
+
+
+
+
 /*  */
 void ili9841_DisplayOn(void) {
 
+    LCD.Brightness = BrightnessTemp;
+
+    LCD_SetBrightness();
 }
 
 /*  */
 void ili9841_DisplayOff(void) {
 
+    BrightnessTemp = LCD.Brightness;
+
+    LCD.Brightness = 0;
+
+    LCD_SetBrightness();
 }
 
 /*  */
